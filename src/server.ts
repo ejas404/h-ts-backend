@@ -5,9 +5,9 @@ import 'dotenv/config'
 // import cors from 'cors'
 import dbConnect from './config/db.ts'
 
-// import cookieParser from 'cookie-parser'
+import cookieParser from 'cookie-parser'
 
-// import  {adminRouter} from './routes/admin.js'
+import  {adminRouter} from './routes/admin_route.ts'
 // import { errMiddleware } from './middlewares/err_middleware.js'
 // import { studentRouter } from './routes/student.js'
 // import { tutorRouter } from './routes/tutor.js'
@@ -15,9 +15,9 @@ import dbConnect from './config/db.ts'
 const app = express()
 const PORT = process.env.PORT
 
-// app.use(express.json());
-// app.use(express.urlencoded({extended: true}));
-// app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+app.use(cookieParser());
 // app.use(express.static('public'))
 // app.use(cors(
 //     {
@@ -28,7 +28,7 @@ const PORT = process.env.PORT
 // ))
 
 
-// app.use('/admin', adminRouter)
+app.use('/admin', adminRouter)
 // app.use('/student',studentRouter)
 // app.use('/tutor', tutorRouter)
 

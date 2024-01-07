@@ -1,6 +1,6 @@
 import AdminCollection from "../../models/admin_model.ts"
 import asyncHandler from "express-async-handler"
-import { generateToken } from "../../utility/token.js"
+import { generateToken } from "../../utility/token.ts"
 import { AdminResponseType } from "types/admin_type.ts"
 import { AuthCredentials } from "types/auth_type.ts"
 

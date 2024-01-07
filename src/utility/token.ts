@@ -1,9 +1,9 @@
-import jwt from 'jsonwebtoken'
+import jwt, { Secret } from 'jsonwebtoken'
 import mongoose from 'mongoose'
-import { JWTResponse } from 'types/auth_type'
+import { JWTCookieResponse } from 'types/auth_type'
 
-export const generateToken =   (res : JWTResponse , userId : mongoose.Types.ObjectId)=>{
-    const token = jwt.sign({userId}, process.env.JWT_SECRET as string,{expiresIn:'30d'})
+export const generateToken =   (res : JWTCookieResponse , userId : mongoose.Types.ObjectId)=>{
+    const token = jwt.sign({userId}, process.env.JWT_SECRET as Secret,{expiresIn:'30d'})
 
     res.cookie('jwt',token,{
         httpOnly:true,

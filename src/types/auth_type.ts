@@ -1,3 +1,7 @@
+import { IncomingHttpHeaders } from "http"
+import { Jwt, JwtPayload } from "jsonwebtoken"
+import { AdminReqData } from "./admin_type"
+
 export interface AuthCredentials{
     email : string,
     password : string
@@ -9,6 +13,16 @@ export interface CookieResponse{
     maxAge : number
 }
 
-export interface JWTResponse extends Express.Response{
+export interface JWTCookieResponse extends Express.Response{
     cookie(jwt : 'jwt',token : string, options : CookieResponse) : Express.Response
+}
+
+
+export interface JWTHeadersRequest extends Express.Request{
+    admin ?: AdminReqData
+    headers : IncomingHttpHeaders
+}
+
+export interface JWTDecoded extends JwtPayload{
+    userId : string
 }
