@@ -9,8 +9,3 @@ export interface RequestWithPathParam extends Express.Request{
 }
 
 
-export interface RequestWithFile extends Express.Request{
-    file : {
-        path ?: string
-    }
-}

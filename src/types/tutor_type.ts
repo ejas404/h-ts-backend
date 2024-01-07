@@ -6,13 +6,14 @@ export interface TutorType extends mongoose.Document{
     email: string;
     profile?: string;
     role:'Tutor';
-    education ?: TutorEducationDetails; 
+    education ?: TutorEducationDetails[]; 
     twofactor?: boolean;
     isBlocked: boolean;
     contact?: string;
     language: string[];
     teaches: string[];
     field: string[];
+    [key : string] : any
 }
 
 export interface TutorModelType extends TutorType{
@@ -30,6 +31,6 @@ export interface TutorEducationDetails{
     ed_id : string,
     university : string,
     stream : string,
-    year : string,
+    year : number,
     country : string
 }

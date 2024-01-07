@@ -1,12 +1,12 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
-import { TutorType } from 'types/tutor_type'
+import { TutorModelType} from 'types/tutor_type'
 
 const Schema = mongoose.Schema
 
 
 //admin schema datas
-const tutorSchema = new Schema <TutorType>({
+const tutorSchema = new Schema <TutorModelType>({
     name : {type:String, required:true},
     password : {type:String, required:true},
     email : {type:String, required:true},
@@ -35,6 +35,7 @@ const tutorSchema = new Schema <TutorType>({
 tutorSchema.methods.checkPassword = async function (pwd : string){
     return await bcrypt.compare(pwd,this.password)
 }
+
 
 tutorSchema.pre('save', async function (next){
     if (!this.isModified('password')) {

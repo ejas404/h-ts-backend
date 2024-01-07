@@ -2,7 +2,6 @@ import asyncHandler from "express-async-handler"
 import courseCollection from "../../models/course_model.ts"
 import tutorCollection from "../../models/tutor_model.ts"
 import * as fs from 'fs'
-import { RequestWithFile} from "types/express_req_res.ts"
 import { CourseResponseType } from "types/course_type.ts"
 import { isString } from "type_check/string.ts"
 import { isNumber } from "type_check/number.ts"
@@ -12,15 +11,22 @@ export const addCourse = asyncHandler(async(req,res)=>{
     const {title , fee , tutor , description } = req.body
 
     let courseFee = Number(fee)
-    let courseTitle = title
-    let courseDesc = description
-    let tutorId = tutor
+
+    const isTutor = await tutorCollection.findById(tutor)
+
+    if(!isTutor) throw new Error('invalid tutor id')
+  
+    if(!isString(title)) throw new Error ('invalid title')
+    if(!isString(description)) throw new Error ('invalid description')
+    if(!isString(tutor)) throw new Error ('invalid tutor id')
+    if(!isNumber(courseFee)) throw new Error('invalid course price')
+
 
     const newCourse = await courseCollection.create({
-        title : courseTitle,
+        title,
         fee : courseFee,
-        description : courseDesc,
-        tutor : tutorId
+        description,
+        tutor
     })
 
     res.json({newCourse})

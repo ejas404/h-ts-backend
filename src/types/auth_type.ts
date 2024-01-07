@@ -3,7 +3,13 @@ import { Jwt, JwtPayload } from "jsonwebtoken"
 import { AdminReqData } from "./admin_type"
 
 export interface AuthCredentials{
-    email : string,
+    email : string
+    password : string
+}
+
+export interface SignUpDetails{
+    name : string
+    email : string
     password : string
 }
 
