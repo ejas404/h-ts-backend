@@ -2,15 +2,15 @@ import asyncHandler from "express-async-handler"
 import courseCollection from "../../models/course_model.ts"
 import tutorCollection from "../../models/tutor_model.ts"
 import * as fs from 'fs'
-import { CourseResponseType } from "types/course_type.ts"
-import { isString } from "type_check/string.ts"
-import { isNumber } from "type_check/number.ts"
+import { CourseResponseType } from "../../types/course_type.ts"
+import { isString } from "../../type_check/string.ts"
+import { isNumber } from "../../type_check/number.ts"
 
 export const addCourse = asyncHandler(async(req,res)=>{
 
     const {title , fee , tutor , description } = req.body
 
-    let courseFee = Number(fee)
+    const courseFee = Number(fee)
 
     const isTutor = await tutorCollection.findById(tutor)
 

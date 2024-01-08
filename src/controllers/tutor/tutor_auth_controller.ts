@@ -2,7 +2,7 @@ import asyncHandler from "express-async-handler"
 import { generateToken } from "../../utility/token.ts"
 import tutorCollection from "../../models/tutor_model.ts";
 import { AuthCredentials, SignUpDetails } from "types/auth_type.ts";
-import { isString } from "type_check/string.ts";
+import { isString } from "../../type_check/string.ts";
 
 
 

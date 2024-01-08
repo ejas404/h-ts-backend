@@ -1,7 +1,7 @@
 import asyncHandler from "express-async-handler"
 import { generateToken } from "../../utility/token.ts"
 import studentCollection from "../../models/student_model.ts";
-import { isString } from "type_check/string.ts";
+import { isString } from "../../type_check/string.ts";
 
 
 

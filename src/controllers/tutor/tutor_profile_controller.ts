@@ -3,7 +3,7 @@ import tutorCollection from "../../models/tutor_model.ts";
 import bcrypt from 'bcrypt'
 import { v4 as uuidv4 } from 'uuid';
 import * as fs from 'fs'
-import { TutorEducationDetails, TutorType } from "types/tutor_type.ts";
+import { TutorEducationDetails, TutorType } from "../../types/tutor_type.ts";
 
 
 

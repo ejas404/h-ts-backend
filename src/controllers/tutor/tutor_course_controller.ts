@@ -1,7 +1,7 @@
 import asyncHandler from "express-async-handler"
-import courseCollection from "models/course_model.ts"
-import { isNumber } from "type_check/number"
-import { isString } from "type_check/string"
+import courseCollection from "../../models/course_model.ts"
+import { isNumber } from "../../type_check/number.ts"
+import { isString } from "../../type_check/string.ts"
 
 
 export const getCourses = asyncHandler(async (req : any,res)=>{
