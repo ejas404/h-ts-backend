@@ -1,11 +1,12 @@
 import asyncHandler from "express-async-handler"
+import { Request, Response } from "express";
 import { generateToken } from "../../utility/token.ts"
 import studentCollection from "../../models/student_model.ts";
 import { isString } from "../../type_check/string.ts";
 
 
 
-export const login = asyncHandler(async (req, res) => {
+export const login = asyncHandler(async (req : Request, res : Response) => {
     const { email, password } = req.body;
 
     const user = await studentCollection.findOne({ email });
@@ -38,7 +39,7 @@ export const login = asyncHandler(async (req, res) => {
 })
 
 
-export const register = asyncHandler(async (req, res) => {
+export const register = asyncHandler(async (req : Request, res : Response) => {
     const { name, email, password } = req.body;
 
     const userExists = await studentCollection.findOne({ email });

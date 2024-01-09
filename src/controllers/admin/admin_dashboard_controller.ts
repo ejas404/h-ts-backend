@@ -1,9 +1,10 @@
 
 import asyncHandler from "express-async-handler"
+import { Request, Response } from "express";
 import studentCollection from "../../models/student_model.ts";
 import tutorCollection from "../../models/tutor_model.ts";
 import { StudentModelType } from "types/student_type.ts";
-import { TutorDeleteRes, TutorModelType } from "types/tutor_type.ts";
+import { TutorModelType } from "types/tutor_type.ts";
 
 
 export const getUsers = asyncHandler(async (req, res) => {
@@ -14,31 +15,7 @@ export const getUsers = asyncHandler(async (req, res) => {
 
 
 
-export const editUser = asyncHandler(async (req, res) => {
-    const { id } = req.params;
-    const { name, email } = req.body;
-
-    const user = await studentCollection.findOne({ email });
-
-    if (user) {
-        user.name = name || user.name;
-        user.email = email || user.email;
-
-        const updatedUser = await user.save();
-        res.status(200).json({
-            _id: updatedUser._id,
-            name: updatedUser.name,
-            email: updatedUser.email
-        });
-
-    } else {
-        res.status(404);
-        throw new Error("User not found.");
-    }
-})
-
-
-export const deleteUser = asyncHandler(async (req, res) => {
+export const deleteUser = asyncHandler(async (req : Request, res : Response) => {
     const { id } = req.params;
 
     const user : StudentModelType = await studentCollection.findByIdAndDelete(id) as unknown as StudentModelType
@@ -55,7 +32,7 @@ export const deleteUser = asyncHandler(async (req, res) => {
 });
 
 
-export const blockUser = asyncHandler(async (req, res) => {
+export const blockUser = asyncHandler(async (req : Request, res : Response) => {
     const { id } = req.params;
 
     const user = await studentCollection.findById(id);
@@ -77,7 +54,7 @@ export const blockUser = asyncHandler(async (req, res) => {
 });
 
 
-export const unblockUser = asyncHandler(async (req, res) => {
+export const unblockUser = asyncHandler(async (req : Request, res : Response) => {
     const { id } = req.params;
 
     const user = await studentCollection.findById(id);
@@ -99,7 +76,7 @@ export const unblockUser = asyncHandler(async (req, res) => {
 });
 
 
-export const deleteTutor = asyncHandler(async (req, res) => {
+export const deleteTutor = asyncHandler(async (req : Request, res : Response) => {
     const { id } = req.params;
 
     const user = await tutorCollection.findByIdAndDelete(id) as unknown as TutorModelType
@@ -118,7 +95,7 @@ export const deleteTutor = asyncHandler(async (req, res) => {
 });
 
 
-export const blockTutor = asyncHandler(async (req, res) => {
+export const blockTutor = asyncHandler(async (req : Request, res : Response) => {
     const { id } = req.params;
 
     const user = await tutorCollection.findById(id);
@@ -142,7 +119,7 @@ export const blockTutor = asyncHandler(async (req, res) => {
 });
 
 
-export const unblockTutor = asyncHandler(async (req, res) => {
+export const unblockTutor = asyncHandler(async (req : Request, res : Response) => {
     const { id } = req.params;
 
     const user = await tutorCollection.findById(id);

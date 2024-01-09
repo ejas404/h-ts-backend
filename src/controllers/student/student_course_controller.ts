@@ -1,9 +1,10 @@
 
 import courseCollection from "../../models/course_model.ts";
+import { Request, Response } from "express";
 import asyncHandler from "express-async-handler"
 
 
-export const getCourses = asyncHandler(async (req, res) => {
+export const getCourses = asyncHandler(async (req : Request, res : Response) => {
     const courses = await courseCollection.find({
         isAvailable: true,
         isDeleted: false,
@@ -14,7 +15,7 @@ export const getCourses = asyncHandler(async (req, res) => {
 })
 
 
-export const getSingleCourse = asyncHandler(async(req,res)=>{
+export const getSingleCourse = asyncHandler(async(req : Request, res : Response)=>{
     const {id} = req.params
     
     const courseDetails = await courseCollection.findById(id).populate('tutor','name')

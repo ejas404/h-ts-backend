@@ -3,11 +3,13 @@ import { generateToken } from "../../utility/token.ts"
 import tutorCollection from "../../models/tutor_model.ts";
 import { AuthCredentials, SignUpDetails } from "types/auth_type.ts";
 import { isString } from "../../type_check/string.ts";
+import { Request, Response } from "express";
 
 
 
 
-export const login = asyncHandler(async (req, res) => {
+export const login = asyncHandler(async (req : Request, res : Response) => {
+    console.log('tutor controller')
     const { email, password } : AuthCredentials = req.body;
 
     const user = await tutorCollection.findOne({ email });
@@ -31,7 +33,7 @@ export const login = asyncHandler(async (req, res) => {
 })
 
 
-export const register = asyncHandler(async (req, res) => {
+export const register = asyncHandler(async (req : Request, res : Response) => {
     const { name, email, password } : SignUpDetails = req.body;
 
     if(!isString(name)) throw new Error('name is invalid')

@@ -2,15 +2,23 @@ import asyncHandler from "express-async-handler"
 import courseCollection from "../../models/course_model.ts"
 import { isNumber } from "../../type_check/number.ts"
 import { isString } from "../../type_check/string.ts"
+import { Request, Response } from "express"
+import { JWTTutorReq } from "types/express_req_res.ts"
 
 
-export const getCourses = asyncHandler(async (req : any,res)=>{
-    const tutorCourses = await courseCollection.find({tutor : req.tutor._id})
+export const getCourses = asyncHandler(async (req : Request,res : Response)=>{
+
+    const tutorReq = req as JWTTutorReq
+
+    const tutorCourses = await courseCollection.find({tutor : tutorReq.tutor._id})
 
     res.json({tutorCourses})
 })
 
-export const requestCourse = asyncHandler(async(req : any,res)=>{
+export const requestCourse = asyncHandler(async(req : Request,res : Response)=>{
+
+    const tutorReq = req as JWTTutorReq
+
 
     const {title , description , fee} = req.body
     
@@ -23,7 +31,7 @@ export const requestCourse = asyncHandler(async(req : any,res)=>{
 
     const newCourse = await courseCollection.create({
         fee : courseFee,
-        tutor : req.tutor._id,
+        tutor : tutorReq.tutor._id,
         title,
         description,
         isTutorMade : true,

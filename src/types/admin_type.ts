@@ -1,5 +1,4 @@
 import mongoose from "mongoose"
-import { JWTHeadersRequest } from "./auth_type"
 
 export interface AdminModelType{
     email : string,
@@ -23,6 +22,3 @@ export interface AdminReqData{
 }
 
 
-export interface AdminJWT extends JWTHeadersRequest{
-    admin : AdminReqData
-}

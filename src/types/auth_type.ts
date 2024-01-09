@@ -1,6 +1,9 @@
 import { IncomingHttpHeaders } from "http"
 import { Jwt, JwtPayload } from "jsonwebtoken"
 import { AdminReqData } from "./admin_type"
+import { Request, Response } from "express"
+import { StudentModelType } from "./student_type"
+import { TutorModelType } from "./tutor_type"
 
 export interface AuthCredentials{
     email : string
@@ -19,13 +22,23 @@ export interface CookieResponse{
     maxAge : number
 }
 
-export interface JWTCookieResponse extends Express.Response{
-    cookie(jwt : 'jwt',token : string, options : CookieResponse) : Express.Response
+export interface JWTCookieResponse {
+    cookie(jwt : 'jwt',token : string, options : CookieResponse) : JWTCookieResponse;
 }
 
 
-export interface JWTHeadersRequest extends Express.Request{
+export interface JWTAdminHeadersRequest extends Request{
     admin ?: AdminReqData
+    headers : IncomingHttpHeaders
+}
+
+export interface JWTStudentHeadersRequest extends Request{
+    user ?: StudentModelType
+    headers : IncomingHttpHeaders
+}
+
+export interface JWTTutorHeadersRequest extends Request{
+    tutor ?: TutorModelType
     headers : IncomingHttpHeaders
 }
 

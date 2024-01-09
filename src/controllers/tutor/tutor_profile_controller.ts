@@ -4,21 +4,29 @@ import bcrypt from 'bcrypt'
 import { v4 as uuidv4 } from 'uuid';
 import * as fs from 'fs'
 import { TutorEducationDetails, TutorType } from "../../types/tutor_type.ts";
+import { Request, Response } from "express";
+import { JWTTutorReq } from "types/express_req_res.ts";
 
 
 
 
-export const getProfile = asyncHandler(async (req : any, res) => {
-    const userData = await tutorCollection.findOne({ email: req.tutor.email }, { password: 0 })
+export const getProfile = asyncHandler(async (req : Request, res : Response) => {
+  
+    const tutorReq = req as JWTTutorReq
+
+    const userData = await tutorCollection.findOne({ email: tutorReq.tutor.email }, { password: 0 })
     res.status(200).json(userData)
 })
 
-export const updateProfile = asyncHandler(async (req : any, res) => {
+export const updateProfile = asyncHandler(async (req : Request, res : Response) => {
+
+    const tutorReq = req as JWTTutorReq
+
     const { name, email, contact } = req.body
 
     const userData = await tutorCollection.findOneAndUpdate(
         {
-            email: req.tutor.email
+            email: tutorReq.tutor.email
         },
         {
             $set: { name, email, contact }
@@ -29,10 +37,13 @@ export const updateProfile = asyncHandler(async (req : any, res) => {
     )
 })
 
-export const resetPassword = asyncHandler(async (req : any, res) => {
+export const resetPassword = asyncHandler(async (req : Request, res : Response) => {
+
+    const tutorReq = req as JWTTutorReq
+
     const { currentPassword, newPassword } = req.body
 
-    const userData = await tutorCollection.findOne({ email: req.tutor.email })
+    const userData = await tutorCollection.findOne({ email: tutorReq.tutor.email })
 
 
     if (userData && (await bcrypt.compare(currentPassword, userData.password))) {
@@ -45,7 +56,10 @@ export const resetPassword = asyncHandler(async (req : any, res) => {
 
 })
 
-export const updateEducation = asyncHandler(async (req : any, res) => {
+export const updateEducation = asyncHandler(async (req : Request, res : Response) => {
+
+    const tutorReq = req as JWTTutorReq
+
 
     const { university, stream, year, country } = req.body
 
@@ -57,7 +71,7 @@ export const updateEducation = asyncHandler(async (req : any, res) => {
         year: Number(year)
     }
 
-    const tutorData = await tutorCollection.findOne({ email: req.tutor.email }) as TutorType
+    const tutorData = await tutorCollection.findOne({ email: tutorReq.tutor.email }) as TutorType
 
     if (tutorData.education) {
         tutorData.education.push(educationDetails)
@@ -71,12 +85,17 @@ export const updateEducation = asyncHandler(async (req : any, res) => {
 
 
 
-export const updatePic = asyncHandler(async (req : any, res) => {
+export const updatePic = asyncHandler(async (req : Request, res : Response) => {
 
-    const { email } = req.tutor
+    const tutorReq = req as JWTTutorReq
+
+
+    const { email } = tutorReq.tutor
     let tutor = await tutorCollection.findOne({ email }) as TutorType
 
-    if(!req.file.path){
+    if(!tutorReq.file)throw new Error('multer error need request file')
+
+    if(!tutorReq.file.path){
         throw  new Error('multer error')
     }
 
@@ -86,17 +105,19 @@ export const updatePic = asyncHandler(async (req : any, res) => {
         })
     }
 
-    tutor.profile = req.file.path
+    tutor.profile = tutorReq.file.path
 
     tutor.save()
 
-    res.json({ msg: 'profile image upadted successfully',path : req.file.path})
+    res.json({ msg: 'profile image upadted successfully',path : tutorReq.file.path})
 })
 
 
-export const updateTags = asyncHandler(async (req : any,res)=>{
+export const updateTags = asyncHandler(async (req : Request,res : Response)=>{
 
-    const { email } = req.tutor
+    const tutorReq = req as JWTTutorReq
+
+    const { email } = tutorReq.tutor
     const {tag , list}: { tag :string, list: string} = req.body
 
     if(!tag || !list) throw new Error('Invalid request') ; 
@@ -122,8 +143,11 @@ export const updateTags = asyncHandler(async (req : any,res)=>{
 })
 
 
-export const deleteEducation = asyncHandler(async (req : any,res)=>{
-    const { email } = req.tutor
+export const deleteEducation = asyncHandler(async (req : Request,res: Response)=>{
+
+    const tutorReq = req as JWTTutorReq
+
+    const { email } = tutorReq.tutor
     const {id} = req.params
 
     if(!id) throw new Error('id is not found')

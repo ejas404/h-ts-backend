@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { Request } from "express";
 
 export interface StudentType extends mongoose.Document{
     name: string;
@@ -17,7 +18,3 @@ export interface StudentModelType extends StudentType{
     checkPassword : (pwd : string) => boolean
 }
 
-export interface JWTStudentReq extends Express.Request{
-    user : StudentType
-
-}
