@@ -2,8 +2,12 @@ import express from 'express'
 import * as adminCtrl from '../controllers/admin/admin_auth_controller.ts'
 import * as dashCtrl from '../controllers/admin/admin_dashboard_controller.ts'
 import * as courseCtrl from '../controllers/admin/admin_course_controller.ts'
+import * as videoCtrl from '../controllers/video_controller.ts'
 import { isAuthenticated } from '../middlewares/auth_middleware.ts'
 import { coverUpload } from '../config/multer.ts'
+import multer from 'multer'
+
+const upload = multer()
 
 export const adminRouter = express.Router()
 
@@ -27,3 +31,7 @@ adminRouter.get('/course/:id',  courseCtrl.getSingleCourse)
 adminRouter.put('/update-course/:id', courseCtrl.updateCourse)
 adminRouter.put('/course-approve/:id', courseCtrl.courseApprove)
 adminRouter.put('/course-cover/:id', coverUpload.single('cover'), courseCtrl.updateCourseCover)
+adminRouter.put('/add-video',upload.array('file',1), videoCtrl.addVideo)
+
+adminRouter.post('/add-section',videoCtrl.addSection)
+

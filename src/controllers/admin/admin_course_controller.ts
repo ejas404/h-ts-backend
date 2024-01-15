@@ -7,6 +7,8 @@ import { CourseResponseType } from "../../types/course_type.ts"
 import { isString } from "../../type_check/string.ts"
 import { isNumber } from "../../type_check/number.ts"
 
+
+
 export const addCourse = asyncHandler(async(req : Request,res : Response)=>{
 
     const {title , fee , tutor , description } = req.body
