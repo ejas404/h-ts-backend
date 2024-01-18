@@ -8,6 +8,7 @@ const courseSchema = new Schema({
     cover: { type: String },
     fee: { type: Number, requrired: true },
     tutor: { type: Schema.Types.ObjectId, ref: 'tutor' },
+    category : { type: Schema.Types.ObjectId, ref: 'courseCategory' },
     isAvailable: { type: Boolean, default: true },
     isApproved: { type: Boolean, default: false },
     isTutorMade: { type: Boolean, default: false },

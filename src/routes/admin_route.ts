@@ -35,3 +35,4 @@ adminRouter.put('/add-video',upload.array('file',1), videoCtrl.addVideo)
 
 adminRouter.post('/add-section',videoCtrl.addSection)
 
+adminRouter.get('/get-course-videos/:id',videoCtrl.getCourseVidoes)

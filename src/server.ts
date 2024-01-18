@@ -11,6 +11,7 @@ import  {adminRouter} from './routes/admin_route.ts'
 import { errMiddleware } from './middlewares/error_middlware.ts'
 import { studentRouter } from './routes/student_route.ts'
 import { tutorRouter } from './routes/tutor_route.ts'
+import { courseRouter } from './routes/course_route.ts'
 
 const app = express()
 const PORT = process.env.PORT
@@ -31,6 +32,7 @@ app.use(cors(
 app.use('/admin', adminRouter)
 app.use('/student',studentRouter)
 app.use('/tutor', tutorRouter)
+app.use('/course', courseRouter)
 
 app.use(errMiddleware)
 

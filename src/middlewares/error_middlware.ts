@@ -1,6 +1,6 @@
-import { NextFunction } from "express";
+import { NextFunction, Request, Response } from "express";
 
-export const errMiddleware = (err : any, req : Express.Request, res : any, next : NextFunction)=>{
+export const errMiddleware = (err : any, req : Request, res : Response, next : NextFunction)=>{
 
     console.log('err middle ware caught')
     console.log(err)
