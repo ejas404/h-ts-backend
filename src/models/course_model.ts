@@ -10,9 +10,9 @@ const courseSchema = new Schema({
     tutor: { type: Schema.Types.ObjectId, ref: 'tutor' },
     category : { type: Schema.Types.ObjectId, ref: 'courseCategory' },
     isAvailable: { type: Boolean, default: true },
-    isApproved: { type: Boolean, default: false },
+    isApproved: { type: Boolean},
     isTutorMade: { type: Boolean, default: false },
-    request: { type: String, enum: ['Pending', 'Approved', 'Cancelled'], default: 'Pending' },
+    request: { type: String, enum: ['Pending', 'Cancelled']},
     isDeleted: { type: Boolean, default: false },
 
 
