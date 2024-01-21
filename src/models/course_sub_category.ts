@@ -3,13 +3,14 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema
 
 
-const courseCategorySchema = new Schema({
+const subCategorySchema = new Schema({
     name : {type : String, required : true, unique : true},
+    category : {type : mongoose.Types.ObjectId, ref : 'courseCategory'},
     description : {type : mongoose.Types.ObjectId, required : true},
     isDeleted : {type : Boolean , default : false}
 })
 
 
-const courseCategoryCollection = mongoose.model('courseCategory', courseCategorySchema)
+const subCategoryCollection = mongoose.model('subCategory', subCategorySchema)
 
-export default courseCategoryCollection;
+export default subCategoryCollection;

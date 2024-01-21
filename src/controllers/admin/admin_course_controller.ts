@@ -6,16 +6,22 @@ import * as fs from 'fs'
 import { CourseResponseType } from "../../types/course_type.ts"
 import { isString } from "../../type_check/string.ts"
 import { isNumber } from "../../type_check/number.ts"
+import courseCategoryCollection from "../../models/course_category.ts"
+import subCategoryCollection from "../../models/course_sub_category.ts"
 
 
 
 export const addCourse = asyncHandler(async(req : Request,res : Response)=>{
 
-    const {title , fee , tutor , description } = req.body
-
+    const {title , fee , tutor , description,category,subCategory } = req.body
     const courseFee = Number(fee)
-
     const isTutor = await tutorCollection.findById(tutor)
+
+    const isCategory = await courseCategoryCollection.findById(category)
+    if(!isCategory)throw new Error ('invalid category id')
+
+    const isSubCat = await subCategoryCollection.findById(subCategory) 
+    if(!isSubCat)throw new Error ('invalid sub category id')
 
     if(!isTutor) throw new Error('invalid tutor id')
   
@@ -25,11 +31,14 @@ export const addCourse = asyncHandler(async(req : Request,res : Response)=>{
     if(!isNumber(courseFee)) throw new Error('invalid course price')
 
 
+
     const newCourse = await courseCollection.create({
         title,
         fee : courseFee,
         description,
-        tutor
+        tutor,
+        category,
+        subCategory
     })
 
     res.json({newCourse})

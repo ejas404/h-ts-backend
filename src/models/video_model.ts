@@ -7,7 +7,8 @@ const videoSchema = new Schema({
     title: { type: String, required: true },
     description: { type: String, required: true },
     url: { type: String, unique: true , required : true},
-    duration : {type : Number , required : true }
+    duration : {type : Number , required : true },
+    isDeleted : {type : Boolean , default : false}
 })
 
 const videoCollection = mongoose.model('video', videoSchema)
