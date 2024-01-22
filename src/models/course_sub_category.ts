@@ -6,7 +6,7 @@ const Schema = mongoose.Schema
 const subCategorySchema = new Schema({
     name : {type : String, required : true, unique : true},
     category : {type : mongoose.Types.ObjectId, ref : 'courseCategory'},
-    description : {type : mongoose.Types.ObjectId, required : true},
+    description : {type : String, required : true},
     isDeleted : {type : Boolean , default : false}
 })
 

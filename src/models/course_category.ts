@@ -5,7 +5,7 @@ const Schema = mongoose.Schema
 
 const courseCategorySchema = new Schema({
     name : {type : String, required : true, unique : true},
-    description : {type : mongoose.Types.ObjectId, required : true},
+    description : {type : String, required : true},
     isDeleted : {type : Boolean , default : false}
 })
 
