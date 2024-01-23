@@ -21,11 +21,11 @@ export const isAuthenticated = asyncHandler(async (req : JWTAdminHeadersRequest,
             next();
         } catch (error) {
             res.status(401) 
-            throw new Error("not authorized, invalid token");
+            throw new Error("not authorized, please login");
         }
     } else {
         res.status(401)
-        throw new Error("not authorized, no token");
+        throw new Error("not authorized, please login");
     }
 });
 
@@ -65,11 +65,11 @@ export const isStudentAuthenticated = asyncHandler(async (req : JWTStudentHeader
             next();
         } catch (error) {
             res.status(401);
-            throw new Error("not authorized, invalid token");
+            throw new Error("not authorized, try later or connect help");
         }
     } else {
         res.status(401);
-        throw new Error("not authorized, no token");
+        throw new Error("not authorized, please login");
     }
 });
 

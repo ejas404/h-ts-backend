@@ -10,7 +10,7 @@ export const login = asyncHandler(async (req : Request, res : Response) => {
     const { email, password } = req.body;
 
     const user = await studentCollection.findOne({ email });
-    console.log(user)
+    
     if (!user || !(await user.checkPassword(password))) {
         res.status(401);
         throw new Error("Invalid email or password.");

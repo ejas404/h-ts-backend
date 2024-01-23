@@ -23,7 +23,6 @@ export const addCategory = asyncHandler (async (req : Request, res : Response)=>
     
     if(isString(!title)) throw new Error ('invalid category title')
     const lowerTitle = title.toLowerCase()
-
     const isExist = await courseCategoryCollection.findOne({name :lowerTitle})
     if(isExist) throw new Error ('course name already exists')
 
@@ -36,7 +35,6 @@ export const addSubCategory = asyncHandler (async (req : Request, res : Response
     const {title, description , category} = req.body
 
     const isCourseExist = await courseCategoryCollection.findById(category)
-
     if(!isCourseExist)throw new Error ('no course existing with provided id')
     
     if(isString(!title)) throw new Error ('invalid category title')

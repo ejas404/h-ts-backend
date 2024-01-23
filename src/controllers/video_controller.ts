@@ -100,3 +100,14 @@ export const getCourseVidoes = asyncHandler(async (req, res) => {
 
 })
 
+export const getVideo = asyncHandler(async (req,res)=>{
+    const {id} = req.params
+
+    const video = await videoCollection.findById(id)
+
+    if(!video) throw new Error ('no video with provided id')
+    if(video.isDeleted) throw new Error('vido is not available now')
+
+    res.json({video})
+})
+

@@ -32,7 +32,7 @@ adminRouter.get('/courses',  adminCourseCtrl.getCourses)
 adminRouter.get('/course/:id',  adminCourseCtrl.getSingleCourse)
 adminRouter.put('/update-course/:id', adminCourseCtrl.updateCourse)
 adminRouter.put('/course-approve/:id', adminCourseCtrl.courseApprove)
-adminRouter.put('/course-cover/:id', coverUpload.single('cover'), adminCourseCtrl.updateCourseCover)
+adminRouter.put('/course-cover/:id',coverUpload.single('cover'), adminCourseCtrl.updateCourseCover)
 adminRouter.put('/add-video',upload.array('file',1), videoCtrl.addVideo)
 
 adminRouter.post('/add-section',videoCtrl.addSection)

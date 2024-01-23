@@ -23,20 +23,18 @@ export const addCourse = asyncHandler(async(req : any,res : Response)=>{
 
     const courseFee = Number(fee)
     const isTutor = await tutorCollection.findById(tutor)
+    if(!isTutor) throw new Error('invalid tutor id')
 
     const isCategory = await courseCategoryCollection.findById(category)
     if(!isCategory)throw new Error ('invalid category id')
 
     const isSubCat = await subCategoryCollection.findById(subCategory) 
     if(!isSubCat)throw new Error ('invalid sub category id')
-
-    if(!isTutor) throw new Error('invalid tutor id')
   
     if(!isString(title)) throw new Error ('invalid title')
     if(!isString(description)) throw new Error ('invalid description')
     if(!isString(tutor)) throw new Error ('invalid tutor id')
     if(!isNumber(courseFee)) throw new Error('invalid course price')
-
 
 
     const newCourse = await courseCollection.create({
@@ -79,7 +77,7 @@ export const updateCourseCover = asyncHandler ( async(req : Request,res) =>{
 
     if(course.cover){
         fs.unlink(course.cover,(err)=>{
-            if(err) throw new Error('profile image is not deleted');
+            if(err) throw new Error('course image is not deleted');
         })
     }
     
