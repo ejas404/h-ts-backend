@@ -11,9 +11,16 @@ import subCategoryCollection from "../../models/course_sub_category.ts"
 
 
 
-export const addCourse = asyncHandler(async(req : Request,res : Response)=>{
+export const addCourse = asyncHandler(async(req : any,res : Response)=>{
 
-    const {title , fee , tutor , description,category,subCategory } = req.body
+    const file  = req.file
+    const {title , fee , tutor , description,category,subCategory } = JSON.parse(req.body.details)
+    if(!file) throw new Error('Req file is undefined')
+
+    if(!file.path){
+        throw  new Error('multer error')
+    }
+
     const courseFee = Number(fee)
     const isTutor = await tutorCollection.findById(tutor)
 
@@ -38,7 +45,8 @@ export const addCourse = asyncHandler(async(req : Request,res : Response)=>{
         description,
         tutor,
         category,
-        subCategory
+        subCategory,
+        cover : file.path
     })
 
     res.json({newCourse})

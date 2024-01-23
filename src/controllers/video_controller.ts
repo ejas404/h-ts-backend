@@ -9,19 +9,19 @@ import { isNumber } from '../type_check/number.ts';
 
 
 export const addVideo = asyncHandler(async (req: any, res) => {
-    
+
     const file = req.files[0];
-    const {title, section, description} = JSON.parse(req.body.details)
-    const {duration} = req.body
+    const { title, section, description } = JSON.parse(req.body.details)
+    const { duration } = req.body
 
     const durationInNum = Number(duration)
 
-    if(!isString(section)) throw new Error('invalid section value');
-    if(!isString(title)) throw new Error('invalid title value');
-    if(!isString(description)) throw new Error('invalid description value');
-    if(!isNumber(durationInNum)) throw new Error('duration should be an integer');
+    if (!isString(section)) throw new Error('invalid section value');
+    if (!isString(title)) throw new Error('invalid title value');
+    if (!isString(description)) throw new Error('invalid description value');
+    if (!isNumber(durationInNum)) throw new Error('duration should be an integer');
 
-    const s3Response  = await uploadS3File(file) as S3Response 
+    const s3Response = await uploadS3File(file) as S3Response
 
     const url = s3Response.Location
 
@@ -30,12 +30,12 @@ export const addVideo = asyncHandler(async (req: any, res) => {
         section,
         description,
         url,
-        duration : Math.floor(durationInNum)
+        duration: Math.floor(durationInNum)
     })
 
-    if(!videoUpload) throw new Error('failed to uplaod video');
+    if (!videoUpload) throw new Error('failed to uplaod video');
 
-    res.status(201).json({msg : 'video added success fully'})
+    res.status(201).json({ msg: 'video added success fully' })
 
 })
 
@@ -47,20 +47,17 @@ export const addSection = asyncHandler(async (req: any, res) => {
     if (!isString(title)) throw new Error('invalid title value');
     if (!isString(description)) throw new Error('invalid description value');
 
-    const isSectionAlready = await sectionCollection.findOne({course, title : {$regex : title ,  $options : "i"}})
-
-    if(isSectionAlready) throw new Error('section title already exists');
+    const isSectionAlready = await sectionCollection.findOne({ course, title: { $regex: title, $options: "i" } })
+    if (isSectionAlready) throw new Error('section title already exists');
 
     const newSection = await sectionCollection.create({ title, course, description })
-
     if (!newSection) throw new Error('invalid section details')
-1
+    1
     res.json({ msg: 'section added successfully' })
 
 })
 
 export const getSections = asyncHandler(async (req, res) => {
-
     const { id } = req.params
     if (!id) throw new Error('invalid course id')
 
@@ -73,7 +70,7 @@ export const getSections = asyncHandler(async (req, res) => {
 })
 
 
-export const getCourseVidoes = asyncHandler( async (req,res)=>{
+export const getCourseVidoes = asyncHandler(async (req, res) => {
     const { id } = req.params
     if (!id) throw new Error('invalid course id')
 
@@ -81,24 +78,24 @@ export const getCourseVidoes = asyncHandler( async (req,res)=>{
 
     const courseVideoList = await sectionCollection.aggregate([
         {
-            $match : {
-                course : course_id
+            $match: {
+                course: course_id
             }
         },
         {
-            $lookup : {
-                from : 'videos',
-                localField : '_id',
-                foreignField : 'section',
-                pipeline : [{$project : { url : 0}}],
-                as : 'courseVideos'
+            $lookup: {
+                from: 'videos',
+                localField: '_id',
+                foreignField: 'section',
+                pipeline: [{ $project: { url: 0 } }],
+                as: 'courseVideos'
             }
         }
     ])
 
-    if(!courseVideoList) throw new Error('could not find the course video list with the provided course id');
+    if (!courseVideoList) throw new Error('could not find the course video list with the provided course id');
 
-    res.json({courseVideoList})
+    res.json({ courseVideoList })
 
 
 })

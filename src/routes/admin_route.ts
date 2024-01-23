@@ -3,6 +3,7 @@ import * as adminCtrl from '../controllers/admin/admin_auth_controller.ts'
 import * as dashCtrl from '../controllers/admin/admin_dashboard_controller.ts'
 import * as adminCourseCtrl from '../controllers/admin/admin_course_controller.ts'
 import * as courseCtrl from '../controllers/course_controller.ts'
+import * as categoryCtrl from '../controllers/category_controller.ts'
 import * as videoCtrl from '../controllers/video_controller.ts'
 import { isAuthenticated } from '../middlewares/auth_middleware.ts'
 import { coverUpload } from '../config/multer.ts'
@@ -26,7 +27,7 @@ adminRouter.put('/tutors/block/:id',dashCtrl.blockTutor)
 adminRouter.put('/users/unblock/:id',dashCtrl.unblockUser)
 adminRouter.put('/tutors/unblock/:id',dashCtrl.unblockTutor)
 
-adminRouter.post('/add-course', adminCourseCtrl.addCourse)
+adminRouter.post('/add-course',coverUpload.single('cover'),adminCourseCtrl.addCourse)
 adminRouter.get('/courses',  adminCourseCtrl.getCourses)
 adminRouter.get('/course/:id',  adminCourseCtrl.getSingleCourse)
 adminRouter.put('/update-course/:id', adminCourseCtrl.updateCourse)
@@ -38,5 +39,7 @@ adminRouter.post('/add-section',videoCtrl.addSection)
 
 adminRouter.get('/get-course-videos/:id',videoCtrl.getCourseVidoes)
 
-adminRouter.get('/category', courseCtrl.getCategories)
-adminRouter.post('/add-category', courseCtrl.addCategory)
+adminRouter.get('/category', categoryCtrl.getCategories)
+adminRouter.get('/sub-category', categoryCtrl.getSubCategories)
+adminRouter.post('/add-category', categoryCtrl.addCategory)
+adminRouter.post('/add-sub-category', categoryCtrl.addSubCategory)
