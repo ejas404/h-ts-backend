@@ -6,8 +6,7 @@ const Schema = mongoose.Schema
 const cartSchema = new Schema<CartModel>({
     user : {type : mongoose.Types.ObjectId , ref : 'student'},
     course : [{
-        course_id : {type : mongoose.Types.ObjectId , ref : 'course', required : true},
-        quantity : {type : Number, default : 1}
+        course_id : {type : mongoose.Types.ObjectId , ref : 'course', required : true}
     }]
 })
 
