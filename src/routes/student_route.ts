@@ -23,3 +23,4 @@ studentRouter.get('/profile-image', studentProfCtrl.getProfileImage)
 studentRouter.get('/get-video/:id',videoCtrl.getVideo)
 
 studentRouter.put('/add-to-cart/:id',studentCourseCtrl.addToCart)
+studentRouter.get('/cart',studentCourseCtrl.getCartDetails)

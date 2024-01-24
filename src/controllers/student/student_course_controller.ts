@@ -33,7 +33,6 @@ export const addToCart = asyncHandler(async (req: any, res : Response) => {
     }
     // else there is no cart new cart will be created
     else{
-        console.log('else cart')
         const newCartItem = await cartCollection.create({
             user : user_id,
             course : [{course_id : id, quantity: 1}]
@@ -41,6 +40,53 @@ export const addToCart = asyncHandler(async (req: any, res : Response) => {
     }
 
     res.json({msg : 'succsessfully added to cart'})
+
+})
+
+
+export const getCartDetails = asyncHandler( async (req : any, res)=>{
+    const user_id  = new mongoose.Types.ObjectId(req.user._id)
+
+    const cartDetails : any = await cartCollection.aggregate([
+        {
+            $match: {
+                user : user_id
+            }
+        },
+        {
+            $unwind: "$course"
+        },
+        {
+            $lookup: {
+                from: "courses", 
+                localField: "course.course_id",
+                foreignField: "_id",
+                as: "courseDetails"
+            }
+        },
+        {
+            $project: {
+                _id: 1, 
+                user: 1,
+                course: {
+                    course_id: "$course.course_id",
+                    quantity: "$course.quantity",
+                    details: "$courseDetails" 
+                }
+            }
+        },
+        {
+            $group: {
+                _id: "$_id",
+                user: { $first: "$user" },
+                course: { $push: "$course" }
+            }
+    
+        }
+    ])
+
+    if(!cartDetails) throw new Error ('no cart has founded');
+    res.json({cartItems : cartDetails[0].course})
 
 })
 
