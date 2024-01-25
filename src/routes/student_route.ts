@@ -24,4 +24,5 @@ studentRouter.get('/get-video/:id',videoCtrl.getVideo)
 
 studentRouter.put('/add-to-cart/:id',studentCourseCtrl.addToCart)
 studentRouter.delete('/cart/remove/:id',studentCourseCtrl.removeFromCart)
+studentRouter.get('/cart-list',studentCourseCtrl.cartList)
 studentRouter.get('/cart',studentCourseCtrl.getCartDetails)

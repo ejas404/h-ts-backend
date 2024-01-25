@@ -113,7 +113,19 @@ export const getCartDetails = asyncHandler( async (req : any, res)=>{
 
     if(isNaN(total)) throw new Error ('no cart total');
     if(!cartDetails) throw new Error ('no cart has founded');
+    
     res.json({cartItems : cartDetails[0].course , cartTotal : total })
 
+})
+
+
+export const cartList = asyncHandler( async (req : any,res)=>{
+    
+    const user_id  = new mongoose.Types.ObjectId(req.user._id)
+    const userCart = await cartCollection.findOne({user : user_id})
+    if(!userCart) throw new Error('no user cart')
+    
+    const cartList = userCart.course.map((each : CartItem) => each.course_id)
+    res.json({cartList})
 })
 
