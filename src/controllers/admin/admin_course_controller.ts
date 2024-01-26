@@ -8,6 +8,7 @@ import { isString } from "../../type_check/string.ts"
 import { isNumber } from "../../type_check/number.ts"
 import courseCategoryCollection from "../../models/course_category.ts"
 import subCategoryCollection from "../../models/course_sub_category.ts"
+import upcomingCourseCollection from "../../models/upcoming_course_model.ts"
 
 
 
@@ -33,7 +34,6 @@ export const addCourse = asyncHandler(async(req : any,res : Response)=>{
   
     if(!isString(title)) throw new Error ('invalid title')
     if(!isString(description)) throw new Error ('invalid description')
-    if(!isString(tutor)) throw new Error ('invalid tutor id')
     if(!isNumber(courseFee)) throw new Error('invalid course price')
 
 
@@ -51,8 +51,42 @@ export const addCourse = asyncHandler(async(req : any,res : Response)=>{
 })
 
 
+export const addUpcoming = asyncHandler(async(req,res)=>{
 
-export const getCourses = asyncHandler(async(req,res  : Response)=>{
+    const file  = req.file
+    const {title ,tutor,category,subCategory } = JSON.parse(req.body.details)
+    if(!file) throw new Error('Req file is undefined')
+
+    if(!file.path){
+        throw  new Error('multer error')
+    }
+
+    const isTutor = await tutorCollection.findById(tutor)
+    if(!isTutor) throw new Error('invalid tutor id')
+
+    const isCategory = await courseCategoryCollection.findById(category)
+    if(!isCategory)throw new Error ('invalid category id')
+
+    const isSubCat = await subCategoryCollection.findById(subCategory) 
+    if(!isSubCat)throw new Error ('invalid sub category id')
+
+    if(!isString(title)) throw new Error ('invalid title')
+
+    const newUpcoming = await upcomingCourseCollection.create({
+        title,
+        tutor,
+        category,
+        subCategory,
+        cover : file.path
+    })
+
+    res.json({newUpcoming})
+
+})
+
+
+
+export const getCourses = asyncHandler(async(req : Request,res  : Response)=>{
     const courseDetails = await courseCollection.find({isDeleted : false}).populate('tutor', 'name')
     const tutorIds = await courseCollection.distinct('tutor')
     
@@ -93,9 +127,8 @@ export const updateCourseCover = asyncHandler ( async(req : Request,res) =>{
 export const getSingleCourse = asyncHandler(async(req : Request,res : Response)=>{
 
     const {id} = req.params
-    
-    const courseDetails = await courseCollection.findById(id).populate('tutor','name')
 
+    const courseDetails = await courseCollection.findById(id).populate('tutor','name')
     if(!courseDetails) throw new Error('no course matches the id')
 
     res.json({courseDetails})
@@ -109,7 +142,6 @@ export const updateCourse = asyncHandler(async(req : Request,res : Response)=>{
     const {title , fee , tutor , description } = req.body
 
     const course = await courseCollection.findById(id)
-
     if(!course) throw new Error('invalid course id');
 
     let courseFee = Number(fee)
@@ -128,7 +160,6 @@ export const updateCourse = asyncHandler(async(req : Request,res : Response)=>{
     await course.save()
 
     const updatedCourse = await courseCollection.findById(id).populate('tutor', 'name')
-    
 
     res.json({updatedCourse})
 })
@@ -142,7 +173,6 @@ export const courseApprove = asyncHandler(async(req : Request,res : Response)=>{
     const {id} = req.params
     
     const course = await courseCollection.findById(id) as CourseResponseType
-
     if(!course) throw new Error('No course with provided id')
 
     course.isApproved = true 

@@ -2,7 +2,6 @@ import express from 'express'
 import * as adminCtrl from '../controllers/admin/admin_auth_controller.ts'
 import * as dashCtrl from '../controllers/admin/admin_dashboard_controller.ts'
 import * as adminCourseCtrl from '../controllers/admin/admin_course_controller.ts'
-import * as courseCtrl from '../controllers/course_controller.ts'
 import * as categoryCtrl from '../controllers/category_controller.ts'
 import * as videoCtrl from '../controllers/video_controller.ts'
 import { isAuthenticated } from '../middlewares/auth_middleware.ts'
@@ -33,11 +32,14 @@ adminRouter.get('/course/:id',  adminCourseCtrl.getSingleCourse)
 adminRouter.put('/update-course/:id', adminCourseCtrl.updateCourse)
 adminRouter.put('/course-approve/:id', adminCourseCtrl.courseApprove)
 adminRouter.put('/course-cover/:id',coverUpload.single('cover'), adminCourseCtrl.updateCourseCover)
+
+adminRouter.post('/add-upcoming-course',coverUpload.single('cover'),adminCourseCtrl.addUpcoming)
+
 adminRouter.put('/add-video',upload.array('file',1), videoCtrl.addVideo)
+adminRouter.get('/get-course-videos/:id',videoCtrl.getCourseVidoes)
 
 adminRouter.post('/add-section',videoCtrl.addSection)
 
-adminRouter.get('/get-course-videos/:id',videoCtrl.getCourseVidoes)
 
 adminRouter.get('/category', categoryCtrl.getCategories)
 adminRouter.get('/sub-category', categoryCtrl.getSubCategories)
