@@ -123,9 +123,10 @@ export const cartList = asyncHandler( async (req : any,res)=>{
     
     const user_id  = new mongoose.Types.ObjectId(req.user._id)
     const userCart = await cartCollection.findOne({user : user_id})
-    if(!userCart) throw new Error('no user cart')
-    
-    const cartList = userCart.course.map((each : CartItem) => each.course_id)
+    let cartList
+    if(userCart) {
+       cartList = userCart.course.map((each : CartItem) => each.course_id)
+    }
     res.json({cartList})
 })
 

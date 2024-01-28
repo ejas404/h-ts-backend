@@ -14,7 +14,7 @@ export const login = asyncHandler(async (req : Request, res : Response) => {
 
     const user = await tutorCollection.findOne({ email });
     if (user && (await user.checkPassword(password))) {
-        let token = generateToken(res, user._id);
+        let token = generateToken(res, user._id,'Tutor');
         let userDetails = {
             _id: user._id,
             name: user.name,
@@ -51,7 +51,7 @@ export const register = asyncHandler(async (req : Request, res : Response) => {
         res.status(400);
         throw new Error("Invalid user data.");
     }
-    generateToken(res, user._id);
+    generateToken(res, user._id,'Tutor');
     res.status(201).json({
         _id: user._id,
         name: user.name,

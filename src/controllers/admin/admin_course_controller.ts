@@ -95,6 +95,7 @@ export const getCourses = asyncHandler(async(req : Request,res  : Response)=>{
     res.json({courseDetails, tutorCourses})
 })
 
+
 // have to correct the req : any-----------------
 export const updateCourseCover = asyncHandler ( async(req : Request,res) =>{
 

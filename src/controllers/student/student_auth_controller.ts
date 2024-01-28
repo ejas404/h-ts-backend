@@ -22,7 +22,7 @@ export const login = asyncHandler(async (req : Request, res : Response) => {
     }
 
 
-    let token = generateToken(res, user._id);
+    let token = generateToken(res, user._id,'Student');
     let userDetails = {
         _id: user._id,
         name: user.name,
@@ -59,7 +59,7 @@ export const register = asyncHandler(async (req : Request, res : Response) => {
         throw new Error("Invalid user data.");
     }
 
-    generateToken(res, user._id);
+    generateToken(res, user._id,'Student');
     res.status(201).json({
         _id: user._id,
         name: user.name,

@@ -10,6 +10,6 @@ const courseCategorySchema = new Schema({
 })
 
 
-const courseCategoryCollection = mongoose.model('courseCategory', courseCategorySchema)
+const courseCategoryCollection = mongoose.model('categories', courseCategorySchema)
 
 export default courseCategoryCollection;

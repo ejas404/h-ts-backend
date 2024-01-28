@@ -52,8 +52,8 @@ export const addSection = asyncHandler(async (req: any, res) => {
 
     const newSection = await sectionCollection.create({ title, course, description })
     if (!newSection) throw new Error('invalid section details')
-    1
-    res.json({ msg: 'section added successfully' })
+
+    res.json({ msg: 'section added successfully' ,newSection})
 
 })
 

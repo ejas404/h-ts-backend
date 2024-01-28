@@ -16,7 +16,7 @@ export const postLogin = asyncHandler( async (req,res)=>{
         throw new Error('invalid id or password')
     }
 
-    const token = generateToken(res, admin._id)
+    const token = generateToken(res, admin._id,'Admin')
 
     const userDetails : AdminResponseType = {name : 'Admin', email: admin.email, role : 'Admin'}
 
