@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose,{InferSchemaType} from "mongoose";
 
 const Schema = mongoose.Schema
 
@@ -8,16 +8,17 @@ const courseEnrollSchema = new Schema({
     course : {type : mongoose.Types.ObjectId, ref : 'course', required : true},
     time : {type : Date, required : true},
     rating : {type : Number, default : 0},
+    isEnrolled : {type : Boolean, default : false},
     progress : [
         {
             section : {type : mongoose.Types.ObjectId, ref : 'section'},
             progressCount : {type : Number}
         }
-    ],
-    isEnrolled : {type : Boolean, default : false}
+    ]
 })
 
+// export type enrollmentType = InferSchemaType<typeof courseEnrollSchema>
 
-const courseEnrollCollection = mongoose.model('enroll', courseEnrollSchema)
+const enrollCollection = mongoose.model('enroll', courseEnrollSchema)
 
-export default courseEnrollCollection;
+export default enrollCollection;

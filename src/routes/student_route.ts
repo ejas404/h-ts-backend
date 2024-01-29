@@ -3,6 +3,7 @@ import * as studentCtrl from '../controllers/student/student_auth_controller.ts'
 import * as studentProfCtrl from '../controllers/student/student_profile_controller.ts'
 import * as studentCourseCtrl from '../controllers/student/student_course_controller.ts'
 import * as videoCtrl from '../controllers/video_controller.ts'
+import * as checkoutCtrl from '../controllers/student/student_checkout_controller.ts'
 import { isStudentAuthenticated, isStudentBlocked } from '../middlewares/auth_middleware.ts'
 import {studentUpload} from '../config/multer.ts'
 
@@ -26,3 +27,5 @@ studentRouter.put('/add-to-cart/:id',studentCourseCtrl.addToCart)
 studentRouter.delete('/cart/remove/:id',studentCourseCtrl.removeFromCart)
 studentRouter.get('/cart-list',studentCourseCtrl.cartList)
 studentRouter.get('/cart',studentCourseCtrl.getCartDetails)
+
+studentRouter.post('/checkout', checkoutCtrl.checkOut)
