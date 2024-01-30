@@ -6,6 +6,7 @@ import * as videoCtrl from '../controllers/video_controller.ts'
 import * as checkoutCtrl from '../controllers/student/student_checkout_controller.ts'
 import * as paymentCtrl from '../controllers/student/student_payment_controller.ts'
 import * as enrollCtrl from '../controllers/student/student_enrollment_controller.ts'
+import * as connectionCtrl from '../controllers/student/student_connection_controller.ts'
 import { isStudentAuthenticated, isStudentBlocked } from '../middlewares/auth_middleware.ts'
 import {studentUpload} from '../config/multer.ts'
 
@@ -38,6 +39,8 @@ studentRouter.get('/enroll-list', enrollCtrl.getEnrollList)
 studentRouter.get('/enroll-cat', studentCourseCtrl.getEnrollSubCat)
 studentRouter.get('/enroll-status/:id', enrollCtrl.enrollStatus)
 studentRouter.get('/course-enroll/:id', enrollCtrl.isCourseEnrolled)
+
+studentRouter.get('/connections',connectionCtrl.connectedTutors)
 
 
 
