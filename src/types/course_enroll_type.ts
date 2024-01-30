@@ -1,8 +1,9 @@
 import { mongoId } from "./mongoose_type";
 
 export interface enrollmentType{
-    user : mongoId,
-    course : mongoId,
-    time : number,
+    enid : string
+    user : mongoId
+    course : mongoId
+    time : number
     isEnrolled ?: boolean
 }

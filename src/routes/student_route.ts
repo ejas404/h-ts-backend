@@ -4,6 +4,7 @@ import * as studentProfCtrl from '../controllers/student/student_profile_control
 import * as studentCourseCtrl from '../controllers/student/student_course_controller.ts'
 import * as videoCtrl from '../controllers/video_controller.ts'
 import * as checkoutCtrl from '../controllers/student/student_checkout_controller.ts'
+import * as paymentCtrl from '../controllers/student/student_payment_controller.ts'
 import { isStudentAuthenticated, isStudentBlocked } from '../middlewares/auth_middleware.ts'
 import {studentUpload} from '../config/multer.ts'
 
@@ -12,6 +13,7 @@ export const studentRouter = express.Router()
 
 studentRouter.post('/register', studentCtrl.register)
 studentRouter.post('/login', studentCtrl.login)
+studentRouter.post('/payment/status/:id',paymentCtrl.paymentStatus)
 // studentRouter.get('/otp/:email',studentCtrl.getOtp)
 
 studentRouter.use(isStudentAuthenticated,isStudentBlocked)
@@ -29,3 +31,5 @@ studentRouter.get('/cart-list',studentCourseCtrl.cartList)
 studentRouter.get('/cart',studentCourseCtrl.getCartDetails)
 
 studentRouter.post('/checkout', checkoutCtrl.checkOut)
+studentRouter.get('/payment',paymentCtrl.payment)
+

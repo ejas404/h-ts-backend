@@ -13,6 +13,7 @@ import { studentRouter } from './routes/student_route.ts'
 import { tutorRouter } from './routes/tutor_route.ts'
 import { courseRouter } from './routes/course_route.ts'
 
+
 const app = express()
 const PORT = process.env.PORT
 
@@ -20,13 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(express.static('src/public'))
-app.use(cors(
-    {
-        origin : 'http://localhost:4200',
-        methods:'GET,PUT,POST,DELETE',
-        credentials:true
-    }
-))
+app.use(cors({origin : '*', credentials : true}))
 
 
 app.use('/admin', adminRouter)

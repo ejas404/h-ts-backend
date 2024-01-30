@@ -4,6 +4,7 @@ const Schema = mongoose.Schema
 
 
 const courseEnrollSchema = new Schema({
+    enid : {type : String, required : true},
     user: {type : mongoose.Types.ObjectId, ref : 'student', required : true},
     course : {type : mongoose.Types.ObjectId, ref : 'course', required : true},
     time : {type : Date, required : true},
