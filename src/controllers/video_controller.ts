@@ -5,13 +5,13 @@ import sectionCollection from '../models/section_model.ts';
 import mongoose from 'mongoose';
 import { S3Response } from 'types/video_type.ts';
 import videoCollection from '../models/video_model.ts';
-import { isNumber } from '../type_check/number.ts';
+import { isBoolean, isNumber } from '../type_check/number.ts';
 
 
 export const addVideo = asyncHandler(async (req: any, res) => {
 
     const file = req.files[0];
-    const { title, section, description } = JSON.parse(req.body.details)
+    let { title, section, description, isPaid} = JSON.parse(req.body.details)
     const { duration } = req.body
 
     const durationInNum = Number(duration)
@@ -20,6 +20,7 @@ export const addVideo = asyncHandler(async (req: any, res) => {
     if (!isString(title)) throw new Error('invalid title value');
     if (!isString(description)) throw new Error('invalid description value');
     if (!isNumber(durationInNum)) throw new Error('duration should be an integer');
+    if (!isBoolean(isPaid)) isPaid = false;
 
     const s3Response = await uploadS3File(file) as S3Response
 
@@ -30,6 +31,7 @@ export const addVideo = asyncHandler(async (req: any, res) => {
         section,
         description,
         url,
+        isPaid,
         duration: Math.floor(durationInNum)
     })
 

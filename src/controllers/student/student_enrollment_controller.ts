@@ -17,3 +17,14 @@ export const enrollStatus = asyncHandler(async(req,res)=>{
 
     res.json({ success : check.isEnrolled })
 })
+
+export const isCourseEnrolled = asyncHandler(async(req : any,res)=>{
+    const course  =  new mongoose.Types.ObjectId(req.params.id)
+    const user = new mongoose.Types.ObjectId(req.user._id)
+
+    const check = await enrollCollection.findOne({user,course, isEnrolled : true })
+    if(!check) throw new Error('no enrollment found')
+
+    res.json({ success : check.isEnrolled })
+
+})

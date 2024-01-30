@@ -2,7 +2,7 @@ import asyncHandler from 'express-async-handler'
 import crypto from 'crypto'
 import axios from 'axios'
 import { BASE_URL } from '../../utility/constants'
-import { checkEnId } from '../../utility/enroll_check_helper'
+import { checkEnId, updateEnroll } from '../../utility/enroll_check_helper'
 
 export const payment = asyncHandler(async (req: any, res) => {
     const { amount, enrollId } = req.query
@@ -52,38 +52,52 @@ export const payment = asyncHandler(async (req: any, res) => {
     res.json({ paid: true, url })
 })
 
-
-export const paymentStatus = asyncHandler(async (req : any, res) => {
-
+export const paymentStatus = asyncHandler(async (req: any, res) => {
     const enid = req.params.id
     const isEnid = await checkEnId(enid)
-    if(!isEnid) throw new Error('invalid enid')
+    if (!isEnid) throw new Error('invalid enid')
 
-    const merchantTransactionId = enid
-    const merchantId = req.user._id
+    const update = await updateEnroll(enid)
+    if(!update)throw new Error('some error occured')
 
-    const keyIndex = 1;
-    const string = `/pg/v1/status/${merchantId}/${merchantTransactionId}` + process.env.PPAY_SALT_KEY;
-    const sha256 = crypto.createHash('sha256').update(string).digest('hex');
-    const checksum = sha256 + "###" + keyIndex;
-
-    const options = {
-        method: 'GET',
-        url: `https://api.phonepe.com/apis/hermes/pg/v1/status/${merchantId}/${merchantTransactionId}`,
-        headers: {
-            accept: 'application/json',
-            'Content-Type': 'application/json',
-            'X-VERIFY': checksum,
-            'X-MERCHANT-ID': `${merchantId}`
-        }
-    };
-
-    const check = await  axios.request(options)
-    if(check.data.success === true){
-        res.json({success : true})
-    }else{
-        console.log(check.data)
-        res.json({success : false})
-    }
+    res.json({success : update })
 
 })
+
+
+// export const paymentStatus = asyncHandler(async (req : any, res) => {
+
+//     console.log('from payment status')
+
+//     const enid = req.params.id
+//     const isEnid = await checkEnId(enid)
+//     if(!isEnid) throw new Error('invalid enid')
+
+//     const merchantTransactionId = enid
+//     const merchantId = req.user._id
+
+//     const keyIndex = 1;
+//     const string = `/pg/v1/status/${merchantId}/${merchantTransactionId}` + process.env.PPAY_SALT_KEY;
+//     const sha256 = crypto.createHash('sha256').update(string).digest('hex');
+//     const checksum = sha256 + "###" + keyIndex;
+
+//     const options = {
+//         method: 'GET',
+//         url: `https://api.phonepe.com/apis/hermes/pg/v1/status/${merchantId}/${merchantTransactionId}`,
+//         headers: {
+//             accept: 'application/json',
+//             'Content-Type': 'application/json',
+//             'X-VERIFY': checksum,
+//             'X-MERCHANT-ID': `${merchantId}`
+//         }
+//     };
+
+//     const check = await  axios.request(options)
+//     if(check.data.success === true){
+//         res.json({success : true})
+//     }else{
+//         console.log(check.data)
+//         res.json({success : false})
+//     }
+
+// })

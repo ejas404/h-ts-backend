@@ -8,6 +8,7 @@ export interface CourseResponseType extends mongoose.Document{
     fee: number;
     tutor: mongoose.Types.ObjectId | string;
     category: mongoose.Types.ObjectId | string;
+    subCategory: mongoose.Types.ObjectId | string;
     isAvailable: boolean;
     isApproved: boolean;
     isTutorMade: boolean;
