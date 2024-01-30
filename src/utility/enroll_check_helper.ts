@@ -13,3 +13,9 @@ export const isCartItemsEnrolled = async(user : mongoId) =>{
     const isEnrolled = await enrollCollection.find({user,course : {$in : cartList}, isEnrolled : true})
     return !!isEnrolled[0]
 }
+
+
+export const checkEnId = async(enid : string) => {
+    const isEnid = await enrollCollection.findOne({enid})
+    return !!isEnid
+}

@@ -43,7 +43,7 @@ export const checkOut = asyncHandler(async (req: any, res: Response) => {
     }
 
     if (!checkOutFor) throw new Error('checkout method is not specified')
-
+    
     let enid !: boolean | string;
 
     if (checkOutFor === 'cart') {
@@ -58,10 +58,12 @@ export const checkOut = asyncHandler(async (req: any, res: Response) => {
 
     const isEnrolled = amount === 0
 
+    // the course will be enrolled if the course is free
     if (isEnrolled) {
-        res.json({ success: true })
+        res.json({ success: true , enid })
     }
 
+    // if the course is paid will redirect to payment page
     res.redirect(`/student/payment?amount=${amount}&enrollId=${enid}`)
 
 })

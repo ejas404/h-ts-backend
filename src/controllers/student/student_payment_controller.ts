@@ -2,6 +2,7 @@ import asyncHandler from 'express-async-handler'
 import crypto from 'crypto'
 import axios from 'axios'
 import { BASE_URL } from '../../utility/constants'
+import { checkEnId } from '../../utility/enroll_check_helper'
 
 export const payment = asyncHandler(async (req: any, res) => {
     const { amount, enrollId } = req.query
@@ -14,7 +15,7 @@ export const payment = asyncHandler(async (req: any, res) => {
         merchantUserId: userData._id,
         name: userData.name,
         amount: amount * 100,
-        redirectUrl: `${BASE_URL}/student/payment/status/${merchantTransactionId}`,
+        redirectUrl: `${BASE_URL}?mtid=${merchantTransactionId}`,
         redirectMode: 'POST',
         mobileNumber: '8129984474',
         paymentInstrument: {
@@ -33,7 +34,7 @@ export const payment = asyncHandler(async (req: any, res) => {
 
     const options = {
         method: 'post',
-        url:demo_URL,
+        url: demo_URL,
         headers: {
             accept: 'application/json',
             'Content-Type': 'application/json',
@@ -43,22 +44,46 @@ export const payment = asyncHandler(async (req: any, res) => {
             request: payloadMain
         }
     };
-    
-    const requestPayment : any = await axios.request(options)
-    if(!requestPayment) throw new Error('failed to initiate payment')
+
+    const requestPayment: any = await axios.request(options)
+    if (!requestPayment) throw new Error('failed to initiate payment')
 
     const url = requestPayment.data.data.instrumentResponse.redirectInfo.url
-    res.json({paid : true,url})
+    res.json({ paid: true, url })
 })
 
-export const paymentStatus = asyncHandler(async (req, res) => {
-    const merchantTransactionId = res.req.body.transactionId
-    const merchantId = res.req.body.merchantUserId
 
-    console.log('from payment status')
-    console.log(res.req.body)
-    console.log(merchantTransactionId, merchantId)
+export const paymentStatus = asyncHandler(async (req : any, res) => {
 
-    res.send('done')
+    const enid = req.params.id
+    const isEnid = await checkEnId(enid)
+    if(!isEnid) throw new Error('invalid enid')
+
+    const merchantTransactionId = enid
+    const merchantId = req.user._id
+
+    const keyIndex = 1;
+    const string = `/pg/v1/status/${merchantId}/${merchantTransactionId}` + process.env.PPAY_SALT_KEY;
+    const sha256 = crypto.createHash('sha256').update(string).digest('hex');
+    const checksum = sha256 + "###" + keyIndex;
+
+    const options = {
+        method: 'GET',
+        url: `https://api.phonepe.com/apis/hermes/pg/v1/status/${merchantId}/${merchantTransactionId}`,
+        headers: {
+            accept: 'application/json',
+            'Content-Type': 'application/json',
+            'X-VERIFY': checksum,
+            'X-MERCHANT-ID': `${merchantId}`
+        }
+    };
+
+    const check = await  axios.request(options)
+    if(check.data.success === true){
+        res.json({success : true})
+    }else{
+        console.log(check.data)
+        res.json({success : false})
+    }
 
 })

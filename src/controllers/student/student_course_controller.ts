@@ -3,8 +3,9 @@ import mongoose from "mongoose";
 import { Response, Request } from "express";
 import cartCollection from "../../models/user_cart_model.ts";
 import courseCollection from "../../models/course_model.ts";
-import { CartCourseType, CartItem, CartItemListType } from "../../types/cart_type.ts";
+import { CartItem, CartItemListType } from "../../types/cart_type.ts";
 import { fetchCartDetails, fetchCartItemList, fetchCartTotal } from "../../utility/cart_details_fetch.ts";
+import { fetechEnrollCategory } from "../../utility/fetch_enroll_list_category.ts";
 
 export const addToCart = asyncHandler(async (req: any, res : Response) => {
     const {id} = req.params  
@@ -21,10 +22,7 @@ export const addToCart = asyncHandler(async (req: any, res : Response) => {
         const courseList: CartItem[]= cart.course
         courseList.forEach(each =>
             {
-
-               if( each.course_id.equals(id)){
-                   throw new Error ('course have already added in the cart');
-               }
+               if( each.course_id.equals(id)) throw new Error ('course have already added in the cart');
             })
         const newCourse: CartItem = { course_id: isCourseExist._id };
 
@@ -89,5 +87,13 @@ export const cartList = asyncHandler( async (req : any,res)=>{
         const cartList = await fetchCartItemList(user_id)
         res.json({cartList})
 
+})
+
+export const getEnrollSubCat = asyncHandler( async (req : any,res)=>{
+
+    const user_id  = new mongoose.Types.ObjectId(req.user._id)
+    const subCatObj = await fetechEnrollCategory(user_id)
+    
+    res.json({subCatObj})
 })
     
