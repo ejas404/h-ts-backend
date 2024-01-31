@@ -7,6 +7,7 @@ import * as checkoutCtrl from '../controllers/student/student_checkout_controlle
 import * as paymentCtrl from '../controllers/student/student_payment_controller.ts'
 import * as enrollCtrl from '../controllers/student/student_enrollment_controller.ts'
 import * as connectionCtrl from '../controllers/student/student_connection_controller.ts'
+import * as oauthCtrl from '../controllers/oauth_controller.ts'
 import { isStudentAuthenticated, isStudentBlocked } from '../middlewares/auth_middleware.ts'
 import {studentUpload} from '../config/multer.ts'
 
@@ -15,6 +16,7 @@ export const studentRouter = express.Router()
 
 studentRouter.post('/register', studentCtrl.register)
 studentRouter.post('/login', studentCtrl.login)
+studentRouter.get('/oauth',oauthCtrl.googleAuthenticate)
 // studentRouter.get('/otp/:email',studentCtrl.getOtp)
 
 studentRouter.use(isStudentAuthenticated,isStudentBlocked)

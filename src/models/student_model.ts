@@ -14,6 +14,7 @@ const studentSchema = new Schema <StudentModelType>({
     role : {type : String , default : 'Student'},
     twofactor : {type : Boolean},
     isBlocked : {type : Boolean, default : false},
+    isDommyPass : {type : Boolean},
     contact : {type : String}
 })
 
