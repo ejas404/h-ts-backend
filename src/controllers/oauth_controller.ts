@@ -31,7 +31,7 @@ export const googleAuthenticate = asyncHandler(async (req : any, res: any) : Pro
     } catch (err: any) {
         throw new Error(err.message);
     }
-    // todo: take data.scope and validate if it has read:email
+
     if (!accessToken) return null;
     if (!idToken) return null;
 

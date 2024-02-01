@@ -15,24 +15,24 @@ export const getUsers = asyncHandler(async (req, res) => {
 
 
 
-export const deleteUser = asyncHandler(async (req : Request, res : Response) => {
+export const deleteUser = asyncHandler(async (req: Request, res: Response) => {
     const { id } = req.params;
 
-    const user : StudentModelType = await studentCollection.findByIdAndDelete(id) as unknown as StudentModelType
+    const user: StudentModelType = await studentCollection.findByIdAndDelete(id) as unknown as StudentModelType
     if (!user) {
         res.status(404);
         throw new Error("User not found.");
     }
 
     res.status(200).json({
-        _id : user._id,
+        _id: user._id,
         name: user.name,
         email: user.email
     });
 });
 
 
-export const blockUser = asyncHandler(async (req : Request, res : Response) => {
+export const blockUser = asyncHandler(async (req: Request, res: Response) => {
     const { id } = req.params;
 
     const user = await studentCollection.findById(id);
@@ -54,7 +54,7 @@ export const blockUser = asyncHandler(async (req : Request, res : Response) => {
 });
 
 
-export const unblockUser = asyncHandler(async (req : Request, res : Response) => {
+export const unblockUser = asyncHandler(async (req: Request, res: Response) => {
     const { id } = req.params;
 
     const user = await studentCollection.findById(id);
@@ -76,7 +76,7 @@ export const unblockUser = asyncHandler(async (req : Request, res : Response) =>
 });
 
 
-export const deleteTutor = asyncHandler(async (req : Request, res : Response) => {
+export const deleteTutor = asyncHandler(async (req: Request, res: Response) => {
     const { id } = req.params;
 
     const user = await tutorCollection.findByIdAndDelete(id) as unknown as TutorModelType
@@ -86,16 +86,15 @@ export const deleteTutor = asyncHandler(async (req : Request, res : Response) =>
         throw new Error("User not found.");
     }
     res.status(200).json({
-        tutor: {
             _id: user._id,
             name: user.name,
             email: user.email
-        }
+        
     });
 });
 
 
-export const blockTutor = asyncHandler(async (req : Request, res : Response) => {
+export const blockTutor = asyncHandler(async (req: Request, res: Response) => {
     const { id } = req.params;
 
     const user = await tutorCollection.findById(id);
@@ -106,11 +105,10 @@ export const blockTutor = asyncHandler(async (req : Request, res : Response) => 
 
 
         res.status(200).json({
-            tutor: {
-                _id: user._id,
-                name: user.name,
-                email: user.email
-            }
+            _id: user._id,
+            name: user.name,
+            email: user.email
+
         });
     } else {
         res.status(404);
@@ -119,7 +117,7 @@ export const blockTutor = asyncHandler(async (req : Request, res : Response) => 
 });
 
 
-export const unblockTutor = asyncHandler(async (req : Request, res : Response) => {
+export const unblockTutor = asyncHandler(async (req: Request, res: Response) => {
     const { id } = req.params;
 
     const user = await tutorCollection.findById(id);
@@ -130,11 +128,9 @@ export const unblockTutor = asyncHandler(async (req : Request, res : Response) =
 
 
         res.status(200).json({
-            tutor: {
-                _id: user._id,
-                name: user.name,
-                email: user.email
-            }
+            _id: user._id,
+            name: user.name,
+            email: user.email
         });
     } else {
         res.status(404);

@@ -15,8 +15,13 @@ import { isCourseExist } from "../../utility/course_check.ts"
 
 export const addCourse = asyncHandler(async (req: any, res: Response) => {
 
+    console.log('add course called')
+
     const file = req.file
     const { title, fee, tutor, description, category, subCategory } = JSON.parse(req.body.details)
+
+    console.log(title, fee, tutor)
+
     if (!file) throw new Error('Req file is undefined')
 
     if (!file.path) {
@@ -51,13 +56,17 @@ export const addCourse = asyncHandler(async (req: any, res: Response) => {
 
     const isExists = await isCourseExist(newCourseObj)
     if (isExists) throw new Error('course already exist with these details')
-    const newCourse = await courseCollection.create()
+    const newCourse = await courseCollection.create(newCourseObj)
+
+    console.log('course created', newCourse)
 
     res.json({ newCourse })
 })
 
 
 export const addUpcoming = asyncHandler(async (req, res) => {
+
+    console.log('add upcoming called')
 
     const file = req.file
     const { title, tutor, category, subCategory } = JSON.parse(req.body.details)
