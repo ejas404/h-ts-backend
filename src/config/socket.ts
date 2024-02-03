@@ -1,7 +1,10 @@
+//@ts-nocheck
+
 import http from "http";
 import { BASE_URL } from "../utility/constants";
 import { Server } from 'socket.io';
 import { UserSocketModel } from "types/socket_type";
+import chatsCollection from "models/chat_model";
 
 export const configSocket = (server: http.Server) => {
     const io = new Server(server, {
@@ -14,25 +17,39 @@ export const configSocket = (server: http.Server) => {
         const userSocket = socket as UserSocketModel
         console.log('user connected')
 
+        const users = [];
+
         io.use((socket, next) => {
-            console.log('socket middle ware')
             const userSocket = socket as UserSocketModel
             const user_id = userSocket.handshake.query.user_id
             if (!user_id) {
                 return next(new Error("invalid username"));
             }
-    
+
             userSocket.user_id = user_id as string
             next()
         })
 
-        userSocket.on('msg', msg => {
-            io.emit('reply', socket.id, msg)
+
+        for (let [id, socket] of io.of("/").sockets) {
+            users.push({
+                id: id,
+                user_id: socket.user_id,
+            });
+        }
+
+        //todo: add the chat details in the chatcollection
+
+        userSocket.on('msg', data => {
+            const res = users.filter(each => each.user_id === data.reciever)[0]
+            if (res) {
+                socket.broadcast.to(res.id).emit('reply', data.text)
+            }
         })
 
-        userSocket.onAny((event, ...args) => {
-            console.log(event, args);
-        });
+        // userSocket.onAny((event, ...args) => {
+        //     console.log(event, args);
+        // });
 
         userSocket.on('disconnect', () => {
             console.log('a user disconnected!');
@@ -40,5 +57,11 @@ export const configSocket = (server: http.Server) => {
 
     })
 
-  
+    function setUser(socket: UserSocketModel, users: any[]) {
+
+
+
+    }
+
+
 }
