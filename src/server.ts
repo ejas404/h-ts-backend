@@ -1,37 +1,24 @@
-
 import express from 'express'
 import 'dotenv/config'
-
-
 import http from "http";
 import cors from 'cors'
 import dbConnect from './config/db.ts'
-
 import cookieParser from 'cookie-parser'
+
 
 import  {adminRouter} from './routes/admin_route.ts'
 import { errMiddleware } from './middlewares/error_middlware.ts'
 import { studentRouter } from './routes/student_route.ts'
 import { tutorRouter } from './routes/tutor_route.ts'
 import { courseRouter } from './routes/course_route.ts'
-import {Server} from 'socket.io'
-import { BASE_URL } from './utility/constants.ts'
+import { configSocket } from './config/socket.ts';
 
 
 const app = express()
 const PORT = process.env.PORT
 
 const server = http.createServer(app);
-
-const io = new Server(server, {
-  cors: {
-    origin: BASE_URL
-  },
-});
-
-io.on('connection', (socket) => {
-    console.log('a user connected');
-})  
+configSocket(server)
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
