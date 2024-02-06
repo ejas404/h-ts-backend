@@ -2,12 +2,11 @@ import express from 'express'
 import * as tutorCtrl from '../controllers/tutor/tutor_auth_controller.ts'
 import * as tutorProfCtrl from '../controllers/tutor/tutor_profile_controller.ts'
 import * as tutorCourseCtrl from '../controllers/tutor/tutor_course_controller.ts'
-<<<<<<< Updated upstream
-=======
+
 import * as connCtrl from '../controllers/tutor/tutor_connection_controller.ts'
 import * as categoryCtrl from '../controllers/category_controller.ts'
 import * as videoCtrl from '../controllers/video_controller.ts'
->>>>>>> Stashed changes
+
 import { isTutorAuthenticated, isTutorBlocked } from '../middlewares/auth_middleware.ts'
 import { tutorUpload } from '../config/multer.ts'
 import multer from 'multer'
@@ -28,9 +27,7 @@ tutorRouter.put('/update-pic',tutorUpload.single('profile'),tutorProfCtrl.update
 tutorRouter.put('/update-tags',tutorProfCtrl.updateTags)
 tutorRouter.delete('/delete-education/:id', tutorProfCtrl.deleteEducation)
 tutorRouter.get('/courses', tutorCourseCtrl.getCourses)
-<<<<<<< Updated upstream
-tutorRouter.post('/request-course', tutorCourseCtrl.requestCourse)
-=======
+
 tutorRouter.post('/request-course', tutorCourseCtrl.requestCourse)
 
 tutorRouter.get('/connections',connCtrl.getTutorConnections)
@@ -46,4 +43,3 @@ tutorRouter.get('/category', categoryCtrl.getCategories)
 tutorRouter.get('/sub-category', categoryCtrl.getSubCategories)
 tutorRouter.post('/add-category', categoryCtrl.addCategory)
 tutorRouter.post('/add-sub-category', categoryCtrl.addSubCategory)
->>>>>>> Stashed changes
