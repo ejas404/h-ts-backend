@@ -23,3 +23,4 @@ tutorRouter.get('/courses', tutorCourseCtrl.getCourses)
 tutorRouter.post('/request-course', tutorCourseCtrl.requestCourse)
 
 tutorRouter.get('/connections',connCtrl.getTutorConnections)
+tutorRouter.get('/get-messages/:id',connCtrl.getMessages)

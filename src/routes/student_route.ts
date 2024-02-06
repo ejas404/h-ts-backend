@@ -43,6 +43,7 @@ studentRouter.get('/enroll-status/:id', enrollCtrl.enrollStatus)
 studentRouter.get('/course-enroll/:id', enrollCtrl.isCourseEnrolled)
 
 studentRouter.get('/connections',connectionCtrl.connectedTutors)
+studentRouter.get('/get-messages/:id',connectionCtrl.getMessages)
 
 
 

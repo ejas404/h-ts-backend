@@ -3,6 +3,7 @@ import courseCollection from "../../models/course_model"
 import mongoose from "mongoose"
 import enrollCollection from "../../models/course_enroll_model"
 import studentCollection from "../../models/student_model"
+import chatsCollection from "../../models/chat_model"
 
 export const getTutorConnections =  asyncHandler(async(req : any  ,res )=>{
     const tutor_id = new mongoose.Types.ObjectId(req.tutor._id)
@@ -15,4 +16,20 @@ export const getTutorConnections =  asyncHandler(async(req : any  ,res )=>{
 
     res.json({connections : connList})
    
+})
+
+export const getMessages = asyncHandler(async (req: any, res) => {
+    const user = new mongoose.Types.ObjectId(req.tutor._id)
+    const reciever = new mongoose.Types.ObjectId(req.params.id)
+
+    const getMessages = await chatsCollection
+        .find(
+            {
+                $or:
+                    [
+                        { sender: user, reciever: reciever },
+                        { sender: reciever, reciever: user }
+                    ]
+            })
+    res.json(getMessages)
 })
