@@ -6,6 +6,7 @@ import courseCollection from "../../models/course_model.ts";
 import { CartItem, CartItemListType } from "../../types/cart_type.ts";
 import { fetchCartDetails, fetchCartItemList, fetchCartTotal } from "../../utility/cart_details_fetch.ts";
 import { fetechEnrollCategory } from "../../utility/fetch_enroll_list_category.ts";
+import { isCourseEnrolledHelper } from "../../utility/enroll_check_helper.ts";
 
 export const addToCart = asyncHandler(async (req: any, res : Response) => {
     const {id} = req.params  
@@ -15,8 +16,10 @@ export const addToCart = asyncHandler(async (req: any, res : Response) => {
     if (!isCourseExist) throw new Error('invalid course id')
 
     const cart = await cartCollection.findOne({ user: user_id })
-
     // if cart exists add the course_id in the existing course list in cart
+
+    const check = await isCourseEnrolledHelper(id,req.user._id)
+    if(check) throw new Error('course already enrolled');
 
     if (cart) {
         const courseList: CartItem[]= cart.course

@@ -10,12 +10,7 @@ const courseEnrollSchema = new Schema({
     time : {type : Date, required : true},
     rating : {type : Number, default : 0},
     isEnrolled : {type : Boolean, default : false},
-    progress : [
-        {
-            section : {type : mongoose.Types.ObjectId, ref : 'section'},
-            progressCount : {type : Number}
-        }
-    ]
+    progress : [{type : mongoose.Types.ObjectId, ref : 'video'}]
 })
 
 // export type enrollmentType = InferSchemaType<typeof courseEnrollSchema>

@@ -5,7 +5,7 @@ import { isNumber } from "../../type_check/number";
 import { fetchCartDetails, fetchCartTotal } from "../../utility/cart_details_fetch";
 import courseCollection from "../../models/course_model";
 import { enrollCartItems, enrollSingleCourse } from "../../utility/checkout_helper";
-import { isCartItemsEnrolled, isCourseEnrolled } from "../../utility/enroll_check_helper";
+import { isCartItemsEnrolled, isCourseEnrolledHelper } from "../../utility/enroll_check_helper";
 
 export const checkOut = asyncHandler(async (req: any, res: Response) => {
     const { amount, isCart, course_id } = req.body
@@ -32,7 +32,7 @@ export const checkOut = asyncHandler(async (req: any, res: Response) => {
 
     } else {
 
-        const isEnrolledCourse = await isCourseEnrolled(course_id, user_id)
+        const isEnrolledCourse = await isCourseEnrolledHelper(course_id, req.user_id)
         if (isEnrolledCourse) throw new Error('course have already enrolled')
 
         const isExist = await courseCollection.findById(course_id)
