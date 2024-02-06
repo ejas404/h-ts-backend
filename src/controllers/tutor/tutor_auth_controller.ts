@@ -9,7 +9,6 @@ import { Request, Response } from "express";
 
 
 export const login = asyncHandler(async (req : Request, res : Response) => {
-    console.log('tutor controller')
     const { email, password } : AuthCredentials = req.body;
 
     const user = await tutorCollection.findOne({ email });

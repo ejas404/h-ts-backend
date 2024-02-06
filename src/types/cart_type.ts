@@ -13,3 +13,9 @@ export interface CartModel extends mongoose.Document {
 export interface CartCourseType extends CartItem{
     details : CourseResponseType[]
 }
+
+export interface CartItemListType {
+    _id : string
+    user : string
+    course : CartCourseType[]
+}

@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose, {InferSchemaType} from 'mongoose'
 
 const Schema = mongoose.Schema
 
@@ -23,6 +23,8 @@ const courseSchema = new Schema({
 }
     
 )
+
+export type courseCollectionType = InferSchemaType<typeof courseSchema>
 
 
 const courseCollection = mongoose.model('course', courseSchema)

@@ -10,6 +10,7 @@ export interface StudentType extends mongoose.Document{
     twofactor?: boolean;
     isBlocked: boolean;
     contact?: string;
+    isDommyPass ?: boolean
 }
 
 

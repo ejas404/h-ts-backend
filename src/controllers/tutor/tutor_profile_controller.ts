@@ -89,16 +89,12 @@ export const updatePic = asyncHandler(async (req : Request, res : Response) => {
 
     const tutorReq = req as JWTTutorReq
 
-
     const { email } = tutorReq.tutor
     let tutor = await tutorCollection.findOne({ email }) as TutorType
 
-    if(!tutorReq.file)throw new Error('multer error need request file')
-
-    if(!tutorReq.file.path){
-        throw  new Error('multer error')
-    }
-
+    if(!tutorReq.file)throw new Error('multer error need request file');
+    if(!tutorReq.file.path) throw  new Error('multer error');
+    
     if (tutor.profile) {
         fs.unlink(tutor.profile, (err) => {
             if (err) throw new Error('profile image is not deleted');
@@ -106,7 +102,6 @@ export const updatePic = asyncHandler(async (req : Request, res : Response) => {
     }
 
     tutor.profile = tutorReq.file.path
-
     tutor.save()
 
     res.json({ msg: 'profile image upadted successfully',path : tutorReq.file.path})
@@ -127,12 +122,8 @@ export const updateTags = asyncHandler(async (req : Request,res : Response)=>{
     if(Array.isArray(tagList)){ 
         let tutor = await tutorCollection.findOne({ email }) as TutorType
 
-        if(tag in tutor){
-            tutor[tag] = tagList 
-
-        }else{
-            throw new Error(`provided tag key is wrong ${tag}`)
-        } 
+        if(tag in tutor) tutor[tag] = tagList ;
+        else throw new Error(`provided tag key is wrong ${tag}`);    
         
         await tutor.save()
         

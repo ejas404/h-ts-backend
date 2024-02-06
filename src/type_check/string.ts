@@ -1,5 +1,5 @@
-export const isString = (value : unknown) : boolean =>{
-    if(typeof(value) !== 'string'){
+export const isString = (str : unknown) : boolean =>{
+    if(typeof(str) !== 'string' || !str.length){
         return false
     }
 
