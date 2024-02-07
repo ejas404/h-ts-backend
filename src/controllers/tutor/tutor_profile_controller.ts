@@ -6,6 +6,7 @@ import * as fs from 'fs'
 import { TutorEducationDetails, TutorType } from "../../types/tutor_type.ts";
 import { Request, Response } from "express";
 import { JWTTutorReq } from "types/express_req_res.ts";
+import { isString } from "../../type_check/string.ts";
 
 
 
@@ -22,14 +23,16 @@ export const updateProfile = asyncHandler(async (req : Request, res : Response) 
 
     const tutorReq = req as JWTTutorReq
 
-    const { name, email, contact } = req.body
+    const { name } = req.body
+
+    if(!isString(name)) throw new Error('invalid name');
 
     const userData = await tutorCollection.findOneAndUpdate(
         {
             email: tutorReq.tutor.email
         },
         {
-            $set: { name, email, contact }
+            $set: { name }
         })
 
     
@@ -40,9 +43,7 @@ export const updateProfile = asyncHandler(async (req : Request, res : Response) 
 export const resetPassword = asyncHandler(async (req : Request, res : Response) => {
 
     const tutorReq = req as JWTTutorReq
-
     const { currentPassword, newPassword } = req.body
-
     const userData = await tutorCollection.findOne({ email: tutorReq.tutor.email })
 
 
@@ -59,8 +60,6 @@ export const resetPassword = asyncHandler(async (req : Request, res : Response) 
 export const updateEducation = asyncHandler(async (req : Request, res : Response) => {
 
     const tutorReq = req as JWTTutorReq
-
-
     const { university, stream, year, country } = req.body
 
     const educationDetails :TutorEducationDetails  = {
@@ -111,12 +110,10 @@ export const updatePic = asyncHandler(async (req : Request, res : Response) => {
 export const updateTags = asyncHandler(async (req : Request,res : Response)=>{
 
     const tutorReq = req as JWTTutorReq
-
     const { email } = tutorReq.tutor
     const {tag , list}: { tag :string, list: string} = req.body
 
     if(!tag || !list) throw new Error('Invalid request') ; 
-
     const tagList : string [] = JSON.parse(list)
 
     if(Array.isArray(tagList)){ 
