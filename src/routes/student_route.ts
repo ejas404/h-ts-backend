@@ -8,6 +8,7 @@ import * as paymentCtrl from '../controllers/student/student_payment_controller.
 import * as enrollCtrl from '../controllers/student/student_enrollment_controller.ts'
 import * as connectionCtrl from '../controllers/student/student_connection_controller.ts'
 import * as oauthCtrl from '../controllers/oauth_controller.ts'
+import * as courseCtrl from '../controllers/course_controller.ts'
 import { isStudentAuthenticated, isStudentBlocked } from '../middlewares/auth_middleware.ts'
 import {studentUpload} from '../config/multer.ts'
 
@@ -17,6 +18,7 @@ export const studentRouter = express.Router()
 studentRouter.post('/register', studentCtrl.register)
 studentRouter.post('/login', studentCtrl.login)
 studentRouter.get('/oauth',oauthCtrl.googleAuthenticate)
+
 // studentRouter.get('/otp/:email',studentCtrl.getOtp)
 
 studentRouter.use(isStudentAuthenticated,isStudentBlocked)
@@ -33,6 +35,7 @@ studentRouter.delete('/cart/remove/:id',studentCourseCtrl.removeFromCart)
 studentRouter.get('/cart-list',studentCourseCtrl.cartList)
 studentRouter.get('/cart',studentCourseCtrl.getCartDetails)
 
+
 studentRouter.post('/checkout', checkoutCtrl.checkOut)
 studentRouter.get('/payment',paymentCtrl.payment)
 studentRouter.get('/payment/status/:id',paymentCtrl.paymentStatus)
@@ -41,7 +44,9 @@ studentRouter.get('/enroll-list', enrollCtrl.getEnrollList)
 studentRouter.get('/enroll-cat', studentCourseCtrl.getEnrollSubCat)
 studentRouter.get('/enroll-status/:id', enrollCtrl.enrollStatus)
 studentRouter.get('/course-enroll/:id', enrollCtrl.isCourseEnrolled)
+
 studentRouter.post('/add-progress', enrollCtrl.addProgress)
+studentRouter.get('/get-progress/:id',enrollCtrl.getProgress)
 
 studentRouter.get('/connections',connectionCtrl.connectedTutors)
 studentRouter.get('/get-messages/:id',connectionCtrl.getMessages)

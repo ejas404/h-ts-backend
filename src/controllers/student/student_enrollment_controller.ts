@@ -47,3 +47,14 @@ export const addProgress = asyncHandler(async(req : any,res)=>{
 
     res.json({ success : true })
 })
+
+export const getProgress = asyncHandler(async(req : any,res)=>{
+    const {id} = req.params
+    const course  =  new mongoose.Types.ObjectId(id)
+    const user = new mongoose.Types.ObjectId(req.user._id)
+    
+    const check = await enrollCollection.findOne({user,course, isEnrolled : true })
+    if(!check) throw new Error('no enrollment found')
+    res.json({progress : check.progress})
+
+})
