@@ -44,6 +44,7 @@ studentRouter.get('/enroll-list', enrollCtrl.getEnrollList)
 studentRouter.get('/enroll-cat', studentCourseCtrl.getEnrollSubCat)
 studentRouter.get('/enroll-status/:id', enrollCtrl.enrollStatus)
 studentRouter.get('/course-enroll/:id', enrollCtrl.isCourseEnrolled)
+studentRouter.put('/rate-enrollment', enrollCtrl.rateCourse)
 
 studentRouter.post('/add-progress', enrollCtrl.addProgress)
 studentRouter.get('/get-progress/:id',enrollCtrl.getProgress)

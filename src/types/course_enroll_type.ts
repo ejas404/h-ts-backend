@@ -5,5 +5,6 @@ export interface enrollmentType{
     user : mongoId
     course : mongoId
     time : number
+    rating ?: number
     isEnrolled ?: boolean
 }

@@ -4,6 +4,7 @@ import { isNumber } from "../../type_check/number.ts"
 import { isString } from "../../type_check/string.ts"
 import { Request, Response } from "express"
 import { JWTTutorReq } from "types/express_req_res.ts"
+import mongoose from "mongoose"
 
 
 export const getCourses = asyncHandler(async (req : Request,res : Response)=>{
@@ -36,3 +37,32 @@ export const requestCourse = asyncHandler(async(req : Request,res : Response)=>{
 
     res.json({newCourse})
 })
+
+export const updateCourse = asyncHandler(async (req: any, res: Response) => {
+
+    const { id } = req.params
+    const { title, fee, description } = req.body
+
+    const _id  = new mongoose.Types.ObjectId(id)
+    const tutor = new mongoose.Types.ObjectId(req.tutor._id)
+
+    const course = await courseCollection.findOne({_id,tutor})
+    if (!course) throw new Error('no course found with the given id');
+
+    let courseFee = Number(fee);
+
+    if (!isString(title)) throw new Error('invalid title');
+    if (!isString(description)) throw new Error('invalid description');
+    if (!isNumber(courseFee)) throw new Error('invalid course price');
+
+    course.title = title
+    course.fee = courseFee
+    course.description = description
+    await course.save()
+
+    const updatedCourse = await courseCollection.findById(id).populate('tutor', 'name')
+
+    res.json({ updatedCourse })
+})
+
+

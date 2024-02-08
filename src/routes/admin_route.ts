@@ -40,13 +40,13 @@ adminRouter.get('/upcoming-courses',courseControl.upcomingCourses)
 
 adminRouter.get('/popular-courses',dashMainCtrl.getPopular)
 
-// adminRouter.put('/add-video',upload.array('file',1), videoCtrl.addVideo)
-// adminRouter.get('/get-course-videos/:id',videoCtrl.getCourseVidoes)
-// adminRouter.get('/get-video/:id',videoCtrl.getVideo)
+adminRouter.put('/add-video',upload.array('file',1), videoCtrl.addVideo)
+adminRouter.get('/get-course-videos/:id',videoCtrl.getCourseVidoes)
+adminRouter.get('/get-video/:id',videoCtrl.getVideo)
 
-// adminRouter.post('/add-section',videoCtrl.addSection)
+adminRouter.post('/add-section',videoCtrl.addSection)
 
-// adminRouter.get('/category', categoryCtrl.getCategories)
-// adminRouter.get('/sub-category', categoryCtrl.getSubCategories)
-// adminRouter.post('/add-category', categoryCtrl.addCategory)
-// adminRouter.post('/add-sub-category', categoryCtrl.addSubCategory)
+adminRouter.get('/category', categoryCtrl.getCategories)
+adminRouter.get('/sub-category', categoryCtrl.getSubCategories)
+adminRouter.post('/add-category', categoryCtrl.addCategory)
+adminRouter.post('/add-sub-category', categoryCtrl.addSubCategory)

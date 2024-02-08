@@ -13,7 +13,7 @@ const courseSchema = new Schema({
     isAvailable: { type: Boolean, default: true },
     isApproved: { type: Boolean},
     isTutorMade: { type: Boolean, default: false },
-    request: { type: String, enum: ['Pending', 'Cancelled']},
+    request: { type: String, enum: ['Pending', 'Cancelled','Approved']},
     isDeleted: { type: Boolean, default: false },
 
 

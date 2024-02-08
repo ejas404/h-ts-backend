@@ -12,12 +12,14 @@ import { TutorModelType } from "types/tutor_type.ts";
 import { JWTStudentReq, JWTTutorReq } from "types/express_req_res.ts";
 
 export const isAuthenticated = asyncHandler(async (req : JWTAdminHeadersRequest, res : Response, next : NextFunction) => {
+    console.log('from is authenticated admin')
     let token;
     token = req.headers.authorization;
     if (token) {
         try {
             const decoded : JWTDecoded | string | JwtPayload  = jwt.verify(token, process.env.JWT_SECRET as Secret) as JWTDecoded
             req.admin = await AdminCollection.findById(decoded.userId).select('-password') as AdminReqData
+            if(!req?.admin) throw new Error('invalid token');
             next();
         } catch (error) {
             res.status(401) 
@@ -28,6 +30,8 @@ export const isAuthenticated = asyncHandler(async (req : JWTAdminHeadersRequest,
         throw new Error("not authorized, please login");
     }
 });
+
+
 
 export const  isStudentBlocked = asyncHandler(async (req : Request,res : Response,next : NextFunction)=>{
     const studentReq = req as JWTStudentReq

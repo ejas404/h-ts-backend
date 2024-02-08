@@ -6,9 +6,10 @@ import * as tutorCourseCtrl from '../controllers/tutor/tutor_course_controller.t
 import * as connCtrl from '../controllers/tutor/tutor_connection_controller.ts'
 import * as categoryCtrl from '../controllers/category_controller.ts'
 import * as videoCtrl from '../controllers/video_controller.ts'
+import * as adminCourseCtrl from '../controllers/admin/admin_course_controller.ts'
 
 import { isTutorAuthenticated, isTutorBlocked } from '../middlewares/auth_middleware.ts'
-import { tutorUpload } from '../config/multer.ts'
+import { coverUpload, tutorUpload } from '../config/multer.ts'
 import multer from 'multer'
 
 const upload = multer()
@@ -26,12 +27,16 @@ tutorRouter.put('/update-education',tutorProfCtrl.updateEducation)
 tutorRouter.put('/update-pic',tutorUpload.single('profile'),tutorProfCtrl.updatePic)
 tutorRouter.put('/update-tags',tutorProfCtrl.updateTags)
 tutorRouter.delete('/delete-education/:id', tutorProfCtrl.deleteEducation)
-tutorRouter.get('/courses', tutorCourseCtrl.getCourses)
 
+tutorRouter.get('/courses', tutorCourseCtrl.getCourses)
 tutorRouter.post('/request-course', tutorCourseCtrl.requestCourse)
+tutorRouter.put('/update-course/:id', tutorCourseCtrl.updateCourse)
 
 tutorRouter.get('/connections',connCtrl.getTutorConnections)
 tutorRouter.get('/get-messages/:id',connCtrl.getMessages)
+
+tutorRouter.get('/course/:id',  adminCourseCtrl.getSingleCourse)
+tutorRouter.put('/course-cover/:id',coverUpload.single('cover'), adminCourseCtrl.updateCourseCover)
 
 tutorRouter.put('/add-video',upload.array('file',1), videoCtrl.addVideo)
 tutorRouter.get('/get-course-videos/:id',videoCtrl.getCourseVidoes)

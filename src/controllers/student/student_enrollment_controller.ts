@@ -2,6 +2,8 @@ import asyncHandler from "express-async-handler"
 import enrollCollection from "../../models/course_enroll_model"
 import mongoose from "mongoose"
 import { isCourseEnrolledHelper } from "../../utility/enroll_check_helper"
+import { isNumber } from "../../type_check/number"
+import { isString } from "../../type_check/string"
 
 export const getEnrollList = asyncHandler( async (req : any,res)=>{
     const user = req.user
@@ -56,5 +58,22 @@ export const getProgress = asyncHandler(async(req : any,res)=>{
     const check = await enrollCollection.findOne({user,course, isEnrolled : true })
     if(!check) throw new Error('no enrollment found')
     res.json({progress : check.progress})
+
+})
+
+export const rateCourse = asyncHandler(async(req : any,res)=>{
+    const {val , enid} = req.body
+
+    if(!isNumber(val)) throw new Error('value should be number');
+    if(!isString(enid)) throw new Error('invalid enid');
+
+
+    const checkEnroll = await enrollCollection.findOne({enid, isEnrolled : true })
+    if(!checkEnroll) throw new Error('no enrollment found')
+
+    checkEnroll.rating = val
+    await checkEnroll.save()
+
+    res.json({msg : 'course rated successfully'})
 
 })
