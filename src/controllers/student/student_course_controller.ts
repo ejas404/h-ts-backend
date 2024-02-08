@@ -7,8 +7,11 @@ import { CartItem, CartItemListType } from "../../types/cart_type.ts";
 import { fetchCartDetails, fetchCartItemList, fetchCartTotal } from "../../utility/cart_details_fetch.ts";
 import { fetechEnrollCategory } from "../../utility/fetch_enroll_list_category.ts";
 import { isCourseEnrolledHelper } from "../../utility/enroll_check_helper.ts";
+import { JWTStudentReq } from "../../types/express_req_res.ts";
 
-export const addToCart = asyncHandler(async (req: any, res : Response) => {
+export const addToCart = asyncHandler(async (request: Request, res : Response) => {
+
+    const req = request as JWTStudentReq
     const {id} = req.params  
     const user_id = new mongoose.Types.ObjectId(req.user._id)
 

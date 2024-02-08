@@ -6,8 +6,10 @@ import { fetchCartDetails, fetchCartTotal } from "../../utility/cart_details_fet
 import courseCollection from "../../models/course_model";
 import { enrollCartItems, enrollSingleCourse } from "../../utility/checkout_helper";
 import { isCartItemsEnrolled, isCourseEnrolledHelper } from "../../utility/enroll_check_helper";
+import { JWTStudentReq } from "../../types/express_req_res";
 
-export const checkOut = asyncHandler(async (req: any, res: Response) => {
+export const checkOut = asyncHandler(async (request: Request, res: Response) => {
+    const req = request as JWTStudentReq
     const { amount, isCart, course_id } = req.body
 
     const user_id = new mongoose.Types.ObjectId(req.user._id)
@@ -32,7 +34,7 @@ export const checkOut = asyncHandler(async (req: any, res: Response) => {
 
     } else {
 
-        const isEnrolledCourse = await isCourseEnrolledHelper(course_id, req.user_id)
+        const isEnrolledCourse = await isCourseEnrolledHelper(course_id, req.user._id)
         if (isEnrolledCourse) throw new Error('course have already enrolled')
 
         const isExist = await courseCollection.findById(course_id)

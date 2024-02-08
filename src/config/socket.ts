@@ -43,15 +43,13 @@ export const configSocket = (server: http.Server) => {
             next()
         })
 
-        //todo: add the chat details in the chatcollection
         userSocket.on('msg', data => {
             const res = users.filter(each => each.user_id === data.receiver)[0]
             if (res) {
-                addChat(userSocket.user_id, data.reciever, data.message)
+                console.log('res printing',res)
+                addChat(userSocket.user_id, data.receiver, data.message)
                     .then((response) => {
                         userSocket.broadcast.to(res.id).emit('reply', response)
-                        console.log('response sending')
-                        console.log(users)
                     }).catch(e => {
                         console.log(e)
                     })
