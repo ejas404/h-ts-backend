@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler"
 import { Request, Response } from "express";
 import { getPopularCourses } from "../../utility/admin_dashboard_helper";
+import subCategoryCollection from "../../models/course_sub_category";
 
 export const getPopular = asyncHandler(async (req : Request , res : Response)=>{
    const popularCourses = await getPopularCourses()
@@ -9,3 +10,27 @@ export const getPopular = asyncHandler(async (req : Request , res : Response)=>{
     }
     res.json({popularCourses})
 })
+
+export const getChart = asyncHandler(async (req : Request , res : Response)=>{
+    const chartList = await subCategoryCollection.aggregate([
+        {$lookup : {from : "courses",localField : "_id",foreignField : "subCategory",as : "courseList"}},
+        {$project : {name : 1, count : {$size : "$courseList"}}}
+      ])
+
+    const catName : string[] = []
+    const catCount : number[] = []
+
+    for(let each of chartList){
+        if(each.count > 0){
+            catName.push(each.name);
+            catCount.push(each.count);
+        }
+    }
+
+    const pieChart = {catName,catCount}
+    res.json({pieChart})
+ })
+ 
+ 
+
+

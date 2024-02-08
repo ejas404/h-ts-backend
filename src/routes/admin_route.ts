@@ -39,6 +39,8 @@ adminRouter.post('/add-upcoming-course',coverUpload.single('cover'),adminCourseC
 adminRouter.get('/upcoming-courses',courseControl.upcomingCourses)
 
 adminRouter.get('/popular-courses',dashMainCtrl.getPopular)
+adminRouter.get('/chart',dashMainCtrl.getChart)
+
 
 adminRouter.put('/add-video',upload.array('file',1), videoCtrl.addVideo)
 adminRouter.get('/get-course-videos/:id',videoCtrl.getCourseVidoes)

@@ -12,7 +12,6 @@ import { TutorModelType } from "types/tutor_type.ts";
 import { JWTStudentReq, JWTTutorReq } from "types/express_req_res.ts";
 
 export const isAuthenticated = asyncHandler(async (req : JWTAdminHeadersRequest, res : Response, next : NextFunction) => {
-    console.log('from is authenticated admin')
     let token;
     token = req.headers.authorization;
     if (token) {
