@@ -49,7 +49,8 @@ export const addToCart = asyncHandler(async (request: Request, res : Response) =
 
 
 export const removeFromCart = asyncHandler(async(req : any,res)=>{
-    console.log('cart remove')
+
+    
     const {id} = req.params
     const user_id = new mongoose.Types.ObjectId(req.user._id)
 

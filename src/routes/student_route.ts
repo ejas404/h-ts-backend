@@ -8,7 +8,6 @@ import * as paymentCtrl from '../controllers/student/student_payment_controller.
 import * as enrollCtrl from '../controllers/student/student_enrollment_controller.ts'
 import * as connectionCtrl from '../controllers/student/student_connection_controller.ts'
 import * as oauthCtrl from '../controllers/oauth_controller.ts'
-import * as courseCtrl from '../controllers/course_controller.ts'
 import { isStudentAuthenticated, isStudentBlocked } from '../middlewares/auth_middleware.ts'
 import {studentUpload} from '../config/multer.ts'
 

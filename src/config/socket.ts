@@ -49,6 +49,7 @@ export const configSocket = (server: http.Server) => {
                 console.log('res printing',res)
                 addChat(userSocket.user_id, data.receiver, data.message)
                     .then((response) => {
+                        console.log('added chat')
                         userSocket.broadcast.to(res.id).emit('reply', response)
                     }).catch(e => {
                         console.log(e)
