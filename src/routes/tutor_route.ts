@@ -11,12 +11,13 @@ import * as adminCourseCtrl from '../controllers/admin/admin_course_controller.t
 import { isTutorAuthenticated, isTutorBlocked } from '../middlewares/auth_middleware.ts'
 import { coverUpload, tutorUpload } from '../config/multer.ts'
 import multer from 'multer'
+import { authValidator } from '../middlewares/auth_validator_middleware.ts'
 
 const upload = multer()
 
 export const tutorRouter = express.Router()
 
-tutorRouter.post('/login', tutorCtrl.login)
+tutorRouter.post('/login',authValidator,tutorCtrl.login)
 tutorRouter.post('/register', tutorCtrl.register)
 
 tutorRouter.use(isTutorAuthenticated, isTutorBlocked)

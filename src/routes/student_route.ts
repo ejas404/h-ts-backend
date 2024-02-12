@@ -10,12 +10,13 @@ import * as connectionCtrl from '../controllers/student/student_connection_contr
 import * as oauthCtrl from '../controllers/oauth_controller.ts'
 import { isStudentAuthenticated, isStudentBlocked } from '../middlewares/auth_middleware.ts'
 import {studentUpload} from '../config/multer.ts'
+import { authValidator } from '../middlewares/auth_validator_middleware.ts'
 
 
 export const studentRouter = express.Router()
 
 studentRouter.post('/register', studentCtrl.register)
-studentRouter.post('/login', studentCtrl.login)
+studentRouter.post('/login',authValidator, studentCtrl.login)
 studentRouter.get('/oauth',oauthCtrl.googleAuthenticate)
 
 // studentRouter.get('/otp/:email',studentCtrl.getOtp)

@@ -15,19 +15,12 @@ import { isCourseExist } from "../../utility/course_check.ts"
 
 export const addCourse = asyncHandler(async (req: any, res: Response) => {
 
-    console.log('add course called')
-
     const file = req.file
     const { title, fee, tutor, description, category, subCategory } = JSON.parse(req.body.details)
 
-    console.log(title, fee, tutor)
-
-    if (!file) throw new Error('Req file is undefined')
-
-    if (!file.path) {
-        throw new Error('multer error')
-    }
-
+    if (!file) throw new Error('Req file is undefined');
+    if (!file.path) throw new Error('multer error');
+    
     const courseFee = Number(fee)
     const isTutor = await tutorCollection.findById(tutor)
     if (!isTutor) throw new Error('invalid tutor id')
@@ -56,10 +49,9 @@ export const addCourse = asyncHandler(async (req: any, res: Response) => {
 
     const isExists = await isCourseExist(newCourseObj)
     if (isExists) throw new Error('course already exist with these details')
-    const newCourse = await courseCollection.create(newCourseObj)
+    const addedCourse = await courseCollection.create(newCourseObj)
 
-    console.log('course created', newCourse)
-
+    const newCourse = await courseCollection.findById(addedCourse._id).populate('tutor')
     res.json({ newCourse })
 })
 

@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
 import { StudentModelType, StudentType } from 'types/student_type'
+import { UserModelExists } from 'types/mongoose_type'
 
 const Schema = mongoose.Schema
 
@@ -34,6 +35,16 @@ studentSchema.pre('save', async function (next){
     this.password = await bcrypt.hash(this.password, salt);
 })
 
-const studentCollection = mongoose.model('student',studentSchema)
+studentSchema.statics = {
+    isExists(email){
+        return this.findOne({email})
+                    .then((res: StudentModelType) =>{
+                        if(!res) throw({name : 'error.nouser',errMsg : 'ivalid email'});
+                        return res;
+                    })
+    }
+}
+
+const studentCollection : UserModelExists<StudentModelType> = mongoose.model('student',studentSchema) as UserModelExists<StudentModelType>
 
 export default studentCollection

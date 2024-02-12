@@ -3,24 +3,14 @@ import { Request, Response } from "express";
 import { generateToken } from "../../utility/token.ts"
 import studentCollection from "../../models/student_model.ts";
 import { isString } from "../../type_check/string.ts";
+import { StudentModelType } from "../../types/student_type.ts";
 
 
 
 export const login = asyncHandler(async (req : Request, res : Response) => {
-    const { email, password } = req.body;
+    const { email } = req.body;
 
-    const user = await studentCollection.findOne({ email });
-    
-    if (!user || !(await user.checkPassword(password))) {
-        res.status(401);
-        throw new Error("Invalid email or password.");
-    }
-
-    if (user.isBlocked) {
-        res.status(401)
-        throw new Error('entry resticted connect support')
-    }
-
+    const user = await studentCollection.findOne({ email }) as StudentModelType
 
     let token = generateToken(res, user._id,'Student');
     let userDetails = {

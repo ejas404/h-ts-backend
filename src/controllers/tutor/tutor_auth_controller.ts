@@ -4,15 +4,16 @@ import tutorCollection from "../../models/tutor_model.ts";
 import { AuthCredentials, SignUpDetails } from "types/auth_type.ts";
 import { isString } from "../../type_check/string.ts";
 import { Request, Response } from "express";
+import { TutorModelType } from "../../types/tutor_type.ts";
 
 
 
 
 export const login = asyncHandler(async (req : Request, res : Response) => {
-    const { email, password } : AuthCredentials = req.body;
+    const { email } : AuthCredentials = req.body;
 
-    const user = await tutorCollection.findOne({ email });
-    if (user && (await user.checkPassword(password))) {
+    const user = await tutorCollection.findOne({ email }) as TutorModelType;
+   
         let token = generateToken(res, user._id,'Tutor');
         let userDetails = {
             _id: user._id,
@@ -24,10 +25,6 @@ export const login = asyncHandler(async (req : Request, res : Response) => {
             user: userDetails,
             token: token
         })
-    } else {
-        res.status(401);
-        throw new Error("Invalid email or password.");
-    }
 
 })
 
@@ -46,11 +43,7 @@ export const register = asyncHandler(async (req : Request, res : Response) => {
     }
 
     const user = await tutorCollection.create({ name, email, password });
-    if (!user) {
-        res.status(400);
-        throw new Error("Invalid user data.");
-    }
-    generateToken(res, user._id,'Tutor');
+    
     res.status(201).json({
         _id: user._id,
         name: user.name,

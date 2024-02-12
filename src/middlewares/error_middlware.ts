@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from "express";
 export const errMiddleware = (err : any, req : Request, res : Response, next : NextFunction)=>{
 
     console.log('err middle ware caught')
-    console.log(err)
+    console.log(err.name)
   
       let statusCode = res.statusCode === 200 ? 500 : res.statusCode;
       let message = err.message;
@@ -12,6 +12,11 @@ export const errMiddleware = (err : any, req : Request, res : Response, next : N
       if (err.name === 'CastError' && err.kind === 'ObjectId') {
         statusCode = 404;
         message = 'Resource not found';
+      }
+
+      if(err.name === 'error.nouser'){
+        statusCode = 404;
+        message = 'incorrect email or password';
       }
     
       res.status(statusCode).json({

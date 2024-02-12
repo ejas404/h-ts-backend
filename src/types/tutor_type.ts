@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { mongoId } from "./mongoose_type";
 
 export interface TutorType extends mongoose.Document{
     name: string;
@@ -17,12 +18,12 @@ export interface TutorType extends mongoose.Document{
 }
 
 export interface TutorModelType extends TutorType{
-    _id : mongoose.Types.ObjectId
-    checkPassword : (pwd : string) => boolean
+    _id : mongoId;
+    checkPassword : (pwd : string) => boolean;
 }
 
 export interface TutorDeleteRes extends mongoose.Document{
-    _id : mongoose.Types.ObjectId | string;
+    _id : mongoId | string;
     name: string;
     email: string;
 }

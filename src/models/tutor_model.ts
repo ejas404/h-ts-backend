@@ -1,6 +1,7 @@
-import mongoose from 'mongoose'
+import mongoose, { Model } from 'mongoose'
 import bcrypt from 'bcrypt'
-import { TutorModelType} from 'types/tutor_type'
+import { TutorModelType} from '../types/tutor_type'
+import { UserModelExists } from '../types/mongoose_type'
 
 const Schema = mongoose.Schema
 
@@ -31,6 +32,15 @@ const tutorSchema = new Schema <TutorModelType>({
 
 //user schema
 
+tutorSchema.statics = {
+    isExists(email){
+        return this.findOne({email})
+                .then((res : TutorModelType)=>{
+                    if(!res) throw({name : 'error.nouser',errMsg : 'ivalid email'});
+                    return res;
+                })
+    }
+}
 
 tutorSchema.methods.checkPassword = async function (pwd : string){
     return await bcrypt.compare(pwd,this.password)
@@ -46,6 +56,6 @@ tutorSchema.pre('save', async function (next){
     this.password = await bcrypt.hash(this.password, salt);
 })
 
-const tutorCollection = mongoose.model('tutor',tutorSchema)
+const tutorCollection : UserModelExists<TutorModelType> = mongoose.model('tutor',tutorSchema) as UserModelExists<TutorModelType>
 
 export default tutorCollection

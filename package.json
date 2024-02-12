@@ -21,7 +21,8 @@
     "slugify": "^1.6.6",
     "socket.io": "^4.7.4",
     "undici": "^6.5.0",
-    "uuid": "^9.0.1"
+    "uuid": "^9.0.1",
+    "zod": "^3.22.4"
   },
   "name": "project_h_backend",
   "version": "1.0.0",
