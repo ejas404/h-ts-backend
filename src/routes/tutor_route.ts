@@ -12,13 +12,14 @@ import { isTutorAuthenticated, isTutorBlocked } from '../middlewares/auth_middle
 import { coverUpload, tutorUpload } from '../config/multer.ts'
 import multer from 'multer'
 import { authValidator } from '../middlewares/auth_validator_middleware.ts'
+import { registerValidator } from '../middlewares/register_validator_middleware.ts'
 
 const upload = multer()
 
 export const tutorRouter = express.Router()
 
 tutorRouter.post('/login',authValidator,tutorCtrl.login)
-tutorRouter.post('/register', tutorCtrl.register)
+tutorRouter.post('/register',registerValidator,tutorCtrl.register)
 
 tutorRouter.use(isTutorAuthenticated, isTutorBlocked)
 tutorRouter.get('/profile', tutorProfCtrl.getProfile)

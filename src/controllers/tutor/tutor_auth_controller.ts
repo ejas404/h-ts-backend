@@ -2,7 +2,6 @@ import asyncHandler from "express-async-handler"
 import { generateToken } from "../../utility/token.ts"
 import tutorCollection from "../../models/tutor_model.ts";
 import { AuthCredentials, SignUpDetails } from "types/auth_type.ts";
-import { isString } from "../../type_check/string.ts";
 import { Request, Response } from "express";
 import { TutorModelType } from "../../types/tutor_type.ts";
 
@@ -30,20 +29,10 @@ export const login = asyncHandler(async (req : Request, res : Response) => {
 
 
 export const register = asyncHandler(async (req : Request, res : Response) => {
-    const { name, email, password } : SignUpDetails = req.body;
-
-    if(!isString(name)) throw new Error('name is invalid')
-    if(!isString(email)) throw new Error('email is invalid')
-    if(!isString(password)) throw new Error('password is invalid')
-
-    const userExists = await tutorCollection.findOne({ email });
-    if (userExists) {
-        res.status(400);
-        throw new Error("User already exists.");
-    }
-
-    const user = await tutorCollection.create({ name, email, password });
     
+    const { name, email, password } : SignUpDetails = req.body;
+    const user = await tutorCollection.create({ name, email, password });
+
     res.status(201).json({
         _id: user._id,
         name: user.name,

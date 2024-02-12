@@ -11,11 +11,12 @@ import * as oauthCtrl from '../controllers/oauth_controller.ts'
 import { isStudentAuthenticated, isStudentBlocked } from '../middlewares/auth_middleware.ts'
 import {studentUpload} from '../config/multer.ts'
 import { authValidator } from '../middlewares/auth_validator_middleware.ts'
+import { registerValidator } from '../middlewares/register_validator_middleware.ts'
 
 
 export const studentRouter = express.Router()
 
-studentRouter.post('/register', studentCtrl.register)
+studentRouter.post('/register',registerValidator, studentCtrl.register)
 studentRouter.post('/login',authValidator, studentCtrl.login)
 studentRouter.get('/oauth',oauthCtrl.googleAuthenticate)
 
