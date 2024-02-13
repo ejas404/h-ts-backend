@@ -1,8 +1,11 @@
 import asyncHandler from 'express-async-handler'
 import crypto from 'crypto'
+import mongoose from 'mongoose'
 import axios from 'axios'
 import { BASE_URL } from '../../utility/constants'
 import { checkEnId, updateEnroll } from '../../utility/enroll_check_helper'
+import orderCollection from '../../models/order_model'
+import cartCollection from '../../models/user_cart_model'
 
 export const payment = asyncHandler(async (req: any, res) => {
     const { amount, enrollId } = req.query
@@ -53,12 +56,30 @@ export const payment = asyncHandler(async (req: any, res) => {
 })
 
 export const paymentStatus = asyncHandler(async (req: any, res) => {
+
+    const user_id = new mongoose.Types.ObjectId(req.user._id)
+
     const enid = req.params.id
     const isEnid = await checkEnId(enid)
     if (!isEnid) throw new Error('invalid enid')
 
     const update = await updateEnroll(enid)
     if(!update)throw new Error('some error occured')
+
+    const updateOrder = await orderCollection.findOne({enid})
+    if(!updateOrder) throw new Error('some error occured');
+
+    
+    if(updateOrder.orderFrom === 'cart'){
+        const userCart = await cartCollection.findOne({user : user_id})
+        if(!userCart) throw new Error('cart not found');
+
+        userCart.course = []
+        await userCart.save()
+    }
+
+    updateOrder.isPaid = true
+    await updateOrder.save()
 
     res.json({success : update })
 

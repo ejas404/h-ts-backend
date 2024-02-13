@@ -4,6 +4,7 @@ import mongoose from "mongoose"
 import enrollCollection from "../../models/course_enroll_model"
 import studentCollection from "../../models/student_model"
 import chatsCollection from "../../models/chat_model"
+import orderCollection from "../../models/order_model"
 
 export const getTutorConnections =  asyncHandler(async(req : any  ,res )=>{
     const tutor_id = new mongoose.Types.ObjectId(req.tutor._id)
@@ -11,11 +12,13 @@ export const getTutorConnections =  asyncHandler(async(req : any  ,res )=>{
     const courseList = courseDetails.map(each => each._id)
 
     const getEnrolls = await enrollCollection.find({course : {$in : courseList }})
-    const enrolledUser = getEnrolls.map(each => each.user)
-    const connList = await studentCollection.find({_id : {$in : enrolledUser}},{name : 1,profile : 1})
+    const enidList = getEnrolls.map(each => each.enid)
+
+    const userList = await orderCollection.find({enid : {$in : enidList}}).distinct('user')
+
+    const connList = await studentCollection.find({_id : {$in : userList}},{name : 1,profile : 1})
 
     res.json({connections : connList})
-   
 })
 
 export const getMessages = asyncHandler(async (req: any, res) => {

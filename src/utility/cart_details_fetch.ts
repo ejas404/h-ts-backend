@@ -64,8 +64,6 @@ export const fetchCartDetails = async (id: mongoose.Types.ObjectId): Promise<any
             }
         ])
 
-        if (!cartDetails) return null;
-
         return cartDetails
     } catch (e) {
         console.log(e)

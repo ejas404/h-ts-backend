@@ -20,13 +20,13 @@ export const enrollCartItems = async (user_id : mongoId, amount : number) => {
 
                 const obj : enrollmentType = {
                     enid : enId,
-                    user : user_id,
                     course : each.course_id,
-                    time : Date.now()
                 }
 
                 if(amount === 0){
                     obj.isEnrolled = true
+                    userCart.course = []
+                    await userCart.save()
                 }
                 await enrollCollection.create(obj)
             })
@@ -44,7 +44,7 @@ export const enrollCartItems = async (user_id : mongoId, amount : number) => {
 }
 
 
-export const enrollSingleCourse = async (user_id : mongoId,course_id : mongoId ,amount : number)=>{
+export const enrollSingleCourse = async (course_id : mongoId ,amount : number)=>{
     const session = await mongoose.startSession()
     try{
 
@@ -54,9 +54,7 @@ export const enrollSingleCourse = async (user_id : mongoId,course_id : mongoId ,
             
             const obj : enrollmentType = {
                 enid : enId,
-                user : user_id,
                 course : course_id,
-                time : Date.now()
             }
 
             if(amount === 0){

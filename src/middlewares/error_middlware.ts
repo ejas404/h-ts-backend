@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from "express";
 export const errMiddleware = (err : any, req : Request, res : Response, next : NextFunction)=>{
 
     console.log('err middle ware caught')
-    console.log(err.name)
+    console.log(err)
   
       let statusCode = res.statusCode === 200 ? 500 : res.statusCode;
       let message = err.message;

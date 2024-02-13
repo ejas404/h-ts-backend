@@ -1,10 +1,14 @@
+import orderCollection from "../models/order_model";
 import enrollCollection from "../models/course_enroll_model";
 import { mongoId } from "../types/mongoose_type";
 
 export const fetechEnrollCategory = async (user : mongoId) =>{
+    const order = await orderCollection.find({user})
+    const enidList = order.map(each => each.enid)
+
     const categoryObjList = await enrollCollection.aggregate([
         {
-          $match: { user }
+          $match: { enid : {$in : enidList} }
         },
         {
           $lookup: {
