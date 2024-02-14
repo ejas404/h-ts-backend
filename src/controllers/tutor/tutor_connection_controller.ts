@@ -13,9 +13,7 @@ export const getTutorConnections =  asyncHandler(async(req : any  ,res )=>{
 
     const getEnrolls = await enrollCollection.find({course : {$in : courseList }})
     const enidList = getEnrolls.map(each => each.enid)
-
     const userList = await orderCollection.find({enid : {$in : enidList}}).distinct('user')
-
     const connList = await studentCollection.find({_id : {$in : userList}},{name : 1,profile : 1})
 
     res.json({connections : connList})

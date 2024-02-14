@@ -2,6 +2,7 @@ import asyncHandler from "express-async-handler"
 import { Request, Response } from "express";
 import { getPopularCourses } from "../../utility/admin_dashboard_helper";
 import subCategoryCollection from "../../models/course_sub_category";
+import orderCollection from "../../models/order_model";
 
 export const getPopular = asyncHandler(async (req : Request , res : Response)=>{
    const popularCourses = await getPopularCourses()
@@ -28,7 +29,11 @@ export const getChart = asyncHandler(async (req : Request , res : Response)=>{
     }
 
     const pieChart = {catName,catCount}
-    res.json({pieChart})
+
+    const orders = await orderCollection.find({isPaid : true},{amountPayable : 1,createdAt : 1})
+    console.log(orders)
+    console.log('orders printed')
+    res.json({pieChart,orders})
  })
  
  

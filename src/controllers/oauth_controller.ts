@@ -25,7 +25,6 @@ export const googleAuthenticate = asyncHandler(async (req : any, res: any) : Pro
             { method: "POST", headers: { "Accept": "application/json" }}
         );
         const data: any = await res.json();
-        console.log(data);
         accessToken = data.access_token;
         idToken = data.id_token;
     } catch (err: any) {

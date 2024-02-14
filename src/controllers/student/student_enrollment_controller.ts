@@ -29,9 +29,8 @@ export const isCourseEnrolled = asyncHandler(async(req : any,res)=>{
     const user = req.user._id
 
     const check = await isCourseEnrolledHelper(course,user)
-    if(!check) throw new Error('no enrollment found');
 
-    res.json({ success : check })
+    res.json({ success : !!check })
 })
 
 export const addProgress = asyncHandler(async(req : any,res)=>{
@@ -62,8 +61,9 @@ export const getProgress = asyncHandler(async(req : any,res)=>{
     const enidList = order.map(each => each.enid)
     
     const check = await enrollCollection.findOne({enid : {$in : enidList},course, isEnrolled : true })
-    if(!check) throw new Error('no enrollment found')
-    res.json({progress : check.progress})
+    if(check){
+        res.json({progress : check.progress})
+    }
 
 })
 

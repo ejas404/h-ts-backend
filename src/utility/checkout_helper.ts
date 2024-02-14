@@ -1,7 +1,6 @@
 import enrollCollection from "../models/course_enroll_model";
 import cartCollection from "../models/user_cart_model";
 import mongoose from "mongoose";
-import { CartItem } from "../types/cart_type";
 import { enrollmentType } from "../types/course_enroll_type";
 import { mongoId } from "../types/mongoose_type";
 import { v4 as uuidv4 } from 'uuid';
@@ -16,11 +15,11 @@ export const enrollCartItems = async (user_id : mongoId, amount : number) => {
         const enId = uuidv4();
 
         await session.withTransaction( async () : Promise<any> => {   
-            userCart.course.forEach( async (each : CartItem) => {
+            userCart.course.forEach( async (each : mongoId) => {
 
                 const obj : enrollmentType = {
                     enid : enId,
-                    course : each.course_id,
+                    course : each,
                 }
 
                 if(amount === 0){

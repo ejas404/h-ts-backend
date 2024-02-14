@@ -1,16 +1,16 @@
 import mongoose from "mongoose";
 import { CourseResponseType } from "./course_type";
+import { mongoId } from "./mongoose_type";
 
-export interface CartItem {
-    course_id: mongoose.Types.ObjectId;
-}
+
 
 export interface CartModel extends mongoose.Document {
     user : mongoose.Types.ObjectId | undefined
-    course: CartItem[];
+    course: mongoId[];
 }
 
-export interface CartCourseType extends CartItem{
+export interface CartCourseType{
+    course_id : string
     details : CourseResponseType[]
 }
 

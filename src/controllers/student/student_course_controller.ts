@@ -3,11 +3,12 @@ import mongoose from "mongoose";
 import { Response, Request } from "express";
 import cartCollection from "../../models/user_cart_model.ts";
 import courseCollection from "../../models/course_model.ts";
-import { CartItem, CartItemListType } from "../../types/cart_type.ts";
 import { fetchCartDetails, fetchCartItemList, fetchCartTotal } from "../../utility/cart_details_fetch.ts";
 import { fetechEnrollCategory } from "../../utility/fetch_enroll_list_category.ts";
 import { isCourseEnrolledHelper } from "../../utility/enroll_check_helper.ts";
 import { JWTStudentReq } from "../../types/express_req_res.ts";
+import { mongoId } from "../../types/mongoose_type.ts";
+import { CartItemListType } from "../../types/cart_type.ts";
 
 export const addToCart = asyncHandler(async (request: Request, res: Response) => {
 
@@ -25,20 +26,19 @@ export const addToCart = asyncHandler(async (request: Request, res: Response) =>
     if (check) throw new Error('course already enrolled');
 
     if (cart) {
-        const courseList: CartItem[] = cart.course
+        const courseList: mongoId[] = cart.course
         courseList.forEach(each => {
-            if (each.course_id.equals(id)) throw new Error('course have already added in the cart');
+            if (each.equals(id)) throw new Error('course have already added in the cart');
         })
-        const newCourse: CartItem = { course_id: isCourseExist._id };
-
-        cart.course = [...courseList, newCourse]
+       
+        cart.course = [...courseList,isCourseExist._id]
         await cart.save()
     }
     // else there is no cart new cart will be created
     else {
         const newCartItem = await cartCollection.create({
             user: user_id,
-            course: [{ course_id: id }]
+            course: [isCourseExist._id]
         })
     }
 
@@ -59,11 +59,9 @@ export const removeFromCart = asyncHandler(async (req: any, res) => {
     const cart = await cartCollection.findOne({ user: user_id })
     if (!cart) throw new Error('no cart exist for the user')
 
-    const courseList: CartItem[] = cart.course.slice()
+    const courseList: mongoId[] = cart.course.slice()
     const filteredCourse = courseList.filter(each => {
-        if (!each.course_id.equals(id)) {
-            return each
-        }
+        if (!each.equals(id)) { return each } ;
     })
     cart.course = filteredCourse
     await cart.save()

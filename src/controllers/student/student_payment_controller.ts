@@ -6,6 +6,8 @@ import { BASE_URL } from '../../utility/constants'
 import { checkEnId, updateEnroll } from '../../utility/enroll_check_helper'
 import orderCollection from '../../models/order_model'
 import cartCollection from '../../models/user_cart_model'
+import enrollCollection from '../../models/course_enroll_model'
+import { mongoId } from '../../types/mongoose_type'
 
 export const payment = asyncHandler(async (req: any, res) => {
     const { amount, enrollId } = req.query
@@ -76,6 +78,18 @@ export const paymentStatus = asyncHandler(async (req: any, res) => {
 
         userCart.course = []
         await userCart.save()
+    }
+
+    if(updateOrder.orderFrom === 'single'){
+        const enroll = await enrollCollection.findOne({enid})
+        if(!enroll)throw new Error('enroll not found');
+        const course_id = enroll.course
+
+        const userCart = await cartCollection.findOne({user : user_id})
+        if(userCart){
+            userCart.course = userCart.course.filter(each => !each.equals(course_id as mongoId))
+            await userCart.save()
+        }
     }
 
     updateOrder.isPaid = true
