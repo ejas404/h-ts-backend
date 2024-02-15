@@ -29,10 +29,7 @@ export const getChart = asyncHandler(async (req : Request , res : Response)=>{
     }
 
     const pieChart = {catName,catCount}
-
     const orders = await orderCollection.find({isPaid : true},{amountPayable : 1,createdAt : 1})
-    console.log(orders)
-    console.log('orders printed')
     res.json({pieChart,orders})
  })
  
