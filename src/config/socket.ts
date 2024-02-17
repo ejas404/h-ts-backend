@@ -45,6 +45,7 @@ export const configSocket = (server: http.Server) => {
 
         userSocket.on('msg', data => {
             const res = users.filter(each => each.user_id === data.receiver)[0]
+            // todo: res = users.find(each => each.user_id === data.receiver)
             if (res) {
                 console.log('res printing',res)
                 addChat(userSocket.user_id, data.receiver, data.message)
