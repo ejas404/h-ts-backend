@@ -2,7 +2,6 @@ import asyncHandler from 'express-async-handler'
 import crypto from 'crypto'
 import mongoose from 'mongoose'
 import axios from 'axios'
-import { BASE_URL } from '../../utility/constants'
 import { checkEnId, updateEnroll } from '../../utility/enroll_check_helper'
 import orderCollection from '../../models/order_model'
 import cartCollection from '../../models/user_cart_model'
@@ -10,6 +9,9 @@ import enrollCollection from '../../models/course_enroll_model'
 import { mongoId } from '../../types/mongoose_type'
 
 export const payment = asyncHandler(async (req: any, res) => {
+
+    console.log('payment called')
+
     const { amount, enrollId } = req.query
     const userData = req.user
 
@@ -20,7 +22,7 @@ export const payment = asyncHandler(async (req: any, res) => {
         merchantUserId: userData._id,
         name: userData.name,
         amount: amount * 100,
-        redirectUrl: `${BASE_URL}?mtid=${merchantTransactionId}`,
+        redirectUrl: `${process.env.BASE_URL}?mtid=${merchantTransactionId}`,
         redirectMode: 'POST',
         mobileNumber: '8129984474',
         paymentInstrument: {

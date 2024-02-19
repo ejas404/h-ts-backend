@@ -14,7 +14,7 @@ export const googleAuthenticate = asyncHandler(async (req : any, res: any) : Pro
     query.append('code', code);
     query.append('client_id', process.env.GOOGLE_OAUTH_CLIENT_ID as string);
     query.append('client_secret', process.env.GOOGLE_OAUTH_CLIENT_SECRET as string);
-    query.append('redirect_uri', `${process.env.FRONTEND_URL as string}/oauth`)
+    query.append('redirect_uri', `${process.env.BASE_URL as string}/oauth`)
     query.append('grant_type', 'authorization_code')
     
     let accessToken = null;

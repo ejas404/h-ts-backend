@@ -76,6 +76,6 @@ export const checkOut = asyncHandler(async (request: Request, res: Response) => 
     }
 
     // if the course is paid will redirect to payment page
-    res.redirect(`/student/payment?amount=${amount}&enrollId=${enid}`)
+    res.redirect(`/api/student/payment?amount=${amount}&enrollId=${enid}`)
 
 })

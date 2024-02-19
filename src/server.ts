@@ -2,6 +2,7 @@ import express from 'express'
 import 'dotenv/config'
 import http from "http";
 import cors from 'cors'
+import path from 'path';
 import dbConnect from './config/db.ts'
 import cookieParser from 'cookie-parser'
 
@@ -20,17 +21,31 @@ const PORT = process.env.PORT
 const server = http.createServer(app);
 configSocket(server)
 
+let __dir= path.resolve();
+
+// console.log('directory',path.resolve(__dir,'../'))
+
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
+app.use(express.static(path.join(__dir,'../frontendAng/dist/frontend-ang/browser')))
 app.use(express.static('src/public'))
 app.use(cors({origin : '*', credentials : true}))
 
+// middle for redirecting frontend requests
+app.use((req,res,next) => {
+    if(!req.url.includes('api')){
+        res.sendFile(path.join(__dir, '../frontendAng/dist/frontend-ang/browser', 'index.html'));
+        return;
+    }else{
+        next()
+    }
+})
 
-app.use('/admin', adminRouter)
-app.use('/student',studentRouter)
-app.use('/tutor', tutorRouter)
-app.use('/course', courseRouter)
+app.use('/api/admin', adminRouter)
+app.use('/api/student',studentRouter)
+app.use('/api/tutor', tutorRouter)
+app.use('/api/course', courseRouter)
 
 app.use(errMiddleware)
 
