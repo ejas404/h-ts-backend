@@ -26,7 +26,7 @@ admin.initializeApp({
 });
 
 const app = express()
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 4440;
 
 const server = http.createServer(app);
 configSocket(server)
