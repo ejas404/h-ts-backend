@@ -1,6 +1,6 @@
 import express from 'express'
-import * as videoCtrl from '../controllers/video_controller.ts'
-import * as courseCtrl from '../controllers/course_controller.ts'
+import * as videoCtrl from '../controllers/video_controller'
+import * as courseCtrl from '../controllers/course_controller'
 
 
 export const courseRouter = express.Router()

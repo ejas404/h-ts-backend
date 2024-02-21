@@ -1,9 +1,9 @@
 import asyncHandler from "express-async-handler"
-import courseCollection from "../../models/course_model.ts"
-import { isNumber } from "../../type_check/number.ts"
-import { isString } from "../../type_check/string.ts"
+import courseCollection from "../../models/course_model"
+import { isNumber } from "../../type_check/number"
+import { isString } from "../../type_check/string"
 import { Request, Response } from "express"
-import { JWTTutorReq } from "types/express_req_res.ts"
+import { JWTTutorReq } from "../../types/express_req_res"
 import mongoose from "mongoose"
 
 

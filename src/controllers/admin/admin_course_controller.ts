@@ -1,15 +1,15 @@
 import asyncHandler from "express-async-handler"
 import { Request, Response } from "express"
-import courseCollection from "../../models/course_model.ts"
-import tutorCollection from "../../models/tutor_model.ts"
+import courseCollection from "../../models/course_model"
+import tutorCollection from "../../models/tutor_model"
 import * as fs from 'fs'
-import { CourseResponseType } from "../../types/course_type.ts"
-import { isString } from "../../type_check/string.ts"
-import { isNumber } from "../../type_check/number.ts"
-import courseCategoryCollection from "../../models/course_category.ts"
-import subCategoryCollection from "../../models/course_sub_category.ts"
-import upcomingCourseCollection from "../../models/upcoming_course_model.ts"
-import { isCourseExist } from "../../utility/course_check.ts"
+import { CourseResponseType } from "../../types/course_type"
+import { isString } from "../../type_check/string"
+import { isNumber } from "../../type_check/number"
+import courseCategoryCollection from "../../models/course_category"
+import subCategoryCollection from "../../models/course_sub_category"
+import upcomingCourseCollection from "../../models/upcoming_course_model"
+import { isCourseExist } from "../../utility/course_check"
 
 
 

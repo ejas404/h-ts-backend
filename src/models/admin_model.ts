@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
-import { AdminModelType } from 'types/admin_type'
+import { AdminModelType } from '../types/admin_type'
 
 const Schema = mongoose.Schema
 

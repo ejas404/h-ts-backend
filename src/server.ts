@@ -1,19 +1,29 @@
-import express from 'express'
+import express, { Request, Response } from 'express'
 import 'dotenv/config'
 import http from "http";
 import cors from 'cors'
 import path from 'path';
-import dbConnect from './config/db.ts'
+import dbConnect from './config/db'
 import cookieParser from 'cookie-parser'
+import admin from 'firebase-admin';
 
 
-import  {adminRouter} from './routes/admin_route.ts'
-import { errMiddleware } from './middlewares/error_middlware.ts'
-import { studentRouter } from './routes/student_route.ts'
-import { tutorRouter } from './routes/tutor_route.ts'
-import { courseRouter } from './routes/course_route.ts'
-import { configSocket } from './config/socket.ts';
+import  {adminRouter} from './routes/admin_route'
+import { errMiddleware } from './middlewares/error_middlware'
+import { studentRouter } from './routes/student_route'
+import { tutorRouter } from './routes/tutor_route'
+import { courseRouter } from './routes/course_route'
+import { configSocket } from './config/socket';
+import { compilePath } from './config/frontend_compile_path';
 
+admin.initializeApp({
+    credential: admin.credential.cert({
+        projectId: process.env.FB_PROJECT_ID as string,
+        clientEmail: process.env.FB_CLIENT_EMAIL as string,
+        privateKey: (process.env.FB_PRIVATE_KEY as string)?.replace(/\\n/g, '\n'),
+    }),
+    databaseURL: process.env.FB_DATABASE_URL as string
+});
 
 const app = express()
 const PORT = process.env.PORT
@@ -21,21 +31,21 @@ const PORT = process.env.PORT
 const server = http.createServer(app);
 configSocket(server)
 
-let __dir= path.resolve();
+const __dir= path.resolve();
 
-// console.log('directory',path.resolve(__dir,'../'))
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
-app.use(express.static(path.join(__dir,'../frontendAng/dist/frontend-ang/browser')))
+
+app.use(express.static(path.join(__dir,compilePath)))
 app.use(express.static('src/public'))
 app.use(cors({origin : '*', credentials : true}))
 
 // middle for redirecting frontend requests
 app.use((req,res,next) => {
     if(!req.url.includes('api')){
-        res.sendFile(path.join(__dir, '../frontendAng/dist/frontend-ang/browser', 'index.html'));
+        res.sendFile(path.join(__dir, compilePath, 'index.html'));
         return;
     }else{
         next()
@@ -46,6 +56,8 @@ app.use('/api/admin', adminRouter)
 app.use('/api/student',studentRouter)
 app.use('/api/tutor', tutorRouter)
 app.use('/api/course', courseRouter)
+
+app.get('*', (_req: Request, res: Response) => res.sendStatus(404));
 
 app.use(errMiddleware)
 

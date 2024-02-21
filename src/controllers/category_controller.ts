@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import asyncHandler from "express-async-handler"
-import { isString } from "../type_check/string.ts";
-import courseCategoryCollection from "../models/course_category.ts";
-import subCategoryCollection from "../models/course_sub_category.ts";
+import { isString } from "../type_check/string";
+import courseCategoryCollection from "../models/course_category";
+import subCategoryCollection from "../models/course_sub_category";
 
 export const getCategories = asyncHandler(async (req : Request , res : Response)=>{
     const categories = await courseCategoryCollection.find({})

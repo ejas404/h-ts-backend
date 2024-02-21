@@ -1,15 +1,15 @@
 import asyncHandler from "express-async-handler"
 import jwt, { JwtPayload, Secret } from 'jsonwebtoken'
-import AdminCollection from "../models/admin_model.ts"
-import { JWTDecoded, JWTAdminHeadersRequest, JWTStudentHeadersRequest, JWTTutorHeadersRequest } from "../types/auth_type.ts";
+import AdminCollection from "../models/admin_model"
+import { JWTDecoded, JWTAdminHeadersRequest, JWTStudentHeadersRequest, JWTTutorHeadersRequest } from "../types/auth_type";
 import { NextFunction } from "express";
-import { AdminReqData } from "../types/admin_type.ts";
+import { AdminReqData } from "../types/admin_type";
 import { Response , Request} from "express";
-import studentCollection from "../models/student_model.ts";
-import tutorCollection from "../models/tutor_model.ts";
-import { StudentModelType } from "types/student_type.ts";
-import { TutorModelType } from "types/tutor_type.ts";
-import { JWTStudentReq, JWTTutorReq } from "types/express_req_res.ts";
+import studentCollection from "../models/student_model";
+import tutorCollection from "../models/tutor_model";
+import { StudentModelType } from "../types/student_type";
+import { TutorModelType } from "../types/tutor_type";
+import { JWTStudentReq, JWTTutorReq } from "../types/express_req_res";
 
 export const isAuthenticated = asyncHandler(async (req : JWTAdminHeadersRequest, res : Response, next : NextFunction) => {
     let token;

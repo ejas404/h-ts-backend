@@ -1,71 +1,45 @@
-//@ts-nocheck
 
 import http from "http";
-import { BASE_URL } from "../utility/constants";
 import { Server } from 'socket.io';
 import { UserSocketModel } from "../types/socket_type";
 import { addChat } from "../utility/add_chat";
 
-export const configSocket = (server: http.Server) => {
-    const io = new Server(server, {
-        cors: {
-            origin: BASE_URL
-        },
-    });
 
-    let users = [];
+export const  socketUsers = new Map();
+
+export const configSocket = (server: http.Server) => {
+    const io = new Server(server, {cors: { origin: '*'}});
+
+    io.use((socket, next) => {
+
+        const user_id = socket.handshake.query.user_id
+        if (!user_id) { return next(new Error("invalid user id from socket"))}
+
+        (socket as UserSocketModel).user_id = user_id as string
+        socketUsers.set(user_id,socket)    
+        next()
+    })
 
     io.on('connection', (socket) => {
-        const userSocket = socket as UserSocketModel
+
         console.log('user connected')
-        users = users.filter(each => each.user_id !== undefined)
-        console.log(users)
-
-        io.use((socket, next) => {
-            const userSocket = socket as UserSocketModel
-            const user_id = userSocket.handshake.query.user_id
-            if (!user_id) {
-                return next(new Error("invalid username"));
-            }
-
-            socket.user_id = user_id as string
-
-            //check the user is existing and remove him
-            const check = checkUserExist(users, user_id,socket);
-            if(!check){
-                users.push({
-                    id: socket.id,
-                    user_id: socket.user_id,
-                });
-            }
-            
-
-            next()
-        })
-
-        userSocket.on('msg', data => {
-            const res = users.filter(each => each.user_id === data.receiver)[0]
-            // todo: res = users.find(each => each.user_id === data.receiver)
+      
+        socket.on('msg', data => {
+            const res = socketUsers.get(data.receiver)
             if (res) {
-                console.log('res printing',res)
-                addChat(userSocket.user_id, data.receiver, data.message)
+                addChat((socket as UserSocketModel).user_id, data.receiver, data.message)
                     .then((response) => {
-                        console.log('added chat')
-                        userSocket.broadcast.to(res.id).emit('reply', response)
+                        socket.broadcast.to(res.id).emit('reply', response)
                     }).catch(e => {
                         console.log(e)
                     })
             }
         })
 
-        userSocket.onAny((event, ...args) => {
-            console.log(event, args);
-        });
 
-
-
-        userSocket.on('disconnect', () => {
+        socket.on('disconnect', () => {
             console.log('a user disconnected!');
+            socketUsers.delete((socket as UserSocketModel).user_id)
         });
 
     })
@@ -73,17 +47,17 @@ export const configSocket = (server: http.Server) => {
 
 }
 
-function checkUserExist(users: { id: string, user_id: string }[], user_id, socket) {
-    for (let each of users) {
-        if(each.user_id === user_id){
-            const temp = each.id;
-            each.id = socket.id;      
-            return temp;
-        } 
+// function checkUserExist(users: { id: string, user_id: string }[], user_id, socket) {
+//     for (let each of users) {
+//         if(each.user_id === user_id){
+//             const temp = each.id;
+//             each.id = socket.id;      
+//             return temp;
+//         } 
         
-    }
-    return false;
-}
+//     }
+//     return false;
+// }
 
 
 

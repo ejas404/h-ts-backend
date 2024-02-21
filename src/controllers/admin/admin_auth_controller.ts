@@ -1,8 +1,9 @@
-import AdminCollection from "../../models/admin_model.ts"
+import AdminCollection from "../../models/admin_model"
 import asyncHandler from "express-async-handler"
-import { generateToken } from "../../utility/token.ts"
-import { AdminResponseType } from "types/admin_type.ts"
-import { AuthCredentials } from "types/auth_type.ts"
+import { generateToken } from "../../utility/token"
+import { AdminResponseType } from "../../types/admin_type"
+import { AuthCredentials } from "../../types/auth_type"
+import { mongoId } from "../../types/mongoose_type"
 
 
 // admin authentication handling functions
@@ -16,7 +17,7 @@ export const postLogin = asyncHandler( async (req,res)=>{
         throw new Error('invalid id or password')
     }
 
-    const token = generateToken(res, admin._id,'Admin')
+    const token = generateToken(res, admin._id as mongoId,'Admin')
 
     const userDetails : AdminResponseType = {name : 'Admin', email: admin.email, role : 'Admin'}
 

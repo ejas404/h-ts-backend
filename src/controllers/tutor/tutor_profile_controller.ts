@@ -1,12 +1,12 @@
 import asyncHandler from "express-async-handler"
-import tutorCollection from "../../models/tutor_model.ts";
+import tutorCollection from "../../models/tutor_model";
 import bcrypt from 'bcrypt'
 import { v4 as uuidv4 } from 'uuid';
 import * as fs from 'fs'
-import { TutorEducationDetails, TutorType } from "../../types/tutor_type.ts";
+import { TutorEducationDetails, TutorType } from "../../types/tutor_type";
 import { Request, Response } from "express";
-import { JWTTutorReq } from "types/express_req_res.ts";
-import { isString } from "../../type_check/string.ts";
+import { JWTTutorReq } from "../../types/express_req_res";
+import { isString } from "../../type_check/string";
 
 
 

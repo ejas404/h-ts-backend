@@ -1,11 +1,11 @@
 
-import courseCollection from "../models/course_model.ts";
+import courseCollection from "../models/course_model";
 import { Request, Response } from "express";
 import asyncHandler from "express-async-handler"
-import upcomingCourseCollection from "../models/upcoming_course_model.ts";
-import enrollCollection from "../models/course_enroll_model.ts";
+import upcomingCourseCollection from "../models/upcoming_course_model";
+import enrollCollection from "../models/course_enroll_model";
 import mongoose from "mongoose";
-import { enrollmentType } from "types/course_enroll_type.ts";
+import { enrollmentType } from "../types/course_enroll_type";
 
 
 export const getCourses = asyncHandler(async (req: Request, res: Response) => {

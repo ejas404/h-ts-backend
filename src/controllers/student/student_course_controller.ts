@@ -1,14 +1,14 @@
 import asyncHandler from "express-async-handler"
 import mongoose from "mongoose";
 import { Response, Request } from "express";
-import cartCollection from "../../models/user_cart_model.ts";
-import courseCollection from "../../models/course_model.ts";
-import { fetchCartDetails, fetchCartItemList, fetchCartTotal } from "../../utility/cart_details_fetch.ts";
-import { fetechEnrollCategory } from "../../utility/fetch_enroll_list_category.ts";
-import { isCourseEnrolledHelper } from "../../utility/enroll_check_helper.ts";
-import { JWTStudentReq } from "../../types/express_req_res.ts";
-import { mongoId } from "../../types/mongoose_type.ts";
-import { CartItemListType } from "../../types/cart_type.ts";
+import cartCollection from "../../models/user_cart_model";
+import courseCollection from "../../models/course_model";
+import { fetchCartDetails, fetchCartItemList, fetchCartTotal } from "../../utility/cart_details_fetch";
+import { fetechEnrollCategory } from "../../utility/fetch_enroll_list_category";
+import { isCourseEnrolledHelper } from "../../utility/enroll_check_helper";
+import { JWTStudentReq } from "../../types/express_req_res";
+import { mongoId } from "../../types/mongoose_type";
+import { CartItemListType } from "../../types/cart_type";
 
 export const addToCart = asyncHandler(async (request: Request, res: Response) => {
 
