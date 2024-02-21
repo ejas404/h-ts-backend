@@ -1,5 +1,5 @@
 {
-  "exclude": [ "./dist"],
+  "exclude": [ "./dist","./frontend"],
   "ts-node": {
     "transpileOnly": true,
     "files": true,
