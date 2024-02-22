@@ -4,15 +4,17 @@ import * as tutorProfCtrl from '../controllers/tutor/tutor_profile_controller.js
 import * as tutorCourseCtrl from '../controllers/tutor/tutor_course_controller.js'
 
 import * as connCtrl from '../controllers/tutor/tutor_connection_controller.js'
+import * as chatCtrl from '../controllers/chat_controller.js'
 import * as categoryCtrl from '../controllers/category_controller.js'
 import * as videoCtrl from '../controllers/video_controller.js'
 import * as adminCourseCtrl from '../controllers/admin/admin_course_controller.js'
 
 import { isTutorAuthenticated, isTutorBlocked } from '../middlewares/auth_middleware.js'
-import { coverUpload, tutorUpload } from '../config/multer.js'
+import { chatUpload, coverUpload, tutorUpload } from '../config/multer.js'
 import multer from 'multer'
 import { authValidator } from '../middlewares/auth_validator_middleware.js'
 import { registerValidator } from '../middlewares/register_validator_middleware.js'
+import { imageChatValidator } from '../middlewares/chat_image_validator.js'
 
 const upload = multer()
 
@@ -36,6 +38,7 @@ tutorRouter.put('/update-course/:id', tutorCourseCtrl.updateCourse)
 
 tutorRouter.get('/connections',connCtrl.getTutorConnections)
 tutorRouter.get('/get-messages/:id',connCtrl.getMessages)
+tutorRouter.post('/send-image',chatUpload.single('image'),imageChatValidator,chatCtrl.sendImage)
 
 tutorRouter.get('/course/:id',  adminCourseCtrl.getSingleCourse)
 tutorRouter.put('/course-cover/:id',coverUpload.single('cover'), adminCourseCtrl.updateCourseCover)

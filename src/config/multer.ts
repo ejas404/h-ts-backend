@@ -10,8 +10,6 @@ const studentStorage = multer.diskStorage({
 })
 
 
-
-
 const tutorStorage = multer.diskStorage({
     destination : (req, file, cb)=>{
         cb(null,'./src/public/uploads/tutor-profile')
@@ -30,9 +28,20 @@ const courseCoverStorage = multer.diskStorage({
     }
 })
 
+const chatStorage = multer.diskStorage({
+    destination : (req, file, cb)=>{
+        cb(null,'./src/public/uploads/chat-images')
+    },
+    filename : (req, file, cb) =>{
+        cb(null , `${Date.now()}-${file.originalname}`)
+    }
+})
+
+
 
 const studentUpload = multer({storage : studentStorage})
 const tutorUpload = multer({ storage : tutorStorage})
 const coverUpload = multer({ storage : courseCoverStorage})
+const chatUpload = multer({storage : chatStorage})
 
-export {studentUpload , tutorUpload , coverUpload}
+export {studentUpload , tutorUpload , coverUpload , chatUpload}

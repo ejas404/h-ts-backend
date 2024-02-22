@@ -31,8 +31,8 @@ export const getMessages = asyncHandler(async (request: Request, res) => {
             {
                 $or:
                     [
-                        { sender: user, reciever: reciever },
-                        { sender: reciever, reciever: user }
+                        { sender: user, receiver: reciever },
+                        { sender: reciever, receiver: user }
                     ]
             })
     res.json(getMessages)

@@ -2,16 +2,20 @@ import express from 'express'
 import * as studentCtrl from '../controllers/student/student_auth_controller.js'
 import * as studentProfCtrl from '../controllers/student/student_profile_controller.js'
 import * as studentCourseCtrl from '../controllers/student/student_course_controller.js'
+
 import * as videoCtrl from '../controllers/video_controller.js'
 import * as checkoutCtrl from '../controllers/student/student_checkout_controller.js'
 import * as paymentCtrl from '../controllers/student/student_payment_controller.js'
 import * as enrollCtrl from '../controllers/student/student_enrollment_controller.js'
 import * as connectionCtrl from '../controllers/student/student_connection_controller.js'
+import * as chatCtrl from '../controllers/chat_controller.js'
 import * as oauthCtrl from '../controllers/oauth_controller.js'
+
 import { isStudentAuthenticated, isStudentBlocked } from '../middlewares/auth_middleware.js'
-import {studentUpload} from '../config/multer.js'
+import {chatUpload, studentUpload} from '../config/multer.js'
 import { authValidator } from '../middlewares/auth_validator_middleware.js'
 import { registerValidator } from '../middlewares/register_validator_middleware.js'
+import { imageChatValidator } from '../middlewares/chat_image_validator.js'
 
 
 export const studentRouter = express.Router()
@@ -52,6 +56,8 @@ studentRouter.get('/get-progress/:id',enrollCtrl.getProgress)
 
 studentRouter.get('/connections',connectionCtrl.connectedTutors)
 studentRouter.get('/get-messages/:id',connectionCtrl.getMessages)
+studentRouter.post('/send-image',chatUpload.single('image'),imageChatValidator,chatCtrl.sendImage)
+
 
 
 

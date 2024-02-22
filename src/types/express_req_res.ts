@@ -6,7 +6,6 @@ import { AdminReqData } from "./admin_type.js"
 
 export interface JWTStudentReq extends Request{
     user : StudentType
-
 }
 
 export interface JWTTutorReq extends Request{

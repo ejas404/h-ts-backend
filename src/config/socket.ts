@@ -11,7 +11,6 @@ export const configSocket = (server: http.Server) => {
     const io = new Server(server, {cors: { origin: '*'}});
 
     io.use((socket, next) => {
-
         const user_id = socket.handshake.query.user_id
         if (!user_id) { return next(new Error("invalid user id from socket"))}
 
@@ -33,11 +32,6 @@ export const configSocket = (server: http.Server) => {
                 console.log(e)
             })    
         })
-
-        socket.on('img',data => {
-            
-        })
-
 
         socket.on('disconnect', () => {
             console.log('a user disconnected!');
