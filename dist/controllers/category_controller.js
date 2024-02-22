@@ -8,9 +8,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import asyncHandler from "express-async-handler";
-import { isString } from "../type_check/string";
-import courseCategoryCollection from "../models/course_category";
-import subCategoryCollection from "../models/course_sub_category";
+import { isString } from "../type_check/string.js";
+import courseCategoryCollection from "../models/course_category.js";
+import subCategoryCollection from "../models/course_sub_category.js";
 export const getCategories = asyncHandler((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const categories = yield courseCategoryCollection.find({});
     if (!categories)

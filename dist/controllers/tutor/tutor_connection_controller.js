@@ -7,13 +7,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import asyncHandler from "express-async-handler";
-import courseCollection from "../../models/course_model";
 import mongoose from "mongoose";
-import enrollCollection from "../../models/course_enroll_model";
-import studentCollection from "../../models/student_model";
-import chatsCollection from "../../models/chat_model";
-import orderCollection from "../../models/order_model";
+import asyncHandler from "express-async-handler";
+import courseCollection from "../../models/course_model.js";
+import enrollCollection from "../../models/course_enroll_model.js";
+import studentCollection from "../../models/student_model.js";
+import chatsCollection from "../../models/chat_model.js";
+import orderCollection from "../../models/order_model.js";
 export const getTutorConnections = asyncHandler((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const tutor_id = new mongoose.Types.ObjectId(req.tutor._id);
     const courseDetails = yield courseCollection.find({ tutor: tutor_id }, { _id: 1 });

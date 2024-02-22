@@ -1,7 +1,7 @@
 import mongoose, { Model } from 'mongoose'
 import bcrypt from 'bcrypt'
-import { TutorModelType} from '../types/tutor_type'
-import { UserModelExists } from '../types/mongoose_type'
+import { TutorModelType} from '../types/tutor_type.js'
+import { UserModelExists } from '../types/mongoose_type.js'
 
 const Schema = mongoose.Schema
 

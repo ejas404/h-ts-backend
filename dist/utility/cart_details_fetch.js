@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import cartCollection from "../models/user_cart_model";
+import cartCollection from "../models/user_cart_model.js";
 // this function calculates the total amout of cart items in a user cart 
 export const fetchCartTotal = (cartDetails) => {
     const total = cartDetails[0].course.reduce((acc, each) => {

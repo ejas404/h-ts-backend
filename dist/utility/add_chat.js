@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import chatsCollection from "../models/chat_model";
+import chatsCollection from "../models/chat_model.js";
 import mongoose from "mongoose";
 export const addChat = (sender_id, reciever_id, message) => __awaiter(void 0, void 0, void 0, function* () {
     try {

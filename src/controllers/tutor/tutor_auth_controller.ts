@@ -1,9 +1,9 @@
 import asyncHandler from "express-async-handler"
-import { generateToken } from "../../utility/token"
-import tutorCollection from "../../models/tutor_model";
-import { AuthCredentials, SignUpDetails } from "../../types/auth_type";
 import { Request, Response } from "express";
-import { TutorModelType } from "../../types/tutor_type";
+import { generateToken } from "../../utility/token.js"
+import tutorCollection from "../../models/tutor_model.js";
+import { AuthCredentials, SignUpDetails } from "../../types/auth_type.js";
+import { TutorModelType } from "../../types/tutor_type.js";
 
 
 

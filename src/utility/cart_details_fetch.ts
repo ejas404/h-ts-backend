@@ -1,8 +1,8 @@
 
-import cartCollection from "../models/user_cart_model"
+import cartCollection from "../models/user_cart_model.js"
 import mongoose from "mongoose"
-import { mongoId } from "../types/mongoose_type";
-import { CartCourseType, CartItemListType } from "../types/cart_type";
+import { mongoId } from "../types/mongoose_type.js";
+import { CartCourseType, CartItemListType } from "../types/cart_type.js";
 
 // this function calculates the total amout of cart items in a user cart 
 export const fetchCartTotal = (cartDetails: CartItemListType[]): number | null => {

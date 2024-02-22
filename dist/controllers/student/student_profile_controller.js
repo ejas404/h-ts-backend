@@ -8,9 +8,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import asyncHandler from "express-async-handler";
-import studentCollection from "../../models/student_model";
 import bcrypt from 'bcrypt';
 import * as fs from 'fs';
+import studentCollection from "../../models/student_model.js";
 // request type has been assigned to any need to find the soulution to clear that
 export const getProfile = asyncHandler((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const userData = yield studentCollection.findOne({

@@ -8,9 +8,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import asyncHandler from "express-async-handler";
-import courseCollection from "../../models/course_model";
-import { isNumber } from "../../type_check/number";
-import { isString } from "../../type_check/string";
+import courseCollection from "../../models/course_model.js";
+import { isNumber } from "../../type_check/number.js";
+import { isString } from "../../type_check/string.js";
 import mongoose from "mongoose";
 export const getCourses = asyncHandler((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const tutorReq = req;

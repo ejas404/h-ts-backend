@@ -8,11 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import asyncHandler from "express-async-handler";
-import tutorCollection from "../../models/tutor_model";
-import bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
+import bcrypt from 'bcrypt';
 import * as fs from 'fs';
-import { isString } from "../../type_check/string";
+import tutorCollection from "../../models/tutor_model.js";
+import { isString } from "../../type_check/string.js";
 export const getProfile = asyncHandler((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const tutorReq = req;
     const userData = yield tutorCollection.findOne({ email: tutorReq.tutor.email }, { password: 0 });

@@ -9,12 +9,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import asyncHandler from "express-async-handler";
 import mongoose from "mongoose";
-import { isNumber } from "../../type_check/number";
-import { fetchCartDetails, fetchCartTotal } from "../../utility/cart_details_fetch";
-import courseCollection from "../../models/course_model";
-import { enrollCartItems, enrollSingleCourse } from "../../utility/checkout_helper";
-import { isCartItemsEnrolled, isCourseEnrolledHelper } from "../../utility/enroll_check_helper";
-import orderCollection from "../../models/order_model";
+import { isNumber } from "../../type_check/number.js";
+import { fetchCartDetails, fetchCartTotal } from "../../utility/cart_details_fetch.js";
+import courseCollection from "../../models/course_model.js";
+import { enrollCartItems, enrollSingleCourse } from "../../utility/checkout_helper.js";
+import { isCartItemsEnrolled, isCourseEnrolledHelper } from "../../utility/enroll_check_helper.js";
+import orderCollection from "../../models/order_model.js";
 export const checkOut = asyncHandler((request, res) => __awaiter(void 0, void 0, void 0, function* () {
     const req = request;
     const { amount, isCart, course_id } = req.body;

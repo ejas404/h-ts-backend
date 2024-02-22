@@ -1,8 +1,8 @@
 import asyncHandler from "express-async-handler"
 import { Request, Response } from "express";
-import { generateToken } from "../../utility/token"
-import studentCollection from "../../models/student_model";
-import { StudentModelType } from "../../types/student_type";
+import { generateToken } from "../../utility/token.js"
+import studentCollection from "../../models/student_model.js";
+import { StudentModelType } from "../../types/student_type.js";
 
 
 

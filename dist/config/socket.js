@@ -1,5 +1,5 @@
 import { Server } from 'socket.io';
-import { addChat } from "../utility/add_chat";
+import { addChat } from "../utility/add_chat.js";
 export const socketUsers = new Map();
 export const configSocket = (server) => {
     const io = new Server(server, { cors: { origin: '*' } });

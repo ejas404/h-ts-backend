@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import courseCollection from "../models/course_model";
+import courseCollection from "../models/course_model.js";
 export const isCourseExist = (obj) => __awaiter(void 0, void 0, void 0, function* () {
     const { title, tutor, category, subCategory } = obj;
     const isExist = yield courseCollection.findOne({ title, tutor, category, subCategory });

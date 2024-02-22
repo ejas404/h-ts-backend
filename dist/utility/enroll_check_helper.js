@@ -8,9 +8,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import mongoose from "mongoose";
-import enrollCollection from "../models/course_enroll_model";
-import { fetchCartItemList } from "./cart_details_fetch";
-import orderCollection from "../models/order_model";
+import enrollCollection from "../models/course_enroll_model.js";
+import { fetchCartItemList } from "./cart_details_fetch.js";
+import orderCollection from "../models/order_model.js";
 export const isCourseEnrolledHelper = (course_id, user_id) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const course = new mongoose.Types.ObjectId(course_id);

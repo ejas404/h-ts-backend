@@ -8,9 +8,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import asyncHandler from "express-async-handler";
-import { getPopularCourses } from "../../utility/admin_dashboard_helper";
-import subCategoryCollection from "../../models/course_sub_category";
-import orderCollection from "../../models/order_model";
+import { getPopularCourses } from "../../utility/admin_dashboard_helper.js";
+import subCategoryCollection from "../../models/course_sub_category.js";
+import orderCollection from "../../models/order_model.js";
 export const getPopular = asyncHandler((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const popularCourses = yield getPopularCourses();
     if (popularCourses === false) {

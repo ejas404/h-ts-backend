@@ -1,10 +1,10 @@
 import asyncHandler from "express-async-handler"
 import { Response , Request } from "express";
-import studentCollection from "../../models/student_model";
 import bcrypt from 'bcrypt'
 import * as fs from 'fs'
-import {StudentType } from "../../types/student_type";
-import { JWTStudentReq } from "../../types/express_req_res";
+import studentCollection from "../../models/student_model.js";
+import {StudentType } from "../../types/student_type.js";
+import { JWTStudentReq } from "../../types/express_req_res.js";
 
 
 

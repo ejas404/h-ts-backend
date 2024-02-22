@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { mongoId } from "./mongoose_type";
+import { mongoId } from "./mongoose_type.js";
 
 export interface TutorType extends mongoose.Document{
     name: string;

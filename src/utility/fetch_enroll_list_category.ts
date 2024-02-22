@@ -1,6 +1,6 @@
-import orderCollection from "../models/order_model";
-import enrollCollection from "../models/course_enroll_model";
-import { mongoId } from "../types/mongoose_type";
+import orderCollection from "../models/order_model.js";
+import enrollCollection from "../models/course_enroll_model.js";
+import { mongoId } from "../types/mongoose_type.js";
 
 export const fetechEnrollCategory = async (user : mongoId) =>{
     const order = await orderCollection.find({user})

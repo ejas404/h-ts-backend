@@ -4,16 +4,16 @@ import 'dotenv/config';
 import http from "http";
 import cors from 'cors';
 import path from 'path';
-import dbConnect from './config/db';
+import dbConnect from './config/db.js';
 import cookieParser from 'cookie-parser';
 import admin from 'firebase-admin';
-import { adminRouter } from './routes/admin_route';
-import { errMiddleware } from './middlewares/error_middlware';
-import { studentRouter } from './routes/student_route';
-import { tutorRouter } from './routes/tutor_route';
-import { courseRouter } from './routes/course_route';
-import { configSocket } from './config/socket';
-import { compilePath } from './config/frontend_compile_path';
+import { adminRouter } from './routes/admin_route.js';
+import { errMiddleware } from './middlewares/error_middlware.js';
+import { studentRouter } from './routes/student_route.js';
+import { tutorRouter } from './routes/tutor_route.js';
+import { courseRouter } from './routes/course_route.js';
+import { configSocket } from './config/socket.js';
+import { compilePath } from './config/frontend_compile_path.js';
 admin.initializeApp({
     credential: admin.credential.cert({
         projectId: process.env.FB_PROJECT_ID,

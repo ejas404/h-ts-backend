@@ -1,11 +1,11 @@
-import asyncHandler from "express-async-handler"
-import enrollCollection from "../../models/course_enroll_model"
 import mongoose from "mongoose"
+import asyncHandler from "express-async-handler"
 import { Request, Response } from "express";
-import tutorCollection from "../../models/tutor_model"
-import chatsCollection from "../../models/chat_model"
-import { JWTStudentReq } from "../../types/express_req_res"
-import orderCollection from "../../models/order_model";
+import enrollCollection from "../../models/course_enroll_model.js"
+import tutorCollection from "../../models/tutor_model.js"
+import chatsCollection from "../../models/chat_model.js"
+import { JWTStudentReq } from "../../types/express_req_res.js"
+import orderCollection from "../../models/order_model.js";
 
 export const connectedTutors = asyncHandler(async (request: Request, res : Response) => {
     

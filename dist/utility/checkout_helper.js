@@ -7,8 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import enrollCollection from "../models/course_enroll_model";
-import cartCollection from "../models/user_cart_model";
+import enrollCollection from "../models/course_enroll_model.js";
+import cartCollection from "../models/user_cart_model.js";
 import mongoose from "mongoose";
 import { v4 as uuidv4 } from 'uuid';
 export const enrollCartItems = (user_id, amount) => __awaiter(void 0, void 0, void 0, function* () {

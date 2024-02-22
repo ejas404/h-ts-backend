@@ -9,11 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import asyncHandler from "express-async-handler";
 import mongoose from "mongoose";
-import cartCollection from "../../models/user_cart_model";
-import courseCollection from "../../models/course_model";
-import { fetchCartDetails, fetchCartItemList, fetchCartTotal } from "../../utility/cart_details_fetch";
-import { fetechEnrollCategory } from "../../utility/fetch_enroll_list_category";
-import { isCourseEnrolledHelper } from "../../utility/enroll_check_helper";
+import cartCollection from "../../models/user_cart_model.js";
+import courseCollection from "../../models/course_model.js";
+import { fetchCartDetails, fetchCartItemList, fetchCartTotal } from "../../utility/cart_details_fetch.js";
+import { fetechEnrollCategory } from "../../utility/fetch_enroll_list_category.js";
+import { isCourseEnrolledHelper } from "../../utility/enroll_check_helper.js";
 export const addToCart = asyncHandler((request, res) => __awaiter(void 0, void 0, void 0, function* () {
     const req = request;
     const { id } = req.params;

@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import enrollCollection from "../models/course_enroll_model";
+import enrollCollection from "../models/course_enroll_model.js";
 export const getPopularCourses = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const getCourses = yield enrollCollection.aggregate([

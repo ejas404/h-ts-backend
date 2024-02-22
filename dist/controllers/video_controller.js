@@ -8,12 +8,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import asyncHandler from 'express-async-handler';
-import { uploadS3File } from '../utility/s3_uploader';
-import { isString } from '../type_check/string';
-import sectionCollection from '../models/section_model';
+import { uploadS3File } from '../utility/s3_uploader.js';
+import { isString } from '../type_check/string.js';
+import sectionCollection from '../models/section_model.js';
 import mongoose from 'mongoose';
-import videoCollection from '../models/video_model';
-import { isBoolean, isNumber } from '../type_check/number';
+import videoCollection from '../models/video_model.js';
+import { isBoolean, isNumber } from '../type_check/number.js';
 export const addVideo = asyncHandler((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const file = req.files[0];
     let { title, section, description, isPaid } = JSON.parse(req.body.details);

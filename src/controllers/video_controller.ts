@@ -1,11 +1,11 @@
 import asyncHandler from 'express-async-handler'
-import { uploadS3File } from '../utility/s3_uploader';
-import { isString } from '../type_check/string';
-import sectionCollection from '../models/section_model';
+import { uploadS3File } from '../utility/s3_uploader.js';
+import { isString } from '../type_check/string.js';
+import sectionCollection from '../models/section_model.js';
 import mongoose from 'mongoose';
-import { S3Response } from '../types/video_type';
-import videoCollection from '../models/video_model';
-import { isBoolean, isNumber } from '../type_check/number';
+import { S3Response } from '../types/video_type.js';
+import videoCollection from '../models/video_model.js';
+import { isBoolean, isNumber } from '../type_check/number.js';
 
 
 export const addVideo = asyncHandler(async (req: any, res) => {

@@ -1,10 +1,10 @@
 
 import asyncHandler from "express-async-handler"
 import { Request, Response } from "express";
-import studentCollection from "../../models/student_model";
-import tutorCollection from "../../models/tutor_model";
-import { StudentModelType } from "../../types/student_type";
-import { TutorModelType } from "../../types/tutor_type";
+import studentCollection from "../../models/student_model.js";
+import tutorCollection from "../../models/tutor_model.js";
+import { StudentModelType } from "../../types/student_type.js";
+import { TutorModelType } from "../../types/tutor_type.js";
 
 
 export const getUsers = asyncHandler(async (req, res) => {

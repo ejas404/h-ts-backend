@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { CartModel } from "../types/cart_type";
+import { CartModel } from "../types/cart_type.js";
 
 const Schema = mongoose.Schema
 

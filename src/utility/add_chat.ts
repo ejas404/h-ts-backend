@@ -1,4 +1,4 @@
-import chatsCollection from "../models/chat_model";
+import chatsCollection from "../models/chat_model.js";
 import mongoose from "mongoose";
 
 export const addChat = async (sender_id : string,reciever_id : string,message : string)=> {

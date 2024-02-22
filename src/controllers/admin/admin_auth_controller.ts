@@ -1,9 +1,9 @@
-import AdminCollection from "../../models/admin_model"
 import asyncHandler from "express-async-handler"
-import { generateToken } from "../../utility/token"
-import { AdminResponseType } from "../../types/admin_type"
-import { AuthCredentials } from "../../types/auth_type"
-import { mongoId } from "../../types/mongoose_type"
+import AdminCollection from "../../models/admin_model.js"
+import { generateToken } from "../../utility/token.js"
+import { AdminResponseType } from "../../types/admin_type.js"
+import { AuthCredentials } from "../../types/auth_type.js"
+import { mongoId } from "../../types/mongoose_type.js"
 
 
 // admin authentication handling functions

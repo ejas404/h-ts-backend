@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
-import enrollCollection from "../models/course_enroll_model";
-import { mongoId } from "../types/mongoose_type";
-import { fetchCartItemList } from "./cart_details_fetch";
-import orderCollection from "../models/order_model";
+import enrollCollection from "../models/course_enroll_model.js";
+import { mongoId } from "../types/mongoose_type.js";
+import { fetchCartItemList } from "./cart_details_fetch.js";
+import orderCollection from "../models/order_model.js";
 
 export const isCourseEnrolledHelper = async (course_id : string, user_id: string) => {
     try {

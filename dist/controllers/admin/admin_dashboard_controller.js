@@ -8,8 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import asyncHandler from "express-async-handler";
-import studentCollection from "../../models/student_model";
-import tutorCollection from "../../models/tutor_model";
+import studentCollection from "../../models/student_model.js";
+import tutorCollection from "../../models/tutor_model.js";
 export const getUsers = asyncHandler((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const userlist = yield studentCollection.find({}, { password: 0 });
     const tutorlist = yield tutorCollection.find({}, { password: 0 });

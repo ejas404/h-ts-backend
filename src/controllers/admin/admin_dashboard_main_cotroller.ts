@@ -1,8 +1,8 @@
 import asyncHandler from "express-async-handler"
 import { Request, Response } from "express";
-import { getPopularCourses } from "../../utility/admin_dashboard_helper";
-import subCategoryCollection from "../../models/course_sub_category";
-import orderCollection from "../../models/order_model";
+import { getPopularCourses } from "../../utility/admin_dashboard_helper.js";
+import subCategoryCollection from "../../models/course_sub_category.js";
+import orderCollection from "../../models/order_model.js";
 
 export const getPopular = asyncHandler(async (req : Request , res : Response)=>{
    const popularCourses = await getPopularCourses()

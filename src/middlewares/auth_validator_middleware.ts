@@ -3,9 +3,9 @@
 import z from 'zod';
 import { NextFunction, Response, Request } from 'express'
 import asyncHandler from 'express-async-handler'
-import studentCollection from '../models/student_model'
-import { JWTStudentReq, JWTTutorReq } from '../types/express_req_res'
-import tutorCollection from '../models/tutor_model'
+import studentCollection from '../models/student_model.js'
+import { JWTStudentReq, JWTTutorReq } from '../types/express_req_res.js'
+import tutorCollection from '../models/tutor_model.js'
 
 export const authValidator = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
     const userReq = req as JWTStudentReq | JWTTutorReq

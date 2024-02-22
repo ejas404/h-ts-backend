@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import { CourseResponseType } from "./course_type";
-import { mongoId } from "./mongoose_type";
+import { CourseResponseType } from "./course_type.js";
+import { mongoId } from "./mongoose_type.js";
 
 
 

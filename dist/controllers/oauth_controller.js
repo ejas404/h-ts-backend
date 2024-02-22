@@ -1,3 +1,4 @@
+//@ts-nocheck
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -12,8 +13,8 @@ import slugify from "slugify";
 import { fetch, setGlobalDispatcher, Agent } from 'undici';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
-import studentCollection from "../models/student_model";
-import { generateToken } from "../utility/token";
+import studentCollection from "../models/student_model.js";
+import { generateToken } from "../utility/token.js";
 setGlobalDispatcher(new Agent({ connect: { timeout: 60000 } }));
 export const googleAuthenticate = asyncHandler((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { code } = req.query;
@@ -39,7 +40,7 @@ export const googleAuthenticate = asyncHandler((req, res) => __awaiter(void 0, v
     if (!idToken)
         return null;
     const googleUser = jwt.decode(idToken);
-    const name = slugify(googleUser.name).toLowerCase();
+    const name = slugify(googleUser).toLowerCase();
     const email = googleUser.email;
     if (!googleUser.email_verified) {
         return null;

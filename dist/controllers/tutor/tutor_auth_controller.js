@@ -8,8 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import asyncHandler from "express-async-handler";
-import { generateToken } from "../../utility/token";
-import tutorCollection from "../../models/tutor_model";
+import { generateToken } from "../../utility/token.js";
+import tutorCollection from "../../models/tutor_model.js";
 export const login = asyncHandler((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email } = req.body;
     const user = yield tutorCollection.findOne({ email });

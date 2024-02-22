@@ -1,8 +1,8 @@
-import enrollCollection from "../models/course_enroll_model";
-import cartCollection from "../models/user_cart_model";
+import enrollCollection from "../models/course_enroll_model.js";
+import cartCollection from "../models/user_cart_model.js";
 import mongoose from "mongoose";
-import { enrollmentType } from "../types/course_enroll_type";
-import { mongoId } from "../types/mongoose_type";
+import { enrollmentType } from "../types/course_enroll_type.js";
+import { mongoId } from "../types/mongoose_type.js";
 import { v4 as uuidv4 } from 'uuid';
 
 

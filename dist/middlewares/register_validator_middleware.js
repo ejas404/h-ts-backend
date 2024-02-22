@@ -9,8 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import z from 'zod';
 import asyncHandler from 'express-async-handler';
-import tutorCollection from '../models/tutor_model';
-import studentCollection from '../models/student_model';
+import tutorCollection from '../models/tutor_model.js';
+import studentCollection from '../models/student_model.js';
 export const registerValidator = asyncHandler((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const userReq = req;
     const { email, password, name } = req.body;

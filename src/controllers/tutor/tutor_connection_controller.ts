@@ -1,10 +1,10 @@
-import asyncHandler from "express-async-handler"
-import courseCollection from "../../models/course_model"
 import mongoose from "mongoose"
-import enrollCollection from "../../models/course_enroll_model"
-import studentCollection from "../../models/student_model"
-import chatsCollection from "../../models/chat_model"
-import orderCollection from "../../models/order_model"
+import asyncHandler from "express-async-handler"
+import courseCollection from "../../models/course_model.js"
+import enrollCollection from "../../models/course_enroll_model.js"
+import studentCollection from "../../models/student_model.js"
+import chatsCollection from "../../models/chat_model.js"
+import orderCollection from "../../models/order_model.js"
 
 export const getTutorConnections =  asyncHandler(async(req : any  ,res )=>{
     const tutor_id = new mongoose.Types.ObjectId(req.tutor._id)

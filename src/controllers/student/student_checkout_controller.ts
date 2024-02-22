@@ -1,13 +1,13 @@
 import asyncHandler from "express-async-handler"
 import mongoose from "mongoose";
 import { Request, Response } from "express";
-import { isNumber } from "../../type_check/number";
-import { fetchCartDetails, fetchCartTotal } from "../../utility/cart_details_fetch";
-import courseCollection from "../../models/course_model";
-import { enrollCartItems, enrollSingleCourse } from "../../utility/checkout_helper";
-import { isCartItemsEnrolled, isCourseEnrolledHelper } from "../../utility/enroll_check_helper";
-import { JWTStudentReq } from "../../types/express_req_res";
-import orderCollection from "../../models/order_model";
+import { isNumber } from "../../type_check/number.js";
+import { fetchCartDetails, fetchCartTotal } from "../../utility/cart_details_fetch.js";
+import courseCollection from "../../models/course_model.js";
+import { enrollCartItems, enrollSingleCourse } from "../../utility/checkout_helper.js";
+import { isCartItemsEnrolled, isCourseEnrolledHelper } from "../../utility/enroll_check_helper.js";
+import { JWTStudentReq } from "../../types/express_req_res.js";
+import orderCollection from "../../models/order_model.js";
 
 export const checkOut = asyncHandler(async (request: Request, res: Response) => {
     const req = request as JWTStudentReq

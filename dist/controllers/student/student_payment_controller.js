@@ -11,10 +11,10 @@ import asyncHandler from 'express-async-handler';
 import crypto from 'crypto';
 import mongoose from 'mongoose';
 import axios from 'axios';
-import { checkEnId, updateEnroll } from '../../utility/enroll_check_helper';
-import orderCollection from '../../models/order_model';
-import cartCollection from '../../models/user_cart_model';
-import enrollCollection from '../../models/course_enroll_model';
+import { checkEnId, updateEnroll } from '../../utility/enroll_check_helper.js';
+import orderCollection from '../../models/order_model.js';
+import cartCollection from '../../models/user_cart_model.js';
+import enrollCollection from '../../models/course_enroll_model.js';
 export const payment = asyncHandler((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('payment called');
     const { amount, enrollId } = req.query;
@@ -84,7 +84,7 @@ export const paymentStatus = asyncHandler((req, res) => __awaiter(void 0, void 0
         const course_id = enroll.course;
         const userCart = yield cartCollection.findOne({ user: user_id });
         if (userCart) {
-            userCart.course = userCart.course.filter(each => !each.equals(course_id));
+            userCart.course = userCart.course.filter((each) => !each.equals(course_id));
             yield userCart.save();
         }
     }

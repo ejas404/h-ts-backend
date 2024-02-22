@@ -1,5 +1,5 @@
-import courseCollection from "../models/course_model";
-import { CourseResponseType } from "../types/course_type";
+import courseCollection from "../models/course_model.js";
+import { CourseResponseType } from "../types/course_type.js";
 
 export const isCourseExist = async (obj :Partial<CourseResponseType> ) => {
     const {title , tutor, category, subCategory} = obj

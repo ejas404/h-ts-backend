@@ -1,6 +1,5 @@
 import mongoose, { Model } from "mongoose";
-import { TutorModelType } from "./tutor_type";
-import { StudentModelType } from "./student_type";
+
 
 export type mongoId =  mongoose.Types.ObjectId
 

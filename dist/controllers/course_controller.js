@@ -7,10 +7,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import courseCollection from "../models/course_model";
+import courseCollection from "../models/course_model.js";
 import asyncHandler from "express-async-handler";
-import upcomingCourseCollection from "../models/upcoming_course_model";
-import enrollCollection from "../models/course_enroll_model";
+import upcomingCourseCollection from "../models/upcoming_course_model.js";
+import enrollCollection from "../models/course_enroll_model.js";
 import mongoose from "mongoose";
 export const getCourses = asyncHandler((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const courses = yield courseCollection.find({

@@ -7,9 +7,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import AdminCollection from "../../models/admin_model";
 import asyncHandler from "express-async-handler";
-import { generateToken } from "../../utility/token";
+import AdminCollection from "../../models/admin_model.js";
+import { generateToken } from "../../utility/token.js";
 // admin authentication handling functions
 export const postLogin = asyncHandler((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;

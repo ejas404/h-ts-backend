@@ -1,15 +1,15 @@
 import asyncHandler from "express-async-handler"
 import { Request, Response } from "express"
-import courseCollection from "../../models/course_model"
-import tutorCollection from "../../models/tutor_model"
 import * as fs from 'fs'
-import { CourseResponseType } from "../../types/course_type"
-import { isString } from "../../type_check/string"
-import { isNumber } from "../../type_check/number"
-import courseCategoryCollection from "../../models/course_category"
-import subCategoryCollection from "../../models/course_sub_category"
-import upcomingCourseCollection from "../../models/upcoming_course_model"
-import { isCourseExist } from "../../utility/course_check"
+import courseCollection from "../../models/course_model.js"
+import tutorCollection from "../../models/tutor_model.js"
+import { CourseResponseType } from "../../types/course_type.js"
+import { isString } from "../../type_check/string.js"
+import { isNumber } from "../../type_check/number.js"
+import courseCategoryCollection from "../../models/course_category.js"
+import subCategoryCollection from "../../models/course_sub_category.js"
+import upcomingCourseCollection from "../../models/upcoming_course_model.js"
+import { isCourseExist } from "../../utility/course_check.js"
 
 
 

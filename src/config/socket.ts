@@ -1,8 +1,8 @@
 
 import http from "http";
 import { Server } from 'socket.io';
-import { UserSocketModel } from "../types/socket_type";
-import { addChat } from "../utility/add_chat";
+import { UserSocketModel } from "../types/socket_type.js";
+import { addChat } from "../utility/add_chat.js";
 
 
 export const  socketUsers = new Map();

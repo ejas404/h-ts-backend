@@ -1,6 +1,6 @@
 import express from 'express';
-import * as videoCtrl from '../controllers/video_controller';
-import * as courseCtrl from '../controllers/course_controller';
+import * as videoCtrl from '../controllers/video_controller.js';
+import * as courseCtrl from '../controllers/course_controller.js';
 export const courseRouter = express.Router();
 courseRouter.get('/upcoming-courses', courseCtrl.upcomingCourses);
 courseRouter.get('/rating/:id', courseCtrl.getRating);

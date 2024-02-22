@@ -1,18 +1,18 @@
 import express from 'express'
-import * as tutorCtrl from '../controllers/tutor/tutor_auth_controller'
-import * as tutorProfCtrl from '../controllers/tutor/tutor_profile_controller'
-import * as tutorCourseCtrl from '../controllers/tutor/tutor_course_controller'
+import * as tutorCtrl from '../controllers/tutor/tutor_auth_controller.js'
+import * as tutorProfCtrl from '../controllers/tutor/tutor_profile_controller.js'
+import * as tutorCourseCtrl from '../controllers/tutor/tutor_course_controller.js'
 
-import * as connCtrl from '../controllers/tutor/tutor_connection_controller'
-import * as categoryCtrl from '../controllers/category_controller'
-import * as videoCtrl from '../controllers/video_controller'
-import * as adminCourseCtrl from '../controllers/admin/admin_course_controller'
+import * as connCtrl from '../controllers/tutor/tutor_connection_controller.js'
+import * as categoryCtrl from '../controllers/category_controller.js'
+import * as videoCtrl from '../controllers/video_controller.js'
+import * as adminCourseCtrl from '../controllers/admin/admin_course_controller.js'
 
-import { isTutorAuthenticated, isTutorBlocked } from '../middlewares/auth_middleware'
-import { coverUpload, tutorUpload } from '../config/multer'
+import { isTutorAuthenticated, isTutorBlocked } from '../middlewares/auth_middleware.js'
+import { coverUpload, tutorUpload } from '../config/multer.js'
 import multer from 'multer'
-import { authValidator } from '../middlewares/auth_validator_middleware'
-import { registerValidator } from '../middlewares/register_validator_middleware'
+import { authValidator } from '../middlewares/auth_validator_middleware.js'
+import { registerValidator } from '../middlewares/register_validator_middleware.js'
 
 const upload = multer()
 

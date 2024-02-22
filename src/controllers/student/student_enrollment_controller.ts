@@ -1,10 +1,10 @@
-import asyncHandler from "express-async-handler"
-import enrollCollection from "../../models/course_enroll_model"
 import mongoose from "mongoose"
-import { isCourseEnrolledHelper } from "../../utility/enroll_check_helper"
-import { isNumber } from "../../type_check/number"
-import { isString } from "../../type_check/string"
-import orderCollection from "../../models/order_model"
+import asyncHandler from "express-async-handler"
+import enrollCollection from "../../models/course_enroll_model.js"
+import { isCourseEnrolledHelper } from "../../utility/enroll_check_helper.js"
+import { isNumber } from "../../type_check/number.js"
+import { isString } from "../../type_check/string.js"
+import orderCollection from "../../models/order_model.js"
 
 export const getEnrollList = asyncHandler( async (req : any,res)=>{
     const user = req.user

@@ -9,9 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import asyncHandler from "express-async-handler";
 import jwt from 'jsonwebtoken';
-import AdminCollection from "../models/admin_model";
-import studentCollection from "../models/student_model";
-import tutorCollection from "../models/tutor_model";
+import AdminCollection from "../models/admin_model.js";
+import studentCollection from "../models/student_model.js";
+import tutorCollection from "../models/tutor_model.js";
 export const isAuthenticated = asyncHandler((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let token;
     token = req.headers.authorization;

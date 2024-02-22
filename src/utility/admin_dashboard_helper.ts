@@ -1,4 +1,4 @@
-import enrollCollection from "../models/course_enroll_model"
+import enrollCollection from "../models/course_enroll_model.js"
 
 export const getPopularCourses = async () => {
     try{

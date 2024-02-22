@@ -1,9 +1,9 @@
 import { IncomingHttpHeaders } from "http"
 import { Jwt, JwtPayload } from "jsonwebtoken"
-import { AdminReqData } from "./admin_type"
+import { AdminReqData } from "./admin_type.js"
 import { Request, Response } from "express"
-import { StudentModelType } from "./student_type"
-import { TutorModelType } from "./tutor_type"
+import { StudentModelType } from "./student_type.js"
+import { TutorModelType } from "./tutor_type.js"
 
 export interface AuthCredentials{
     email : string

@@ -7,8 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import orderCollection from "../models/order_model";
-import enrollCollection from "../models/course_enroll_model";
+import orderCollection from "../models/order_model.js";
+import enrollCollection from "../models/course_enroll_model.js";
 export const fetechEnrollCategory = (user) => __awaiter(void 0, void 0, void 0, function* () {
     const order = yield orderCollection.find({ user });
     const enidList = order.map(each => each.enid);

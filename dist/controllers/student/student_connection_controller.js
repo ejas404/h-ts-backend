@@ -7,12 +7,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import asyncHandler from "express-async-handler";
-import enrollCollection from "../../models/course_enroll_model";
 import mongoose from "mongoose";
-import tutorCollection from "../../models/tutor_model";
-import chatsCollection from "../../models/chat_model";
-import orderCollection from "../../models/order_model";
+import asyncHandler from "express-async-handler";
+import enrollCollection from "../../models/course_enroll_model.js";
+import tutorCollection from "../../models/tutor_model.js";
+import chatsCollection from "../../models/chat_model.js";
+import orderCollection from "../../models/order_model.js";
 export const connectedTutors = asyncHandler((request, res) => __awaiter(void 0, void 0, void 0, function* () {
     const req = request;
     const user = new mongoose.Types.ObjectId(req.user._id);
