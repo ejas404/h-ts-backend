@@ -25,15 +25,17 @@ export const configSocket = (server: http.Server) => {
         console.log('user connected')
       
         socket.on('msg', data => {
-            const res = socketUsers.get(data.receiver)
-            if (res) {
-                addChat((socket as UserSocketModel).user_id, data.receiver, data.message)
-                    .then((response) => {
-                        socket.broadcast.to(res.id).emit('reply', response)
-                    }).catch(e => {
-                        console.log(e)
-                    })
-            }
+            addChat((socket as UserSocketModel).user_id, data.receiver, data.message)
+            .then((response) => {
+                const res = socketUsers.get(data.receiver)
+                if (res) { socket.broadcast.to(res.id).emit('reply', response) }
+            }).catch(e => {
+                console.log(e)
+            })    
+        })
+
+        socket.on('img',data => {
+            
         })
 
 

@@ -8,8 +8,8 @@ export const addChat = async (sender_id : string,reciever_id : string,message : 
         
         const newChat = await chatsCollection.create({sender,reciever,message,contentType : "TEXT"})
         return newChat
-    }catch(e){
-        console.log(e)
-        return false
+    }catch(e : any){
+        throw new Error(e)
     }
 }
+
