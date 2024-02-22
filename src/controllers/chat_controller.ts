@@ -12,10 +12,11 @@ export const sendImage = asyncHandler(async (request: Request, response: Respons
     const message = (request.file as any).path
 
     const newChat = await chatsCollection.create({ sender, receiver :reciever_id , message, contentType: "IMAGE" })
-    
+   
     if(socketUsers.has(receiver)){
+        console.log('socket user exists')
         const socket : Socket = socketUsers.get(receiver)
-        socket.broadcast.to(receiver).emit('reply', newChat)
+        socket.emit('reply', newChat)
     }
 
     response.json({newChat,success : 'image send successfully'}) 
