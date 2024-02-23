@@ -18,7 +18,7 @@ export const registerValidator = asyncHandler(async (req: Request, res: Response
     })
 
     const check = authCred.safeParse({ email, password })
-    if(!check.success) throw new Error('enter valid details');
+    // if(!check.success) throw new Error('enter valid details');
 
     const url = req.originalUrl.includes('tutor')
     let user;
