@@ -36,7 +36,7 @@ tutorSchema.statics = {
     isExists(email){
         return this.findOne({email})
                 .then((res : TutorModelType)=>{
-                    if(!res) throw({name : 'error.nouser',errMsg : 'ivalid email'});
+                    if(!res) return false;
                     return res;
                 })
     }
