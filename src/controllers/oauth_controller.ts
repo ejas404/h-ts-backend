@@ -37,7 +37,7 @@ export const googleAuthenticate = asyncHandler(async (req : any, res: any) : Pro
     if (!idToken) return null;
 
     const googleUser = jwt.decode(idToken) as any;
-    const name = slugify(googleUser).toLowerCase();
+    const name = slugify(googleUser.name).toLowerCase();
     const email = googleUser.email;
     if (!googleUser.email_verified) {
         return null;
