@@ -12,12 +12,11 @@ import mongoose from "mongoose";
 export const addChat = (sender_id, reciever_id, message) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const sender = new mongoose.Types.ObjectId(sender_id);
-        const reciever = new mongoose.Types.ObjectId(reciever_id);
-        const newChat = yield chatsCollection.create({ sender, reciever, message, contentType: "TEXT" });
+        const receiver = new mongoose.Types.ObjectId(reciever_id);
+        const newChat = yield chatsCollection.create({ sender, receiver, message, contentType: "TEXT" });
         return newChat;
     }
     catch (e) {
-        console.log(e);
-        return false;
+        throw new Error(e);
     }
 });

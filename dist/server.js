@@ -30,19 +30,21 @@ const __dir = path.resolve();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dir, compilePath)));
 app.use(express.static('src/public'));
 app.use(cors({ origin: '*', credentials: true }));
-// middle for redirecting frontend requests
-app.use((req, res, next) => {
-    if (!req.url.includes('api')) {
-        res.sendFile(path.join(__dir, compilePath, 'index.html'));
-        return;
-    }
-    else {
-        next();
-    }
-});
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dir, compilePath)));
+    // middle for redirecting frontend requests
+    app.use((req, res, next) => {
+        if (!req.url.includes('api')) {
+            res.sendFile(path.join(__dir, compilePath, 'index.html'));
+            return;
+        }
+        else {
+            next();
+        }
+    });
+}
 app.use('/api/admin', adminRouter);
 app.use('/api/student', studentRouter);
 app.use('/api/tutor', tutorRouter);

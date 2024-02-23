@@ -30,8 +30,8 @@ export const getMessages = asyncHandler((request, res) => __awaiter(void 0, void
     const getMessages = yield chatsCollection
         .find({
         $or: [
-            { sender: user, reciever: reciever },
-            { sender: reciever, reciever: user }
+            { sender: user, receiver: reciever },
+            { sender: reciever, receiver: user }
         ]
     });
     res.json(getMessages);

@@ -24,7 +24,7 @@ const uploadS3File = async (file : any)=>{
     }).done()
     .then(data => data)
     .catch(err =>{
-        return {error : true, msg : err.message }
+        return {error : true, msg : err}
     })
 
 }

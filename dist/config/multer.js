@@ -23,7 +23,16 @@ const courseCoverStorage = multer.diskStorage({
         cb(null, `${Date.now()}-${file.originalname}`);
     }
 });
+const chatStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, './src/public/uploads/chat-images');
+    },
+    filename: (req, file, cb) => {
+        cb(null, `${Date.now()}-${file.originalname}`);
+    }
+});
 const studentUpload = multer({ storage: studentStorage });
 const tutorUpload = multer({ storage: tutorStorage });
 const coverUpload = multer({ storage: courseCoverStorage });
-export { studentUpload, tutorUpload, coverUpload };
+const chatUpload = multer({ storage: chatStorage });
+export { studentUpload, tutorUpload, coverUpload, chatUpload };

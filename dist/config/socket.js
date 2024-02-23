@@ -15,15 +15,15 @@ export const configSocket = (server) => {
     io.on('connection', (socket) => {
         console.log('user connected');
         socket.on('msg', data => {
-            const res = socketUsers.get(data.receiver);
-            if (res) {
-                addChat(socket.user_id, data.receiver, data.message)
-                    .then((response) => {
+            addChat(socket.user_id, data.receiver, data.message)
+                .then((response) => {
+                const res = socketUsers.get(data.receiver);
+                if (res) {
                     socket.broadcast.to(res.id).emit('reply', response);
-                }).catch(e => {
-                    console.log(e);
-                });
-            }
+                }
+            }).catch(e => {
+                console.log(e);
+            });
         });
         socket.on('disconnect', () => {
             console.log('a user disconnected!');

@@ -22,8 +22,11 @@ export const addVideo = asyncHandler(async (req: any, res) => {
     if (!isNumber(durationInNum)) throw new Error('duration should be an integer');
     if (!isBoolean(isPaid)) isPaid = false;
 
-    const s3Response = await uploadS3File(file) as S3Response
+    const s3Response : any = await uploadS3File(file) as S3Response
 
+    if(s3Response.error){
+        throw new Error(s3Response.msg)
+    }
     const url = s3Response.Location
 
     const videoUpload = await videoCollection.create({
