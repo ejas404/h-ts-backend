@@ -1,5 +1,5 @@
 export const corsOption =  {
-    origin : ['http://localhost:4200','https://api-preprod.phonepe.com/apis/pg-sandbox'],
+    origin: process.env.CLIENT_URL,
     methods:'GET,PUT,POST,DELETE',
     credentials:true
 }

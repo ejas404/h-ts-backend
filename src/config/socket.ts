@@ -43,25 +43,3 @@ export const configSocket = (server: http.Server) => {
 
 }
 
-// function checkUserExist(users: { id: string, user_id: string }[], user_id, socket) {
-//     for (let each of users) {
-//         if(each.user_id === user_id){
-//             const temp = each.id;
-//             each.id = socket.id;      
-//             return temp;
-//         } 
-        
-//     }
-//     return false;
-// }
-
-
-
-
-
-// for (let [id, socket] of io.of("/").sockets) {
-//     users.push({
-//         id: id,
-//         user_id: socket.user_id,
-//     });
-// }

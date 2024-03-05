@@ -33,18 +33,16 @@ export const googleAuthenticate = asyncHandler(async (req : any, res: any) : Pro
         throw new Error(err.message);
     }
 
-    if (!accessToken) return null;
-    if (!idToken) return null;
+    if (!accessToken) throw new Error('invalid access token');
+    if (!idToken) throw new Error('invalid id token');
 
     const googleUser = jwt.decode(idToken) as any;
+    if (!googleUser.email_verified) throw new Error('user email is not verified');
+    
     const name = slugify(googleUser.name).toLowerCase();
     const email = googleUser.email;
-    if (!googleUser.email_verified) {
-        return null;
-    }
-    const dummyPassword = crypto.randomBytes(8).toString('hex') + '_dummy';
 
-   
+    const dummyPassword = crypto.randomBytes(8).toString('hex') + '_dummy';
 
     let user = await studentCollection.findOne({ email });
     if(!user){

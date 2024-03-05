@@ -2,7 +2,6 @@ import express, { Request, Response } from 'express'
 import 'dotenv/config'
 import http from "http";
 import cors from 'cors'
-import path from 'path';
 import dbConnect from './config/db.js'
 import cookieParser from 'cookie-parser'
 import admin from 'firebase-admin';
@@ -14,7 +13,7 @@ import { studentRouter } from './routes/student_route.js'
 import { tutorRouter } from './routes/tutor_route.js'
 import { courseRouter } from './routes/course_route.js'
 import { configSocket } from './config/socket.js';
-import { compilePath } from './config/frontend_compile_path.js';
+import { corsOption } from './config/cors_config.js';
 
 admin.initializeApp({
     credential: admin.credential.cert({
@@ -31,28 +30,12 @@ const PORT = process.env.PORT || 4440;
 const server = http.createServer(app);
 configSocket(server)
 
-const __dir = path.resolve();
-
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use(express.static('src/public'))
-app.use(cors({ origin: '*', credentials: true }))
-
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dir, compilePath)))
-    // middle for redirecting frontend requests
-    app.use((req, res, next) => {
-        if (!req.url.includes('api')) {
-            res.sendFile(path.join(__dir, compilePath, 'index.html'));
-            return;
-        } else {
-            next()
-        }
-    })
-}
+app.use(cors(corsOption))
 
 app.use('/api/admin', adminRouter)
 app.use('/api/student', studentRouter)
