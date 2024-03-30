@@ -9,13 +9,20 @@ import { enrollmentType } from "../types/course_enroll_type.js";
 
 
 export const getCourses = asyncHandler(async (req: Request, res: Response) => {
+
+    const page = Number(req.query);
     const courses = await courseCollection.find({
         isAvailable: true,
         isDeleted: false,
         isApproved: { $ne: false }
-    }).populate('subCategory', 'name');
+    }).populate('subCategory', 'name').skip((page -1) * 3).limit(3);
 
-    res.json({ courses })
+    const count = await courseCollection.countDocuments({
+        isAvailable: true,
+        isDeleted: false,
+        isApproved: { $ne: false }
+    })
+    res.json({ courses , count})
 })
 
 
