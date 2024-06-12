@@ -15,14 +15,15 @@ export const getCourses = asyncHandler(async (req: Request, res: Response) => {
         isAvailable: true,
         isDeleted: false,
         isApproved: { $ne: false }
-    }).populate('subCategory', 'name').skip((page -1) * 3).limit(3);
+    }).populate('subCategory', 'name')
+    // .skip((page -1) * 3).limit(3);
 
-    const count = await courseCollection.countDocuments({
-        isAvailable: true,
-        isDeleted: false,
-        isApproved: { $ne: false }
-    })
-    res.json({ courses , count})
+    // const count = await courseCollection.countDocuments({
+    //     isAvailable: true,
+    //     isDeleted: false,
+    //     isApproved: { $ne: false }
+    // })
+    res.json({ courses })
 })
 
 

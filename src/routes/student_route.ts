@@ -13,8 +13,8 @@ import * as oauthCtrl from '../controllers/oauth_controller.js'
 
 import { isStudentAuthenticated, isStudentBlocked } from '../middlewares/auth_middleware.js'
 import {chatUpload, studentUpload} from '../config/multer.js'
-import { authValidator } from '../middlewares/auth_validator_middleware.js'
-import { registerValidator } from '../middlewares/register_validator_middleware.js'
+import { authValidator } from '../validators/auth_validator_middleware.js'
+import { registerValidator } from '../validators/register_validator_middleware.js'
 import { imageChatValidator } from '../middlewares/chat_image_validator.js'
 
 
